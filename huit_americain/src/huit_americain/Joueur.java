@@ -1,6 +1,6 @@
 package huit_americain;
 
-<<<<<<< HEAD
+
 public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute façon
 	
 	protected CartesJoueur mainJoueur;

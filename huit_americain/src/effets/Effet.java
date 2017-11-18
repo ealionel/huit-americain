@@ -10,11 +10,7 @@ package effets;
 public interface Effet {
 	
 	/**
-<<<<<<< HEAD
 	 * Méthode qui va appliquer l'effet à la partie.
-=======
-	 * Méthode qui va appliquer l'effet dans la partie.
->>>>>>> branch 'master' of https://gitlab.com/Tobide_/lo02-projet-ea-floret.git
 	 */
 	public void appliquer();
 }
