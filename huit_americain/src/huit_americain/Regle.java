@@ -46,5 +46,4 @@ public class Regle {
 		effetCartes[13] = new EffetNormal();
 		effetCartes[14] = new EffetNormal();
 	}
-	
 }

@@ -22,11 +22,13 @@ public class Carte {
 		this.effet = pEffet;
 	}
 	
+
 	/**
 	 * Surcharge du constructeur. L'effet par défaut est EffetNormal.
 	 * @param pValeur
 	 * @param pCouleur
 	 */
+
 	Carte(ValeurCarte pValeur, CouleurCarte pCouleur){
 		this.valeur = pValeur;
 		this.couleur = pCouleur;

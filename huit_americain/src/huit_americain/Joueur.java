@@ -1,5 +1,6 @@
 package huit_americain;
 
+<<<<<<< HEAD
 public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute façon
 	
 	protected CartesJoueur mainJoueur;
@@ -26,5 +27,4 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur est
 		//A définir. Il faut que un autre thread check en permanence si cette méthode a été appelée ou non, si elle est appelée on vérifie
 		//s'il est valable ou pas.
 	}
-
 }

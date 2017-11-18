@@ -13,11 +13,12 @@ public class EffetPiocherCarte implements Effet {
 	private Joueur joueur;
 	private int nbCartes;
 	
+
 	public EffetPiocherCarte(){
 		
 	}
 	
-	public EffetPiocherCarte(int nbCartes, Joueur joueur){
+	EffetPiocherCarte(int nbCartes, Joueur joueur){
 		this.joueur = joueur;
 		this.nbCartes = nbCartes;
 	}
