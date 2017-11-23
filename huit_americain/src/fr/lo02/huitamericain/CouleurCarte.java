@@ -1,6 +1,6 @@
 package fr.lo02.huitamericain;
 /**
- * Enumération qui contient les différentes couleurs possible que peut prendre une carte.
+ * EnumÃ©ration qui contient les diffÃ©rentes couleurs possible que peut prendre une carte.
  * @author Lionel EA
  *
  *
@@ -8,7 +8,7 @@ package fr.lo02.huitamericain;
  */
 public enum CouleurCarte {
 	pique("Pique"),
-	trefle("Trèfle"),
+	trefle("Trï¿½fle"),
 	coeur("Coeur"),
 	carreau("Carreau"),
 	neutre("Neutre");
@@ -19,7 +19,7 @@ public enum CouleurCarte {
 	private String nomCouleur;
 	
 	/**
-	 * Constructeur permettant de spécifier le nom de la couleur.
+	 * Constructeur permettant de spÃ©cifier le nom de la couleur.
 	 * @param pNom
 	 */
 	CouleurCarte(String pNom){

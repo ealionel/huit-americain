@@ -4,14 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Classe représentant un groupe de cartes.
+ * Classe reprÃ©sentant un groupe de cartes.
  * @author Lionel EA
  *
  */
 public class GroupeCartes {
 	
 	/**
-	 * Liste chaînée contenant les differentes cartes de type Carte du groupe de cartes.
+	 * Liste chaÃ®nÃ©e contenant les differentes cartes de type Carte du groupe de cartes.
 	 */
 	protected LinkedList<Carte> listeCartes = new LinkedList<Carte>();
 	
@@ -25,7 +25,7 @@ public class GroupeCartes {
 	}
 	
 	/**
-	 * AJoute une carte à la tête
+	 * AJoute une carte Ã  la tÃªte
 	 * @param pCarte
 	 */
 	public void ajouterCarte(Carte pCarte) {
@@ -33,21 +33,21 @@ public class GroupeCartes {
 	}
 	
 	/**
-	 * Retire une carte du groupe de cartes à un indice spécifié.
+	 * Retire une carte du groupe de cartes Ã  un indice spÃ©cifiÃ©.
 	 */
 	public void retirerCarte(int position) {
 		listeCartes.remove(position);
 	}
 	
 	/**
-	 * Surcharge. Retire la tête du groupe de cartes.
+	 * Surcharge. Retire la tÃªte du groupe de cartes.
 	 */
 	public void retirerCarte() {
 		listeCartes.removeFirst();
 	}
 	
 	/**
-	 * Retourne la première carte du groupe de cartes.
+	 * Retourne la premiÃ¨re carte du groupe de cartes.
 	 * @return
 	 */
 	public Carte getHead() {

@@ -1,7 +1,7 @@
 package fr.lo02.effets;
 
 /**
- * Les cartes possédant cet effet peuvent être posées n'importe quand. Fait passer le tour quoi qu'il en soit.
+ * Les cartes possÃ©dant cet effet peuvent Ãªtre posÃ©es n'importe quand. Fait passer le tour quoi qu'il en soit.
  * @author Lionel EA
  *
  */

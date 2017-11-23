@@ -1,6 +1,6 @@
 package fr.lo02.huitamericain;
 /**
- * Représente une partie. Possède des méthodes relatives à la partie.
+ * ReprÃ©sente une partie. PossÃ¨de des mÃ©thodes relatives Ã  la partie.
  * @author Lionel EA
  *
  */
@@ -14,14 +14,14 @@ public class Partie {
 	
 	
 	/**
-	 * Initialisation de la partie en fonction d'une instance de règle.
+	 * Initialisation de la partie en fonction d'une instance de rÃ¨gle.
 	 * @param regles
 	 */
 	Partie(Regle regles){
 		//Initialisation de la partie
 		this.regles = regles;
 		
-		//Initialisation des différents joueurs
+		//Initialisation des diffï¿½rents joueurs
 		joueur[0] = new JoueurReel("Moi");
 		for(int i=1; i < regles.getNbJoueurs(); i++) {
 			joueur[i] = new JoueurVirtuel("Ordi " + i);
@@ -40,7 +40,7 @@ public class Partie {
 	}
 	
 	/**
-	 * Arrête la partie.
+	 * ArrÃªte la partie.
 	 */
 	public void arreterPartie() {
 		//A completer
@@ -58,7 +58,7 @@ public class Partie {
 	}
 	
 	/**
-	 * Distribue les cartes aux différents joueurs.
+	 * Distribue les cartes aux diffÃ©rents joueurs.
 	 */
 	public void distribuer() {
 		

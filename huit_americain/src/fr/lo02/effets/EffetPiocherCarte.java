@@ -3,7 +3,7 @@ package fr.lo02.effets;
 import fr.lo02.huitamericain.Joueur;
 
 /**
- * Fait piocher à un joueur un certain nombre de cartes.
+ * Fait piocher Ã  un joueur un certain nombre de cartes.
  * @author Lionel EA
  *
  */

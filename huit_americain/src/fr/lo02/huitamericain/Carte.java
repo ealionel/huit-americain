@@ -3,7 +3,7 @@ package fr.lo02.huitamericain;
 import fr.lo02.effets.*;
 
 /**
- * Classe représentant une carte du jeu.
+ * Classe reprÃ©sentant une carte du jeu.
  * @author Lionel
  *
  */
@@ -15,7 +15,7 @@ public class Carte {
 	 * Constructeur de la carte.
 	 * @param pValeur : Valeur de la carte
 	 * @param pCouleur : Couleur de la carte
-	 * @param pEffet : Effet de la carte, il est du type d'une classe qui implémente l'interface Effet.
+	 * @param pEffet : Effet de la carte, il est du type d'une classe qui implÃ©mente l'interface Effet.
 	 */
 	Carte(ValeurCarte pValeur, CouleurCarte pCouleur, Effet pEffet){
 		this.valeur = pValeur;
@@ -25,7 +25,7 @@ public class Carte {
 	
 
 	/**
-	 * Surcharge du constructeur. L'effet par défaut est EffetNormal.
+	 * Surcharge du constructeur. L'effet par dÃ©faut est EffetNormal.
 	 * @param pValeur
 	 * @param pCouleur
 	 */
@@ -52,7 +52,7 @@ public class Carte {
 	}
 	
 	/**
-	 * @return Une chaîne de caractère pour identifier la carte sous la forme : <valeur> de <couleur>.
+	 * @return Une chaÃ®ne de caractÃ¨re pour identifier la carte sous la forme : <valeur> de <couleur>.
 	 */
 	public String toString() {
 		return (this.valeur.getName() + " de " + this.couleur.getName());

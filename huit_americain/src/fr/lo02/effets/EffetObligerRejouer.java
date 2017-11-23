@@ -1,7 +1,7 @@
 package fr.lo02.effets;
 
 /**
- * Oblige le joueur à rejouer
+ * Oblige le joueur Ã  rejouer
  * @author Lionel EA
  *
  */

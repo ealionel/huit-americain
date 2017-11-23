@@ -3,7 +3,7 @@ package fr.lo02.huitamericain;
 import fr.lo02.effets.*;
 
 /**
- * Classe qui contient les differentes règles du jeu.
+ * Classe qui contient les differentes rï¿½gles du jeu.
  * @author Lionel EA
  *
  */
@@ -11,18 +11,18 @@ import fr.lo02.effets.*;
 public class Regle {
 	
 	protected int nbJoueurs;
-	protected int nbJeuxCartes;	//Nombre de jeux de cartes, peut être choisi en fonction du nombre de joueurs.
-	protected int modePoints; 	//Pour choisir si le nombre de points est à compte positif ou négatif
-	protected boolean joker; 	//Si on met un joker ou non dans le dèque
-	protected int nbCartesDebut;//Nombre distribué à chaque joueur au début d'une partie
+	protected int nbJeuxCartes;	//Nombre de jeux de cartes, peut ï¿½tre choisi en fonction du nombre de joueurs.
+	protected int modePoints; 	//Pour choisir si le nombre de points est ï¿½ compte positif ou nï¿½gatif
+	protected boolean joker; 	//Si on met un joker ou non dans le dï¿½que
+	protected int nbCartesDebut;//Nombre distribuï¿½ ï¿½ chaque joueur au dï¿½but d'une partie
 	
 	/**
-	 * Cet atribut permet à attribuer à chaque carte, pour chaque variante différente, un effet différent. Par exemple effetCartes[0] est l'effet de l'as, effetCartes[1] du 2, etc...
+	 * Cet atribut permet ï¿½ attribuer ï¿½ chaque carte, pour chaque variante diffï¿½rente, un effet diffï¿½rent. Par exemple effetCartes[0] est l'effet de l'as, effetCartes[1] du 2, etc...
 	 */
-	protected Effet[] effetCartes = new Effet[14]; //Liste qui va contenir la liste des effets pour chaque valeur de cartes, genre {new EffetNormal, new EffetChangerCouleur, new EffetNormal, ...}, effetCartes[0] correspond à l'effet de l'As, etc.
+	protected Effet[] effetCartes = new Effet[14]; //Liste qui va contenir la liste des effets pour chaque valeur de cartes, genre {new EffetNormal, new EffetChangerCouleur, new EffetNormal, ...}, effetCartes[0] correspond ï¿½ l'effet de l'As, etc.
 	
 	/**
-	 * Regles par défaut du jeu : version minimale.
+	 * Regles par dÃ©faut du jeu : version minimale.
 	 */
 	Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker) {
 		

@@ -1,6 +1,6 @@
 package fr.lo02.huitamericain;
 
-public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute façon
+public abstract class Joueur { //On la dï¿½clare abstraite parce que le joueur est soit rÃ©el soit virtuel toute faï¿½on
 	
 	protected CartesJoueur mainJoueur;
 	protected int score;
@@ -9,17 +9,17 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur est
 	protected String nom;
 	
 	Joueur(String nom){
-		numeroJoueur = instancesJoueurs; //Pour donner un identifiant à chaque joueur, le joueur 0 sera toujours le joueur réel
+		numeroJoueur = instancesJoueurs; //Pour donner un identifiant Ã  chaque joueur, le joueur 0 sera toujours le joueur rÃ©el
 		instancesJoueurs++; 
 		this.nom = nom;
 	}
 	
 	/**
-	 * Fait piocher le joueur. Cette méthode récupère la première carte de la pioche et la donne au joueur.
+	 * Fait piocher le joueur. Cette mÃ©thode rÃ©cupÃ¨re la premiÃ¨re carte de la pioche et la donne au joueur.
 	 * @param pioche
 	 */
 	public void piocherCarte(GroupeCartes pioche) {
-		//Définir corps de la méthode. On retire une carte de la pioche, on la donne au joueur et on passe le tour
+		//Dï¿½finir corps de la mï¿½thode. On retire une carte de la pioche, on la donne au joueur et on passe le tour
 		this.mainJoueur.ajouterCarte(pioche.getHead());
 		pioche.retirerCarte();
 	}
@@ -34,14 +34,14 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur est
 		this.mainJoueur.retirerCarte(indiceCarte);
 	}
 	
-	public abstract void jouerCarte(); //En fonction de si le joueur est réel ou virtuel, il fera des choses différentes (attendre que le joueur joue, ou jouer automatiquement.)
+	public abstract void jouerCarte(); //En fonction de si le joueur est rï¿½el ou virtuel, il fera des choses diffï¿½rentes (attendre que le joueur joue, ou jouer automatiquement.)
 	
 	/**
-	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parlé pioche une carte.
+	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parle pioche une carte.
 	 * @param option : Dire "CARTE" ou dire "CONTRE-CARTE".
 	 */
 	public void parler(int option) {
-		//A définir. Il faut que un autre thread check en permanence si cette méthode a été appelée ou non, si elle est appelée on vérifie
+		//A dï¿½finir. Il faut que un autre thread check en permanence si cette mï¿½thode a Ã©tÃ© appelÃ©e ou non, si elle est appelï¿½e on vï¿½rifie
 		//s'il est valable ou pas.
 	}
 }

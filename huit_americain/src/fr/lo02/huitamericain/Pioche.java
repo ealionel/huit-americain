@@ -5,13 +5,13 @@ import fr.lo02.effets.Effet;
 public class Pioche extends GroupeCartes {
 
 	/**
-	 * Initialise la pioche en créant une carte de chaque couleur et de chaque
+	 * Initialise la pioche en crÃ©ant une carte de chaque couleur et de chaque
 	 * valeur et les stocke dans l'ArrayList listeCartes
 	 * 
 	 * @param nbJeux
 	 *            : Nombre de jeux voulu.
 	 * @param nbJoker
-	 *            : Booléen spécifiant si un jeu de carte contient une carte JOKER
+	 *            : BoolÃ©en spÃ©cifiant si un jeu de carte contient une carte JOKER
 	 *            ou pas.
 	 * @param listeEffets : liste des effets pour chaque valeur de cartes
 	 */
