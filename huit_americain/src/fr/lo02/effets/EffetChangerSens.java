@@ -1,4 +1,4 @@
-package effets;
+package fr.lo02.effets;
 
 /**
  * Cet effet inverse le sens de jeu.

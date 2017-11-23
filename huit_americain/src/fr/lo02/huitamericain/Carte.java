@@ -1,6 +1,6 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 
-import effets.*;
+import fr.lo02.effets.*;
 
 /**
  * Classe représentant une carte du jeu.
@@ -15,6 +15,7 @@ public class Carte {
 	 * Constructeur de la carte.
 	 * @param pValeur : Valeur de la carte
 	 * @param pCouleur : Couleur de la carte
+	 * @param pEffet : Effet de la carte, il est du type d'une classe qui implémente l'interface Effet.
 	 */
 	Carte(ValeurCarte pValeur, CouleurCarte pCouleur, Effet pEffet){
 		this.valeur = pValeur;
@@ -28,7 +29,6 @@ public class Carte {
 	 * @param pValeur
 	 * @param pCouleur
 	 */
-
 	Carte(ValeurCarte pValeur, CouleurCarte pCouleur){
 		this.valeur = pValeur;
 		this.couleur = pCouleur;

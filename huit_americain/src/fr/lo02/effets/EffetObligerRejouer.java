@@ -1,4 +1,4 @@
-package effets;
+package fr.lo02.effets;
 
 /**
  * Oblige le joueur à rejouer

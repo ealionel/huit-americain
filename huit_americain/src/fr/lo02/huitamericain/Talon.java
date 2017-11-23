@@ -1,4 +1,4 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 
 public class Talon extends GroupeCartes{
 

@@ -1,4 +1,4 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 /**
  * Enumération qui contient les différentes valeurs que peut prendre une carte.
  * @author Lionel EA

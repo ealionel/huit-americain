@@ -1,4 +1,4 @@
-package effets;
+package fr.lo02.effets;
 
 /**
  * Interface correspondant à l'interface "Strategy" dans le patron de conception "stratégie".

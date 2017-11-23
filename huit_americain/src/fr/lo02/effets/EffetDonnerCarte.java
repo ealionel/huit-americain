@@ -1,6 +1,6 @@
-package effets;
+package fr.lo02.effets;
 
-import huit_americain.Joueur;
+import fr.lo02.huitamericain.Joueur;
 
 /**
  *Cet effet donne un certain nombre de cartes à un certain joueur. 

@@ -1,6 +1,6 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 
-import effets.*;
+import fr.lo02.effets.*;
 
 /**
  * Classe qui contient les differentes règles du jeu.
@@ -13,7 +13,8 @@ public class Regle {
 	protected int nbJoueurs;
 	protected int nbJeuxCartes;	//Nombre de jeux de cartes, peut être choisi en fonction du nombre de joueurs.
 	protected int modePoints; 	//Pour choisir si le nombre de points est à compte positif ou négatif
-	protected boolean joker; 	//Si on met un joker ou non dans le dèque
+	protected boolean hasJoker; 	//Si on met un joker ou non dans le dèque
+	protected int nbCartesDebut;//Nombre distribué à chaque joueur au début d'une partie
 	
 	/**
 	 * Cet atribut permet à attribuer à chaque carte, pour chaque variante différente, un effet différent. Par exemple effetCartes[0] est l'effet de l'as, effetCartes[1] du 2, etc...
@@ -28,7 +29,7 @@ public class Regle {
 		this.nbJoueurs = nbJoueurs;
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
-		this.joker = joker;
+		this.hasJoker = joker;
 		
 		effetCartes[0] = new EffetNormal();
 		effetCartes[1] = new EffetPiocherCarte();
@@ -45,5 +46,53 @@ public class Regle {
 		effetCartes[12] = new EffetNormal();
 		effetCartes[13] = new EffetNormal();
 		effetCartes[14] = new EffetNormal();
+	}
+
+	public int getNbJoueurs() {
+		return nbJoueurs;
+	}
+
+	public int getNbJeuxCartes() {
+		return nbJeuxCartes;
+	}
+
+	public int getModePoints() {
+		return modePoints;
+	}
+
+	public boolean isHasJoker() {
+		return hasJoker;
+	}
+
+	public int getNbCartesDebut() {
+		return nbCartesDebut;
+	}
+
+	public Effet[] getEffetCartes() {
+		return effetCartes;
+	}
+
+	public void setNbJoueurs(int nbJoueurs) {
+		this.nbJoueurs = nbJoueurs;
+	}
+
+	public void setNbJeuxCartes(int nbJeuxCartes) {
+		this.nbJeuxCartes = nbJeuxCartes;
+	}
+
+	public void setModePoints(int modePoints) {
+		this.modePoints = modePoints;
+	}
+
+	public void setHasJoker(boolean hasJoker) {
+		this.hasJoker = hasJoker;
+	}
+
+	public void setNbCartesDebut(int nbCartesDebut) {
+		this.nbCartesDebut = nbCartesDebut;
+	}
+
+	public void setEffetCartes(Effet[] effetCartes) {
+		this.effetCartes = effetCartes;
 	}
 }

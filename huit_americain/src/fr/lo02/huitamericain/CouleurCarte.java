@@ -1,4 +1,4 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 /**
  * Enumération qui contient les différentes couleurs possible que peut prendre une carte.
  * @author Lionel EA
@@ -27,7 +27,6 @@ public enum CouleurCarte {
 	}
 	
 	/**
-	 * 
 	 * @return Le nom de la couleur.
 	 */
 	public String getName() {

@@ -1,4 +1,4 @@
-package effets;
+package fr.lo02.effets;
 
 /**
  * Effet standard d'une carte sans effet. Fait passer au tour suivant.

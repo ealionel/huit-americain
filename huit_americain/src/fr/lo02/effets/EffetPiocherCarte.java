@@ -1,6 +1,6 @@
-package effets;
+package fr.lo02.effets;
 
-import huit_americain.Joueur;
+import fr.lo02.huitamericain.Joueur;
 
 /**
  * Fait piocher à un joueur un certain nombre de cartes.

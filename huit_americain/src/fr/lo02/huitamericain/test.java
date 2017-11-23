@@ -1,7 +1,7 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 
-import effets.Effet;
-import effets.EffetChangerSens;
+import fr.lo02.effets.Effet;
+import fr.lo02.effets.EffetChangerSens;
 
 public class test {
 

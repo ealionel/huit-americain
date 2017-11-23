@@ -1,4 +1,4 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 /**
  * Représente une partie. Possède des méthodes relatives à la partie.
  * @author Lionel EA
@@ -8,11 +8,25 @@ public class Partie {
 
 	private int tour;
 	private boolean sensJeu; //true = vers la droite; false = vers la gauche
+	private Regle regles;
+	private Joueur[] joueur;
 	
 	
-	
-	Partie(Regle regle){
+	/**
+	 * Initialisation de la partie en fonction d'une instance de règle.
+	 * @param regles
+	 */
+	Partie(Regle regles){
 		//Initialisation de la partie
+		this.regles = regles;
+		
+		//Initialisation des différents joueurs
+		
+		joueur[0] = new JoueurReel("Moi");
+		for(int i=1; i < regles.getNbJoueurs(); i++) {
+			joueur[i] = new JoueurVirtuel("Ordi " + i);
+		}
+		
 	}
 	
 	/**
@@ -44,7 +58,7 @@ public class Partie {
 	 * Distribue les cartes aux différents joueurs.
 	 */
 	public void distribuer() {
-		//A COMPLETER
+		
 	}
 	
 	/**

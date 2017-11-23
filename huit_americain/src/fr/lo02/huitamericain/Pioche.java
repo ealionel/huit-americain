@@ -1,4 +1,4 @@
-package huit_americain;
+package fr.lo02.huitamericain;
 
 public class Pioche extends GroupeCartes {
 	
@@ -23,13 +23,12 @@ public class Pioche extends GroupeCartes {
 	}
 	
 	/**
-	 * Surcharge du constructeur
+	 * Surcharge du constructeur, par défaut on met un joker
 	 * @param nbJeux
 	 */
 	Pioche(int nbJeux){
-		this(nbJeux, false);
+		this(nbJeux, true);
 	}
-	
 	
 	
 	

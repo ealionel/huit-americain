@@ -1,20 +1,37 @@
-package huit_americain;
-
+package fr.lo02.huitamericain;
 
 public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute façon
 	
 	protected CartesJoueur mainJoueur;
 	protected int score;
 	protected int numeroJoueur;
-	protected static int instancesJoueurs; 
+	protected static int instancesJoueurs;
+	protected String nom;
 	
-	Joueur(){
-		numeroJoueur = instancesJoueurs;
-		instancesJoueurs++;
+	Joueur(String nom){
+		numeroJoueur = instancesJoueurs; //Pour donner un identifiant à chaque joueur, le joueur 0 sera toujours le joueur réel
+		instancesJoueurs++; 
+		this.nom = nom;
 	}
 	
-	public void piocherCarte() {
+	/**
+	 * Fait piocher le joueur. Cette méthode récupère la première carte de la pioche et la donne au joueur.
+	 * @param pioche
+	 */
+	public void piocherCarte(GroupeCartes pioche) {
 		//Définir corps de la méthode. On retire une carte de la pioche, on la donne au joueur et on passe le tour
+		this.mainJoueur.ajouterCarte(pioche.getHead());
+		pioche.retirerCarte();
+	}
+	
+	/**
+	 * Pose la carte sur le talon.
+	 * @param indiceCarte
+	 * @param talon
+	 */
+	public void jouerCarte(int indiceCarte, Talon talon) {
+		talon.ajouterCarte(this.mainJoueur.getCarte(indiceCarte));
+		this.mainJoueur.retirerCarte(indiceCarte);
 	}
 	
 	public abstract void jouerCarte(); //En fonction de si le joueur est réel ou virtuel, il fera des choses différentes (attendre que le joueur joue, ou jouer automatiquement.)
