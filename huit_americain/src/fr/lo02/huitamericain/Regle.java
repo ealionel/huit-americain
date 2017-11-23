@@ -13,7 +13,7 @@ public class Regle {
 	protected int nbJoueurs;
 	protected int nbJeuxCartes;	//Nombre de jeux de cartes, peut être choisi en fonction du nombre de joueurs.
 	protected int modePoints; 	//Pour choisir si le nombre de points est à compte positif ou négatif
-	protected boolean hasJoker; 	//Si on met un joker ou non dans le dèque
+	protected boolean joker; 	//Si on met un joker ou non dans le dèque
 	protected int nbCartesDebut;//Nombre distribué à chaque joueur au début d'une partie
 	
 	/**
@@ -29,7 +29,7 @@ public class Regle {
 		this.nbJoueurs = nbJoueurs;
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
-		this.hasJoker = joker;
+		this.joker = joker;
 		
 		effetCartes[0] = new EffetNormal();
 		effetCartes[1] = new EffetPiocherCarte();
@@ -60,8 +60,8 @@ public class Regle {
 		return modePoints;
 	}
 
-	public boolean isHasJoker() {
-		return hasJoker;
+	public boolean isJoker() {
+		return joker;
 	}
 
 	public int getNbCartesDebut() {
@@ -84,8 +84,8 @@ public class Regle {
 		this.modePoints = modePoints;
 	}
 
-	public void setHasJoker(boolean hasJoker) {
-		this.hasJoker = hasJoker;
+	public void setJoker(boolean hasJoker) {
+		this.joker = hasJoker;
 	}
 
 	public void setNbCartesDebut(int nbCartesDebut) {

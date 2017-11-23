@@ -10,6 +10,7 @@ public class Partie {
 	private boolean sensJeu; //true = vers la droite; false = vers la gauche
 	private Regle regles;
 	private Joueur[] joueur;
+	private Pioche pioche;
 	
 	
 	/**
@@ -21,11 +22,13 @@ public class Partie {
 		this.regles = regles;
 		
 		//Initialisation des différents joueurs
-		
 		joueur[0] = new JoueurReel("Moi");
 		for(int i=1; i < regles.getNbJoueurs(); i++) {
 			joueur[i] = new JoueurVirtuel("Ordi " + i);
 		}
+		
+		//Initialisation de la pioche.
+		pioche = new Pioche(regles.getNbJeuxCartes(), regles.getEffetCartes(), regles.isJoker());
 		
 	}
 	
