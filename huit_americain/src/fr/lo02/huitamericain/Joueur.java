@@ -1,6 +1,6 @@
 package fr.lo02.huitamericain;
 
-public abstract class Joueur { //On la d�clare abstraite parce que le joueur est soit réel soit virtuel toute fa�on
+public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute facon
 	
 	protected CartesJoueur mainJoueur;
 	protected int score;
@@ -31,7 +31,7 @@ public abstract class Joueur { //On la d�clare abstraite parce que le joueur e
 	 * @param option : Dire "CARTE" ou dire "CONTRE-CARTE".
 	 */
 	public void parler(int option) {
-		//A d�finir. Il faut que un autre thread check en permanence si cette m�thode a été appelée ou non, si elle est appel�e on v�rifie
+		//A définir. Il faut que un autre thread check en permanence si cette méthode a été appelée ou non, si elle est appel�e on v�rifie
 		//s'il est valable ou pas.
 	}
 	
