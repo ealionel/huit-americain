@@ -1,8 +1,8 @@
 package fr.lo02.effets;
 
 /**
- * Interface correspondant à l'interface "Strategy" dans le patron de conception "stratégie".
- * Elle est implémentée dans toutes les classes comportant les effets.
+ * Interface correspondant ï¿½ l'interface "Strategy" dans le patron de conception "stratï¿½gie".
+ * Elle est implï¿½mentï¿½e dans toutes les classes comportant les effets.
  * @author Lionel EA
  *
  */
@@ -10,7 +10,7 @@ package fr.lo02.effets;
 public interface Effet {
 	
 	/**
-	 * Méthode qui va appliquer l'effet à la partie.
+	 * MÃ©thode qui va appliquer l'effet Ã  la partie.
 	 */
 	public void appliquer();
 }

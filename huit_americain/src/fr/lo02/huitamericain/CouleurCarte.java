@@ -8,7 +8,7 @@ package fr.lo02.huitamericain;
  */
 public enum CouleurCarte {
 	pique("Pique"),
-	trefle("Tr�fle"),
+	trefle("Trèfle"),
 	coeur("Coeur"),
 	carreau("Carreau"),
 	neutre("Neutre");

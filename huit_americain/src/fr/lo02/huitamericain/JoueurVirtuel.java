@@ -6,7 +6,7 @@ public class JoueurVirtuel extends Joueur {
 		super(nom);
 	}
 	
-	public void jouerCarte() {
+	public void jouerCarte(int indice, Talon talon) {
 		
 	}
 	

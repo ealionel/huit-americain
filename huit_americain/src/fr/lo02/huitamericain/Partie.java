@@ -21,7 +21,7 @@ public class Partie {
 		//Initialisation de la partie
 		this.regles = regles;
 		
-		//Initialisation des diff�rents joueurs
+		//Initialisation des différents joueurs
 		joueur[0] = new JoueurReel("Moi");
 		for(int i=1; i < regles.getNbJoueurs(); i++) {
 			joueur[i] = new JoueurVirtuel("Ordi " + i);
@@ -58,9 +58,17 @@ public class Partie {
 	}
 	
 	/**
-	 * Distribue les cartes aux différents joueurs.
+	 * Distribue les cartes aux différents joueurs. Le nombre de cartes distribué est déterminé dans les règles.
 	 */
 	public void distribuer() {
+		
+		System.out.println("DISTRIBUTION DES CARTES..");
+		
+		for(int i = 0; i < joueur.length; i++) {
+			for(int j = 0; j < regles.getNbCartesDebut(); j++) {
+				this.joueur[i].getMainJoueur().ajouterCarte(pioche.donnerCarte());
+			}
+		}
 		
 	}
 	

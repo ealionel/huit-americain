@@ -6,9 +6,17 @@ public class JoueurReel extends Joueur {
 		super(nom);
 	}
 	
-	public void jouerCarte() {
-		System.out.println("JOUE UNE CARTE");
-
+	
+	/**
+	 * Pose la carte sur le talon.
+	 * @param indiceCarte
+	 * @param talon
+	 */
+	
+	public void jouerCarte(int indiceCarte, Talon talon) {
+		talon.ajouterCarte(this.mainJoueur.getCarte(indiceCarte));
+		this.mainJoueur.retirerCarte(indiceCarte);
 	}
+
 
 }

@@ -29,21 +29,32 @@ public class GroupeCartes {
 	 * @param pCarte
 	 */
 	public void ajouterCarte(Carte pCarte) {
-		listeCartes.addFirst(pCarte);
+		this.listeCartes.addFirst(pCarte);
 	}
 	
 	/**
 	 * Retire une carte du groupe de cartes à un indice spécifié.
 	 */
 	public void retirerCarte(int position) {
-		listeCartes.remove(position);
+		this.listeCartes.remove(position);
 	}
 	
 	/**
 	 * Surcharge. Retire la tête du groupe de cartes.
 	 */
 	public void retirerCarte() {
-		listeCartes.removeFirst();
+		this.listeCartes.removeFirst();
+	}
+	
+	/**
+	 * Donne une carte. C'est à dire qu'on retourne la première carte et on la supprime du groupe de cartes.
+	 * @return
+	 */
+	public Carte donnerCarte() {
+		Carte head = this.getHead();
+		this.retirerCarte();
+		return head;
+		
 	}
 	
 	/**
