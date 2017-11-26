@@ -17,7 +17,7 @@ public class Carte {
 	 * @param pCouleur : Couleur de la carte
 	 * @param pEffet : Effet de la carte, il est du type d'une classe qui implémente l'interface Effet.
 	 */
-	Carte(ValeurCarte pValeur, CouleurCarte pCouleur, Effet pEffet){
+	public Carte(ValeurCarte pValeur, CouleurCarte pCouleur, Effet pEffet){
 		this.valeur = pValeur;
 		this.couleur = pCouleur;
 		this.effet = pEffet;
@@ -29,7 +29,7 @@ public class Carte {
 	 * @param pValeur
 	 * @param pCouleur
 	 */
-	Carte(ValeurCarte pValeur, CouleurCarte pCouleur){
+	public Carte(ValeurCarte pValeur, CouleurCarte pCouleur){
 		this.valeur = pValeur;
 		this.couleur = pCouleur;
 		this.effet = new EffetNormal();
@@ -52,7 +52,7 @@ public class Carte {
 	}
 	
 	/**
-	 * @return Une chaîne de caractère pour identifier la carte sous la forme : <valeur> de <couleur>.
+	 * @return Une chaîne de caractère pour identifier la carte sous la forme : Valeur de Couleur.
 	 */
 	public String toString() {
 		return (this.valeur.getName() + " de " + this.couleur.getName());

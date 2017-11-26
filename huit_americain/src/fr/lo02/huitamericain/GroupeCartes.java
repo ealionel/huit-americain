@@ -1,27 +1,25 @@
 package fr.lo02.huitamericain;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Classe représentant un groupe de cartes.
+ * La plupart des méthodes sont castées en ArrayDeque car c'est la collection utilisée par la Pioche et le Talon. La main du joueur utilise une ArrayList.
  * @author Lionel EA
  *
  */
 public class GroupeCartes {
 	
 	/**
-	 * Liste chaînée contenant les differentes cartes de type Carte du groupe de cartes.
+	 * Collection contenant les differentes cartes de type Carte du groupe de cartes.
 	 */
-	protected LinkedList<Carte> listeCartes = new LinkedList<Carte>();
+	protected Collection<Carte> listeCartes;
 	
 	
-	public LinkedList<Carte> getListeCartes() {
+	public Collection<Carte> getListeCartes() {
 		return this.listeCartes;
-	}
-	
-	public Carte getCarte(int index) {
-		return listeCartes.get(index);
 	}
 	
 	/**
@@ -29,40 +27,48 @@ public class GroupeCartes {
 	 * @param pCarte
 	 */
 	public void ajouterCarte(Carte pCarte) {
-		this.listeCartes.addFirst(pCarte);
+		((ArrayDeque<Carte>) this.listeCartes).addFirst(pCarte);
 	}
 	
 	/**
-	 * Retire une carte du groupe de cartes à un indice spécifié.
+	 * Retire la tête du groupe de cartes. Il peut renvoyer la carte. 
+	 * Renvoie null si vide.
 	 */
-	public void retirerCarte(int position) {
-		this.listeCartes.remove(position);
+	public Carte retirerCarte() {
+		return ((ArrayDeque<Carte>) this.listeCartes).poll();
 	}
 	
 	/**
-	 * Surcharge. Retire la tête du groupe de cartes.
-	 */
-	public void retirerCarte() {
-		this.listeCartes.removeFirst();
-	}
-	
-	/**
-	 * Donne une carte. C'est à dire qu'on retourne la première carte et on la supprime du groupe de cartes.
-	 * @return
-	 */
-	public Carte donnerCarte() {
-		Carte head = this.getHead();
-		this.retirerCarte();
-		return head;
-		
-	}
-	
-	/**
-	 * Retourne la première carte du groupe de cartes.
+	 * Retourne la première carte du groupe de cartes. 
+	 * Renvoie null si vide.
 	 * @return
 	 */
 	public Carte getHead() {
-		return this.listeCartes.getFirst();
+		return (Carte) ((ArrayDeque) this.listeCartes).peekFirst();
 	}
 	
+	/**
+	 * Renvoie la taille du groupe de cartes.
+	 * @return
+	 */
+	public int nbCartes() {
+		return this.listeCartes.size();
+	}
+	
+	/**
+	 * Renvoie une chaîne de caractère, la liste de cartes du groupe.
+	 */
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append("Contient " + this.nbCartes() + " cartes:\n\n");
+		
+		Iterator<Carte> iterateurCarte = this.listeCartes.iterator();
+		
+		while(iterateurCarte.hasNext()) {
+			str.append(iterateurCarte.next().toString() + "\n");
+		}
+		
+		return str.toString();
+	}
 }

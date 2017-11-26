@@ -6,7 +6,12 @@ package fr.lo02.effets;
  *
  */
 
-public class EffetCarteUniversel implements Effet{
+public class EffetCarteUniversel extends AbstractEffet implements Effet{
+	
+	public EffetCarteUniversel() {
+		this.nom="Effet Universel";
+	}
+
 	public void appliquer() {
 		System.out.println("EFFET UNIVERSEL");
 	}

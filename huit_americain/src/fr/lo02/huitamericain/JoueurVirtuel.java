@@ -2,7 +2,7 @@ package fr.lo02.huitamericain;
 
 public class JoueurVirtuel extends Joueur {
 	
-	JoueurVirtuel(String nom){
+	public JoueurVirtuel(String nom){
 		super(nom);
 	}
 	

@@ -6,7 +6,12 @@ package fr.lo02.effets;
  *
  */
 
-public class EffetNormal implements Effet{
+public class EffetNormal extends AbstractEffet implements Effet{
+	
+	public EffetNormal(){
+		this.nom="Effet normal";
+	}
+	
 	public void appliquer() {
 		System.out.println("EFFET NORMAL");
 	}

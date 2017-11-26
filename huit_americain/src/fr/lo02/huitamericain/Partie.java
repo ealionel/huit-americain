@@ -17,7 +17,7 @@ public class Partie {
 	 * Initialisation de la partie en fonction d'une instance de règle.
 	 * @param regles
 	 */
-	Partie(Regle regles){
+	public Partie(Regle regles){
 		//Initialisation de la partie
 		this.regles = regles;
 		
@@ -50,6 +50,10 @@ public class Partie {
 		//Est-ce necessaire?
 	}
 	
+	public void jouerTour() {
+		
+	}
+	
 	/**
 	 * Fait passer au tour suivant.
 	 */
@@ -66,7 +70,7 @@ public class Partie {
 		
 		for(int i = 0; i < joueur.length; i++) {
 			for(int j = 0; j < regles.getNbCartesDebut(); j++) {
-				this.joueur[i].getMainJoueur().ajouterCarte(pioche.donnerCarte());
+				this.joueur[i].getMainJoueur().ajouterCarte(pioche.retirerCarte());
 			}
 		}
 		

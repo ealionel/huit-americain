@@ -8,7 +8,7 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 	protected static int instancesJoueurs;
 	protected String nom;
 	
-	Joueur(String nom){
+	public Joueur(String nom){
 		id = instancesJoueurs; //Pour donner un identifiant à chaque joueur, le joueur 0 sera toujours le joueur réel
 		instancesJoueurs++; 
 		this.nom = nom;

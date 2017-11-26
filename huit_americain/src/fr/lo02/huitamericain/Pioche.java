@@ -1,5 +1,7 @@
 package fr.lo02.huitamericain;
 
+import java.util.ArrayDeque;
+
 import fr.lo02.effets.Effet;
 
 public class Pioche extends GroupeCartes {
@@ -10,13 +12,15 @@ public class Pioche extends GroupeCartes {
 	 * 
 	 * @param nbJeux
 	 *            : Nombre de jeux voulu.
-	 * @param nbJoker
+	 * @param listeEffets : liste des effets pour chaque valeur de cartes
+	 * @param joker
 	 *            : Booléen spécifiant si un jeu de carte contient une carte JOKER
 	 *            ou pas.
-	 * @param listeEffets : liste des effets pour chaque valeur de cartes
+	 * 
 	 */
-	Pioche(int nbJeux, Effet[] listeEffets, boolean joker) {
-
+	public Pioche(int nbJeux, Effet[] listeEffets, boolean joker) {
+		listeCartes = new ArrayDeque<Carte>();
+		
 		for (int iNbJeux = 0; iNbJeux < nbJeux; iNbJeux++) {
 			for (int iVal = 0; iVal < 13; iVal++) {
 				for (int iCouleur = 0; iCouleur < 4; iCouleur++) {

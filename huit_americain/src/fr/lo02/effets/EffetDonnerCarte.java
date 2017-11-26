@@ -8,14 +8,15 @@ import fr.lo02.huitamericain.Joueur;
  * @author Lionel EA
  *
  */
-public class EffetDonnerCarte implements Effet {
+public class EffetDonnerCarte extends AbstractEffet implements Effet {
+	
+	public EffetDonnerCarte(){
+		this.nom="Effet qui donne des cartes";
+	}
 
 	private Joueur cible;
 	private int nbCartes;
-
-	EffetDonnerCarte() {
-	}
-
+	
 	EffetDonnerCarte(int nbCartes, Joueur joueur) {
 
 	}

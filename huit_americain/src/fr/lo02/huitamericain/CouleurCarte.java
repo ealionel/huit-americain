@@ -22,7 +22,7 @@ public enum CouleurCarte {
 	 * Constructeur permettant de spécifier le nom de la couleur.
 	 * @param pNom
 	 */
-	CouleurCarte(String pNom){
+	private CouleurCarte(String pNom){
 		this.nomCouleur = pNom;
 	}
 	

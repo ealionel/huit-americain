@@ -6,7 +6,11 @@ package fr.lo02.effets;
  *
  */
 
-public class EffetObligerRejouer implements Effet{
+public class EffetObligerRejouer extends AbstractEffet implements Effet{
+	
+	public EffetObligerRejouer(){
+		this.nom="Effet qui oblige à rejouer";
+	}
 
 	public void appliquer() {
 		System.out.println("EFFET REJOUER");

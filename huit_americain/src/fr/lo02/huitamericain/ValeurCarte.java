@@ -24,7 +24,7 @@ public enum ValeurCarte {
 
 	private String nomValeur;
 
-	ValeurCarte(String pNom){
+	private ValeurCarte(String pNom){
 		this.nomValeur = pNom; 
 	}
 	

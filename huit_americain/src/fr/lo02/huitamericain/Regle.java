@@ -24,7 +24,7 @@ public class Regle {
 	/**
 	 * Regles par défaut du jeu : version minimale.
 	 */
-	Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker) {
+	public Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker) {
 		
 		this.nbJoueurs = nbJoueurs;
 		this.nbJeuxCartes = nbJeuxCartes;

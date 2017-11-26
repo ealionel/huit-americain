@@ -1,7 +1,8 @@
 package fr.lo02.huitamericain;
 
 import fr.lo02.effets.Effet;
-import fr.lo02.effets.EffetChangerSens;
+import fr.lo02.effets.EffetNormal;
+import fr.lo02.effets.EffetPiocherCarte;
 
 public class test {
 
@@ -12,14 +13,26 @@ public class test {
 //			System.out.println(i.toString());
 //		}
 
-		Joueur j = new JoueurReel("Moi");
-		Joueur j2 = new JoueurVirtuel("Ordi1");
-		Joueur j3 = new JoueurVirtuel("Ordi2");
+//		Joueur j = new JoueurReel("Moi");
+//		Joueur j2 = new JoueurVirtuel("Ordi1");
+//		Joueur j3 = new JoueurVirtuel("Ordi2");
+//		
+//		System.out.println(j.getId() + " " + j3.getId());
+//		
+//		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
-		System.out.println(j.getId() + " " + j3.getId());
+		Effet effetCartes[] = new Effet[14];
 		
-		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
+		effetCartes[0] = new EffetNormal();
+		effetCartes[1] = new EffetPiocherCarte();
 		
+		for (int i = 2; i < 14; i++) {
+			effetCartes[i] = new EffetNormal();
+	   }
+		
+		Pioche p = new Pioche(1, effetCartes, true);
+		
+		System.out.println(p.toString());
 	}
 
 }

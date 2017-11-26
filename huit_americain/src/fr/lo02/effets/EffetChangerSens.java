@@ -6,7 +6,12 @@ package fr.lo02.effets;
  *
  */
 
-public class EffetChangerSens implements Effet {
+public class EffetChangerSens extends AbstractEffet  implements Effet {
+	
+	public EffetChangerSens(){
+		this.nom="Effet changement de sens";
+	}
+	
 	public void appliquer() {
 		System.out.println("CHANGEMENT DE SENS");
 	}

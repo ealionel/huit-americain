@@ -2,7 +2,7 @@ package fr.lo02.huitamericain;
 
 public class JoueurReel extends Joueur {
 
-	JoueurReel(String nom){
+	public JoueurReel(String nom){
 		super(nom);
 	}
 	
