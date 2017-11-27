@@ -5,9 +5,13 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 	protected CartesJoueur mainJoueur;
 	protected int score;
 	protected int id;
-	protected static int instancesJoueurs;
+	protected static int instancesJoueurs=0;
 	protected String nom;
 	
+	/**
+	 * Constructeur du joueur.
+	 * @param nom Nom du joueur
+	 */
 	public Joueur(String nom){
 		id = instancesJoueurs; //Pour donner un identifiant à chaque joueur, le joueur 0 sera toujours le joueur réel
 		instancesJoueurs++; 
@@ -19,9 +23,7 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 	 * @param pioche
 	 */
 	public void piocherCarte(GroupeCartes pioche) {
-		//Définir corps de la méthode. On retire une carte de la pioche, on la donne au joueur et on passe le tour
-		this.mainJoueur.ajouterCarte(pioche.getHead());
-		pioche.retirerCarte();
+		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
 	}
 	
 	public abstract void jouerCarte(int indice, Talon talon); //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)

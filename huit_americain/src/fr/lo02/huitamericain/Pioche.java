@@ -1,6 +1,8 @@
 package fr.lo02.huitamericain;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import fr.lo02.effets.Effet;
 
@@ -33,6 +35,16 @@ public class Pioche extends GroupeCartes {
 				this.listeCartes.add(new Carte(ValeurCarte.joker, CouleurCarte.neutre, listeEffets[13]));
 			}
 		}
+	}
+	
+	/**
+	 * Mélange le deque.
+	 */
+	public void melanger() {
+		//Puisqu'on peut utiliser la méthode Collections.shuffle() que sur les méthodes qui implémentent List, on utilise une Liste temporaire pour la mélanger.
+		ArrayList<Carte> temp = new ArrayList<Carte>(this.listeCartes);
+		Collections.shuffle(temp);
+		this.listeCartes = new ArrayDeque<Carte>(temp);
 	}
 
 }

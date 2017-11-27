@@ -1,7 +1,9 @@
 package fr.lo02.huitamericain;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -44,7 +46,7 @@ public class GroupeCartes {
 	 * @return
 	 */
 	public Carte getHead() {
-		return (Carte) ((ArrayDeque) this.listeCartes).peekFirst();
+		return (Carte) ((ArrayDeque<Carte>) this.listeCartes).peekFirst();
 	}
 	
 	/**
@@ -54,6 +56,7 @@ public class GroupeCartes {
 	public int nbCartes() {
 		return this.listeCartes.size();
 	}
+	
 	
 	/**
 	 * Renvoie une chaîne de caractère, la liste de cartes du groupe.

@@ -11,11 +11,12 @@ public class Carte {
 	private ValeurCarte valeur;
 	private CouleurCarte couleur;
 	private Effet effet;
+	
 	/**
 	 * Constructeur de la carte.
-	 * @param pValeur : Valeur de la carte
-	 * @param pCouleur : Couleur de la carte
-	 * @param pEffet : Effet de la carte, il est du type d'une classe qui implémente l'interface Effet.
+	 * @param pValeur Valeur de la carte
+	 * @param pCouleur Couleur de la carte
+	 * @param pEffet Effet de la carte, il est du type d'une classe qui implémente l'interface Effet.
 	 */
 	public Carte(ValeurCarte pValeur, CouleurCarte pCouleur, Effet pEffet){
 		this.valeur = pValeur;
@@ -39,6 +40,9 @@ public class Carte {
 		this.effet = effet;
 	}
 	
+	/**
+	 * Applique l'effet de la carte.
+	 */
 	public void effet() {
 		effet.appliquer();
 	}

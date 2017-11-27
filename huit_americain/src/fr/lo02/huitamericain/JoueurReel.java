@@ -12,7 +12,6 @@ public class JoueurReel extends Joueur {
 	 * @param indiceCarte
 	 * @param talon
 	 */
-	
 	public void jouerCarte(int indiceCarte, Talon talon) {
 		talon.ajouterCarte(this.mainJoueur.getCarte(indiceCarte));
 		this.mainJoueur.retirerCarte(indiceCarte);
