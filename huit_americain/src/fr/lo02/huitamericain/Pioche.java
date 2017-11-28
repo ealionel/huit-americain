@@ -14,7 +14,8 @@ public class Pioche extends GroupeCartes {
 	 * 
 	 * @param nbJeux
 	 *            : Nombre de jeux voulu.
-	 * @param listeEffets : liste des effets pour chaque valeur de cartes
+	 * @param listeEffets
+	 *            : liste des effets pour chaque valeur de cartes
 	 * @param joker
 	 *            : Booléen spécifiant si un jeu de carte contient une carte JOKER
 	 *            ou pas.
@@ -22,7 +23,7 @@ public class Pioche extends GroupeCartes {
 	 */
 	public Pioche(int nbJeux, Effet[] listeEffets, boolean joker) {
 		listeCartes = new ArrayDeque<Carte>();
-		
+
 		for (int iNbJeux = 0; iNbJeux < nbJeux; iNbJeux++) {
 			for (int iVal = 0; iVal < 13; iVal++) {
 				for (int iCouleur = 0; iCouleur < 4; iCouleur++) {
@@ -36,12 +37,13 @@ public class Pioche extends GroupeCartes {
 			}
 		}
 	}
-	
+
 	/**
 	 * Mélange le deque.
 	 */
 	public void melanger() {
-		//Puisqu'on peut utiliser la méthode Collections.shuffle() que sur les méthodes qui implémentent List, on utilise une Liste temporaire pour la mélanger.
+		// Puisqu'on peut utiliser la méthode Collections.shuffle() que sur les méthodes
+		// qui implémentent List, on utilise une Liste temporaire pour la mélanger.
 		ArrayList<Carte> temp = new ArrayList<Carte>(this.listeCartes);
 		Collections.shuffle(temp);
 		this.listeCartes = new ArrayDeque<Carte>(temp);

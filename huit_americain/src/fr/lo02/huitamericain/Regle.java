@@ -30,6 +30,7 @@ public class Regle {
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
 		this.joker = joker;
+		this.nbCartesDebut = 8;
 		
 		effetCartes[0] = new EffetNormal();
 		effetCartes[1] = new EffetPiocherCarte();

@@ -6,10 +6,11 @@ public class JoueurVirtuel extends Joueur {
 		super(nom);
 	}
 	
-	public void jouerCarte(int indice, Talon talon) {
-		
+	public void jouerCarte(int indiceCarte, Talon talon) {
+		talon.ajouterCarte(this.mainJoueur.getCarte(indiceCarte));
+		this.mainJoueur.retirerCarte(indiceCarte);
 	}
-	
+
 
 
 }

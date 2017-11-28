@@ -20,6 +20,14 @@ public class CartesJoueur extends GroupeCartes {
 	}
 	
 	/**
+	 * Redéfinition de getHead() pour un ArrayList.
+	 * @return Retourne la tête du groupe de carte.
+	 */
+	public Carte getHead() {
+		return ((ArrayList<Carte>) this.listeCartes).get(0);
+	}
+	
+	/**
 	 * Permet de retourner une carte de la main du joueur à une position donnée.
 	 * @param position
 	 * @return Retourne la carte à la positon donnée
@@ -51,7 +59,7 @@ public class CartesJoueur extends GroupeCartes {
 	 * Redéfinition de la méthode retirerCarte() pour un ArrayList.
 	 * @return Retourne la tête de la liste.
 	 */
-	public Carte retirerCarte() {
+	public Carte retirerCarte() { 
 		Carte h = ((ArrayList<Carte>) this.listeCartes).get(0);
 		((ArrayList<Carte>) this.listeCartes).remove(0);
 		return h;

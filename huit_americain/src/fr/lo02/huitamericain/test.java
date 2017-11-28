@@ -19,20 +19,25 @@ public class test {
 //		
 //		System.out.println(j.getId() + " " + j3.getId());
 //		
-//		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
+		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
-		Effet effetCartes[] = new Effet[14];
+		Regle regle = new Regle(3, 1, 1, true);
 		
-		effetCartes[0] = new EffetNormal();
-		effetCartes[1] = new EffetPiocherCarte();
+		Partie partie = new Partie(regle);
 		
-		for (int i = 2; i < 14; i++) {
-			effetCartes[i] = new EffetNormal();
-	   }
+		partie.distribuer();
+		System.out.println(partie.getJoueurs()[0].getMainJoueur());
+//		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
-		Pioche p = new Pioche(1, effetCartes, true);
+		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
+		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
+		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
+
+		System.out.println(partie.getJoueurs()[0].getMainJoueur());
+
+		System.out.println(partie.getTalon());
 		
-		System.out.println(p.toString());
+		
 	}
 
 }

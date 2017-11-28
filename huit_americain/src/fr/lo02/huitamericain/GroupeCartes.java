@@ -25,28 +25,29 @@ public class GroupeCartes {
 	}
 	
 	/**
-	 * AJoute une carte à la tête
-	 * @param pCarte
+	 * Ajoute une carte à la tête du groupe de cartes.
+	 * @param pCarte La carte à ajouter
 	 */
 	public void ajouterCarte(Carte pCarte) {
 		((ArrayDeque<Carte>) this.listeCartes).addFirst(pCarte);
 	}
 	
 	/**
-	 * Retire la tête du groupe de cartes. Il peut renvoyer la carte. 
-	 * Renvoie null si vide.
+	 * Retire la tête du groupe de cartes et renvoie la carte. 
+	 * Renvoie une exception si vide.
+	 * @return La première carte du groupe de cartes.
 	 */
 	public Carte retirerCarte() {
-		return ((ArrayDeque<Carte>) this.listeCartes).poll();
+		return ((ArrayDeque<Carte>) this.listeCartes).removeFirst();
 	}
 	
 	/**
 	 * Retourne la première carte du groupe de cartes. 
-	 * Renvoie null si vide.
-	 * @return
+	 * Renvoie une exception si vide.
+	 * @return La première carte du groupe de cartes.
 	 */
 	public Carte getHead() {
-		return (Carte) ((ArrayDeque<Carte>) this.listeCartes).peekFirst();
+		return ((ArrayDeque<Carte>) this.listeCartes).getFirst();
 	}
 	
 	/**

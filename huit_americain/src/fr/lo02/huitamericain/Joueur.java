@@ -16,11 +16,12 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 		id = instancesJoueurs; //Pour donner un identifiant à chaque joueur, le joueur 0 sera toujours le joueur réel
 		instancesJoueurs++; 
 		this.nom = nom;
+		this.mainJoueur = new CartesJoueur();
 	}
 	
 	/**
 	 * Fait piocher le joueur. Cette méthode récupère la première carte de la pioche et la donne au joueur.
-	 * @param pioche
+	 * @param pioche Prends en paramètre une pioche.
 	 */
 	public void piocherCarte(GroupeCartes pioche) {
 		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
@@ -37,6 +38,17 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 		//s'il est valable ou pas.
 	}
 	
+	/**
+	 * Affiche le nom du joueur.
+	 */
+	public String toString() {
+		return this.nom;
+	}
+	
+	/**
+	 * Retourne le groupe de carte de la main du joueur.
+	 * @return
+	 */
 	public CartesJoueur getMainJoueur() {
 		return this.mainJoueur;
 	}
@@ -48,4 +60,5 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 	public int getId() {
 		return this.id;
 	}
+	
 }
