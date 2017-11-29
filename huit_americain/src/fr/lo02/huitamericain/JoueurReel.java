@@ -1,5 +1,10 @@
 package fr.lo02.huitamericain;
 
+/**
+ * Représente le joueur réel. 
+ * 
+ *
+ */
 public class JoueurReel extends Joueur {
 
 	public JoueurReel(String nom){
@@ -12,9 +17,9 @@ public class JoueurReel extends Joueur {
 	 * @param indiceCarte
 	 * @param talon
 	 */
-	public void jouerCarte(int indiceCarte, Talon talon) {
-		talon.ajouterCarte(this.mainJoueur.getCarte(indiceCarte));
-		this.mainJoueur.retirerCarte(indiceCarte);
+	public void poserCarte(int indiceCarte, Talon talon) {
+		talon.ajouterCarte(this.mainJoueur.retirerCarte(indiceCarte));
+		
 	}
 
 

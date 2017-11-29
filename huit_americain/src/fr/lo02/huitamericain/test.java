@@ -22,20 +22,15 @@ public class test {
 		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
 		Regle regle = new Regle(3, 1, 1, true);
-		
 		Partie partie = new Partie(regle);
+		ConsoleView vue = new ConsoleView(partie);
 		
 		partie.distribuer();
-		System.out.println(partie.getJoueurs()[0].getMainJoueur());
+//		System.out.println(partie.getJoueurs()[0].getMainJoueur());
 //		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
-		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
-		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
-		partie.getJoueurs()[0].jouerCarte(1, partie.getTalon());
-
-		System.out.println(partie.getJoueurs()[0].getMainJoueur());
-
-		System.out.println(partie.getTalon());
+		vue.afficherCartes(partie.getJoueurs()[0]);
+		vue.afficherInfoJoueurs(partie);
 		
 		
 	}

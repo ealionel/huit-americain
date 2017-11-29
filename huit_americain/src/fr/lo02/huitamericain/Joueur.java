@@ -27,7 +27,7 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
 	}
 	
-	public abstract void jouerCarte(int indice, Talon talon); //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
+	public abstract void poserCarte(int indice, Talon talon); //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
 	
 	/**
 	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parle pioche une carte.

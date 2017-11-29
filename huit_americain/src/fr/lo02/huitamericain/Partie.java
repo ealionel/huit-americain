@@ -1,10 +1,13 @@
 package fr.lo02.huitamericain;
+
+import java.util.Observable;
+
 /**
  * Représente une partie. Possède des méthodes relatives à la partie.
  * @author Lionel EA
  *
  */
-public class Partie {
+public class Partie extends Observable {
 
 	private int tour;
 	private boolean sensJeu; //true = vers la droite; false = vers la gauche
