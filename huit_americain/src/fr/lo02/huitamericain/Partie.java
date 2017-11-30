@@ -26,6 +26,8 @@ public class Partie extends Observable {
 		this.regles = regles;
 
 		this.talon = new Talon();
+		this.sensJeu = true;
+		this.tour = 0;
 		
 		//Initialisation des différents joueurs
 		joueur = new Joueur[regles.nbJoueurs];
@@ -38,22 +40,6 @@ public class Partie extends Observable {
 		pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
 		pioche.melanger();
 		
-	}
-	
-	public Talon getTalon() {
-		return talon;
-	}
-
-	public void setTalon(Talon talon) {
-		this.talon = talon;
-	}
-
-	public Pioche getPioche() {
-		return pioche;
-	}
-
-	public void setPioche(Pioche pioche) {
-		this.pioche = pioche;
 	}
 
 	/**
@@ -102,9 +88,27 @@ public class Partie extends Observable {
 	 * Change le sens du jeu.
 	 */
 	public void changerSens() {
-		//A COMPLETER
+		this.sensJeu = !this.sensJeu; //On inverse le booléen.
 	}
 
+	
+	public Talon getTalon() {
+		return talon;
+	}
+
+	public void setTalon(Talon talon) {
+		this.talon = talon;
+	}
+
+	public Pioche getPioche() {
+		return pioche;
+	}
+
+	public void setPioche(Pioche pioche) {
+		this.pioche = pioche;
+	}
+
+	
 	/**
 	 * Retourne les règles du jeu
 	 * @return L'objet règle

@@ -5,21 +5,31 @@ import java.util.Observer;
 import java.util.Scanner;
 
 /**
- * Cet classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
+ * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
  *
  *
  */
-public class ConsoleView implements Observer {
+public class ConsoleView implements Observer{
+	
+	ConsoleInput userInput;
 	
 	public ConsoleView(Observable partie) {
 		System.out.println("Initialisation de la vue.");
 		partie.addObserver(this);
+		
+		userInput = new ConsoleInput(this);
 	}
+	
+
 	
 	/**
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
 	 */
 	public void update(Observable obs, Object o) {
+		
+	}
+	
+	public void initialiserEntree() {
 		
 	}
 	
@@ -47,6 +57,8 @@ public class ConsoleView implements Observer {
 		}
 	}
 	
+	
+	
 	/**
 	 * Affiche toutes les informations relatives au tour.
 	 */
@@ -68,6 +80,13 @@ public class ConsoleView implements Observer {
 		sc.close();
 		
 		return choix-1; //-1 Parce que la carte en position 0 est la carte 1 dans l'interface console.
+	}
+	
+	/**
+	 * Demande à l'utilisateur la variante voulue.
+	 */
+	public void demanderVariante() {
+		
 	}
 	
 }
