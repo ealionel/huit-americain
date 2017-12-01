@@ -9,6 +9,7 @@ import java.util.Scanner;
  *
  *
  */
+@SuppressWarnings("deprecation")
 public class ConsoleView implements Observer{
 	
 	ConsoleInput userInput;

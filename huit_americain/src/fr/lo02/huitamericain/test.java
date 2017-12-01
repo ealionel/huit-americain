@@ -18,17 +18,25 @@ public class test {
 //		Joueur j3 = new JoueurVirtuel("Ordi2");
 //		
 //		System.out.println(j.getId() + " " + j3.getId());
-//		
+		
+		Effet[] effets = new Effet[14];
+		
+		for (int i = 0; i < effets.length; i++) {
+			effets[i] = new EffetNormal();
+		}
 		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
-		Regle regle = new Regle(3, 1, 1, true);
+		Regle regle = new Regle(3, 1, 1, true, effets);
 		Partie partie = new Partie(regle);
 		ConsoleView vue = new ConsoleView(partie);
+
 		
 		partie.distribuer();
 //		System.out.println(partie.getJoueurs()[0].getMainJoueur());
 //		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
+		vue.afficherCartes(partie.getJoueurs()[0]);
+		partie.getJoueurs()[0].poserCarte(0, partie.getTalon());
 		vue.afficherCartes(partie.getJoueurs()[0]);
 		vue.afficherInfoJoueurs(partie);
 		

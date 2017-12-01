@@ -10,6 +10,8 @@ import java.util.Scanner;
  * @author Lionel EA
  *
  */
+@SuppressWarnings("deprecation")
+
 public class ConsoleInput extends Observable implements Runnable{
 	
 	Thread thread;
