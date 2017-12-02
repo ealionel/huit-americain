@@ -7,31 +7,34 @@ import java.util.Scanner;
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
  *
- *
  */
-@SuppressWarnings("deprecation")
-public class ConsoleView implements Observer{
+public class ConsoleView implements Observer, View{
 	
-	ConsoleInput userInput;
+	private ConsoleInput consoleInput;
+	private String lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
 	
 	public ConsoleView(Observable partie) {
 		System.out.println("Initialisation de la vue.");
-		partie.addObserver(this);
 		
-		userInput = new ConsoleInput(this);
+		partie.addObserver(this);
+		consoleInput = new ConsoleInput(this);
 	}
-	
-
 	
 	/**
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
 	 */
-	public void update(Observable obs, Object o) {
-		
+	public void update(Observable obs, Object arg) {
+		if (obs instanceof ConsoleInput) {
+			System.out.println("ENTREE : >" + arg);
+			this.lastInput = (String) arg;
+		}
+		if (obs instanceof Partie) {
+			//A COMPLETER
+		}
 	}
 	
-	public void initialiserEntree() {
-		
+	public void initialiserInput() {
+		this.consoleInput.demarrer();
 	}
 	
 	/**
@@ -72,22 +75,20 @@ public class ConsoleView implements Observer{
 	 * On ne fait que renvoyer la valeur, le contrôleur se chargera de gerer la valeur entrée.
 	 * @return La carte associée à l'indice donné.
 	 */
-	public int demanderCarte() {
-		int choix;
-		System.out.println("Veuillez choisir le numéro de la carte associée :");
+	public void demanderCarte() {
+		System.out.println("Quelle carte voulez-vous poser? ");
 		
-		Scanner sc = new Scanner(System.in);
-		choix = sc.nextInt();
-		sc.close();
-		
-		return choix-1; //-1 Parce que la carte en position 0 est la carte 1 dans l'interface console.
+//		return choix; //-1 Parce que la carte en position 0 est la carte 1 dans l'interface console.
 	}
 	
 	/**
 	 * Demande à l'utilisateur la variante voulue.
 	 */
 	public void demanderVariante() {
-		
+		System.out.println("Quelle variante variante voulez-vous choisir?");
 	}
 	
+	public String getLastInput() {
+		return this.lastInput;
+	}
 }

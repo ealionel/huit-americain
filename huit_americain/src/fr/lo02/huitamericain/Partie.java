@@ -28,7 +28,6 @@ public class Partie extends Observable {
 	public Partie(Regle regles) {
 		// Initialisation de la partie
 		this.regles = regles;
-
 		this.talon = new Talon();
 		this.sensJeu = true;
 		this.tour = 0;

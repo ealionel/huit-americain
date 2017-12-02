@@ -54,14 +54,11 @@ public class Carte {
 		effet.appliquer();
 	}
 
-	public ValeurCarte getValeur() {
-		return this.valeur;
-	}
-
-	public CouleurCarte getCouleur() {
-		return this.couleur;
-	}
-
+	/**
+	 * Vérifie si la carte est posable sur le talon.
+	 * @param talon
+	 * @return Un booléen determinant si la carte est posable sur la talon
+	 */
 	public boolean posable(Talon talon) {
 		if (this.getValeur() == talon.getHead().getValeur() || this.getCouleur() == talon.getHead().getCouleur()
 				|| this.getValeur() == ValeurCarte.joker) {
@@ -72,6 +69,15 @@ public class Carte {
 
 	}
 
+	public ValeurCarte getValeur() {
+		return this.valeur;
+	}
+
+	public CouleurCarte getCouleur() {
+		return this.couleur;
+	}
+
+	
 	/**
 	 * @return Une chaîne de caractère pour identifier la carte sous la forme :
 	 *         Valeur de Couleur.

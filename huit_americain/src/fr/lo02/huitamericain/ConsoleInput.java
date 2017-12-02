@@ -17,6 +17,10 @@ public class ConsoleInput extends Observable implements Runnable{
 	Thread thread;
 	boolean isRunning;
 	
+	/**
+	 * Le constructeur ajoute un observeur à cet objet et initialise le thread avec ce Runnable.
+	 * @param obs Observeur de l'objet, ici ce sera ConsoleInput la plupart du temps.
+	 */
 	public ConsoleInput(Observer obs) {
 		this.addObserver(obs);
 		thread = new Thread(this);
@@ -29,9 +33,9 @@ public class ConsoleInput extends Observable implements Runnable{
 	public void run() {
 		Scanner input = new Scanner(System.in);
 		
-		while(input.hasNext() & isRunning) {
+		while(isRunning) {
 			String line = input.nextLine();
-			System.out.println("ENTREE : > " + line);
+//			System.out.println("ENTREE : > " + line);
 			
 			//Notification à la vue que l'utilisateur à entré quelque chose.
 			setChanged();

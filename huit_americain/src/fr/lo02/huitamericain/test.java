@@ -36,9 +36,10 @@ public class test {
 //		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
 		vue.afficherCartes(partie.getJoueurs()[0]);
-		partie.getJoueurs()[0].poserCarte(0, partie.getTalon());
-		vue.afficherCartes(partie.getJoueurs()[0]);
-		vue.afficherInfoJoueurs(partie);
+		vue.initialiserInput();
+//		partie.getJoueurs()[0].poserCarte(0, partie.getTalon());
+//		vue.afficherCartes(partie.getJoueurs()[0]);
+//		vue.afficherInfoJoueurs(partie);
 		
 		
 	}

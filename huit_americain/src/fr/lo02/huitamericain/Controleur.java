@@ -7,5 +7,5 @@ package fr.lo02.huitamericain;
  *
  */
 public class Controleur {
-	
+	private View vue;
 }
