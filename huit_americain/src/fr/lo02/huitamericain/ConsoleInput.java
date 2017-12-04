@@ -35,7 +35,6 @@ public class ConsoleInput extends Observable implements Runnable{
 		
 		while(isRunning) {
 			String line = input.nextLine();
-//			System.out.println("ENTREE : > " + line);
 			
 			//Notification à la vue que l'utilisateur à entré quelque chose.
 			setChanged();

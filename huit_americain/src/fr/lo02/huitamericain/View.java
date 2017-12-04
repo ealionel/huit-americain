@@ -8,5 +8,5 @@ package fr.lo02.huitamericain;
  *
  */
 public interface View {
-	//On ne met rien dedans, c'e
+
 }

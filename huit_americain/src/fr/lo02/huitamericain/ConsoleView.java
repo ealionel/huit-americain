@@ -11,11 +11,13 @@ import java.util.Scanner;
 public class ConsoleView implements Observer, View{
 	
 	private ConsoleInput consoleInput;
-	private String lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
+	private Object lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
+	private Partie partie;
 	
 	public ConsoleView(Observable partie) {
 		System.out.println("Initialisation de la vue.");
 		
+		this.partie = (Partie) partie;
 		partie.addObserver(this);
 		consoleInput = new ConsoleInput(this);
 	}
@@ -23,16 +25,25 @@ public class ConsoleView implements Observer, View{
 	/**
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
 	 */
-	public void update(Observable obs, Object arg) {
+	public synchronized void update(Observable obs, Object arg) {
 		if (obs instanceof ConsoleInput) {
 			System.out.println("ENTREE : >" + arg);
-			this.lastInput = (String) arg;
+			this.setLastInput((String) arg);
+			
+			notify(); //Reveille le thread principal potentiellement en attente.
+			
 		}
 		if (obs instanceof Partie) {
-			//A COMPLETER
+			switch((String) arg) {
+			case "jouer":
+				this.afficherInfoTour();
+			}
 		}
 	}
 	
+	/**
+	 * Lance le thread qui lit les entrées dans la console.
+	 */
 	public void initialiserInput() {
 		this.consoleInput.demarrer();
 	}
@@ -67,7 +78,7 @@ public class ConsoleView implements Observer, View{
 	 * Affiche toutes les informations relatives au tour.
 	 */
 	public void afficherInfoTour() {
-		
+		System.out.println(this.partie.getJoueurActif() + " joue la carte " + this.partie.getTalon().getHead());
 	}
 	
 	/**
@@ -76,9 +87,11 @@ public class ConsoleView implements Observer, View{
 	 * @return La carte associée à l'indice donné.
 	 */
 	public void demanderCarte() {
-		System.out.println("Quelle carte voulez-vous poser? ");
-		
-//		return choix; //-1 Parce que la carte en position 0 est la carte 1 dans l'interface console.
+		System.out.println("Indiquer la carte que vous voulez poser : ");
+	}
+	
+	public void afficherErreur() {
+		System.out.println("ENTREE INCORRECTE");
 	}
 	
 	/**
@@ -88,7 +101,28 @@ public class ConsoleView implements Observer, View{
 		System.out.println("Quelle variante variante voulez-vous choisir?");
 	}
 	
-	public String getLastInput() {
+	public void afficherCartePosee() {
+		System.out.println();
+	}
+	
+	/**
+	 * Permet de définir lastInput en tant qu'entier ou en tant que chaîne de caractère.
+	 * @param arg
+	 */
+	public void setLastInput(String arg) {
+		if(arg.matches("-?\\d+(\\.\\d+)?")) {
+			this.lastInput = Integer.parseInt(arg);
+		}
+		else {
+			this.lastInput = arg;
+		}
+	}
+	
+	/**
+	 * Renvoie la dernière entrée que l'utilisateur a fait dans la console.
+	 * @return
+	 */
+	public Object getLastInput() {
 		return this.lastInput;
 	}
 }

@@ -13,12 +13,13 @@ import java.util.Observable;
 public class Partie extends Observable {
 
 	private int tour;
-	private boolean sensJeu; // true = vers la droite; false = vers la gauche
+	private int sensJeu; // 1 = vers la droite; -1 = vers la gauche
 	private Regle regles;
 	private Joueur[] joueur;
 	private Pioche pioche;
 	private Talon talon;
 	private Controleur controleur;
+	private Joueur joueurActif;
 
 	/**
 	 * Initialisation de la partie en fonction d'une instance de règle.
@@ -29,8 +30,9 @@ public class Partie extends Observable {
 		// Initialisation de la partie
 		this.regles = regles;
 		this.talon = new Talon();
-		this.sensJeu = true;
+		this.sensJeu = 1;
 		this.tour = 0;
+		this.controleur = new Controleur(this);
 
 		// Initialisation des différents joueurs
 		joueur = new Joueur[regles.nbJoueurs];
@@ -64,7 +66,10 @@ public class Partie extends Observable {
 	}
 
 	public void jouerTour(Joueur joueurActuel) {
-
+		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
+		Joueur joueurSuivant = joueur[(joueurActuel.getId() + this.sensJeu) % this.regles.nbJoueurs];
+		this.joueurActif = joueurActuel;
+		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
 			for (int i = 0; i < mainJoueur.nbCartes(); i++) {
@@ -76,7 +81,9 @@ public class Partie extends Observable {
 		}
 
 		if (joueurActuel instanceof JoueurReel) {
-//			A VOIR AVEC LIONEL POUR LE CHOIX DU JOUEUR
+//			Carte c = joueurActuel.getMainJoueur().getCarte(controleur.demanderCarte(joueurActuel)-1);
+			joueurActuel.poserCarte(controleur.demanderCarte(joueurActuel)-1, talon);
+			notifyObservers("jouer");
 		}
 	}
 
@@ -105,7 +112,7 @@ public class Partie extends Observable {
 	 * Change le sens du jeu.
 	 */
 	public void changerSens() {
-		this.sensJeu = !this.sensJeu; // On inverse le booléen.
+		this.sensJeu = this.sensJeu*(-1); // On inverse le signe.
 	}
 
 	public Talon getTalon() {
@@ -146,4 +153,11 @@ public class Partie extends Observable {
 		this.regles = regles;
 	}
 
+	public Controleur getControleur() {
+		return this.controleur;
+	}
+	
+	public Joueur getJoueurActif() {
+		return this.joueurActif;
+	}
 }
