@@ -34,10 +34,7 @@ public class ConsoleView implements Observer, View{
 			
 		}
 		if (obs instanceof Partie) {
-			switch((String) arg) {
-			case "jouer":
-				this.afficherInfoTour();
-			}
+			this.affichage((String) arg);
 		}
 	}
 	
@@ -46,6 +43,24 @@ public class ConsoleView implements Observer, View{
 	 */
 	public void initialiserInput() {
 		this.consoleInput.demarrer();
+	}
+	
+	public void affichage(String commande) {
+		switch(commande) {
+		case "inputError":
+			this.afficherErreur();
+			break;
+		case "piocher":
+			this.afficherPiocher();
+			break;
+		case "carteJouee":
+			this.afficherCarteJouee();
+			break;
+		case "debutTour":
+			this.afficherCartes(partie.getJoueurActif());
+			this.demanderCarte();
+			break;
+		}
 	}
 	
 	/**
@@ -73,13 +88,26 @@ public class ConsoleView implements Observer, View{
 	}
 	
 	
+	/**
+	 * Affiche la carte jouée par le joueur actif.
+	 */
+	public void afficherCarteJouee() {
+		System.out.println(this.partie.getJoueurActif() + " joue le " + this.partie.getTalon().getHead());
+	}
 	
 	/**
-	 * Affiche toutes les informations relatives au tour.
+	 * Affiche quel joueur pioche.
 	 */
-	public void afficherInfoTour() {
-		System.out.println(this.partie.getJoueurActif() + " joue la carte " + this.partie.getTalon().getHead());
+	public void afficherPiocher() {
+		if(partie.getJoueurActif() instanceof JoueurReel) {
+			System.out.println("Vous avez pioché le " + partie.getJoueurActif().getMainJoueur().getCarte(partie.getJoueurActif().getMainJoueur().nbCartes()-1));
+		}
+		if(partie.getJoueurActif() instanceof JoueurVirtuel) {
+			System.out.println(this.partie.getJoueurActif() + " pioche une carte.");
+		}
 	}
+	
+	
 	
 	/**
 	 * Demande le numéro de la carte du joueur dans sa main et retourne la carte associée.

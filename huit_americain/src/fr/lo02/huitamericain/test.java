@@ -38,9 +38,9 @@ public class test {
 //		vue.afficherCartes(partie.getJoueurs()[0]);
 		
 //		partie.getControleur().demanderCarte(partie.getJoueurs()[0]);
+		System.out.println(partie.getPioche());
 		partie.jouerTour(partie.getJoueurs()[0]);
 
-		
 		
 	}
 

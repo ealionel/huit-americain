@@ -1,8 +1,8 @@
 package fr.lo02.huitamericain;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
+
+import fr.lo02.exceptions.WrongInputException;
 
 /**
  * Représente une partie. Possède des méthodes relatives à la partie.
@@ -36,7 +36,7 @@ public class Partie extends Observable {
 
 		// Initialisation des différents joueurs
 		joueur = new Joueur[regles.nbJoueurs];
-		joueur[0] = new JoueurReel("Moi");
+		joueur[0] = new JoueurReel("Lionel");
 		for (int i = 1; i < regles.getNbJoueurs(); i++) {
 			joueur[i] = new JoueurVirtuel("Ordi " + i);
 		}
@@ -72,18 +72,42 @@ public class Partie extends Observable {
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
+
 			for (int i = 0; i < mainJoueur.nbCartes(); i++) {
 				if ((mainJoueur.getCarte(i)).posable(talon)) {
 					joueurActuel.poserCarte(i, talon); 
-//					Implémentation sans effets A RAJOUTER
+					this.talon.getHead().effet();
 				}
 			}
 		}
 
 		if (joueurActuel instanceof JoueurReel) {
-//			Carte c = joueurActuel.getMainJoueur().getCarte(controleur.demanderCarte(joueurActuel)-1);
-			joueurActuel.poserCarte(controleur.demanderCarte(joueurActuel)-1, talon);
-			notifyObservers("jouer");
+			String[] cmdAutorisees = {"piocher"};
+			Object commande=null;
+			
+			setChanged();
+			notifyObservers("debutTour");
+			
+			while(true) {
+				try {
+					commande = controleur.attendreValeur(cmdAutorisees, true, 1, joueurActuel.getMainJoueur().nbCartes());
+					break;
+				}catch(WrongInputException e) {
+					setChanged();
+					notifyObservers("inputError");
+				}
+			}
+			
+			if(commande instanceof String) {
+				controleur.executer((String) commande);
+				setChanged();
+				notifyObservers("piocher");
+			}
+			if(commande instanceof Integer) {
+				joueurActuel.poserCarte((int) commande - 1, talon);
+				setChanged();
+				notifyObservers("carteJouee");
+			}
 		}
 	}
 
