@@ -2,7 +2,6 @@ package fr.lo02.huitamericain;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
@@ -18,7 +17,14 @@ public class ConsoleView implements Observer, View{
 		System.out.println("Initialisation de la vue.");
 		
 		this.partie = (Partie) partie;
+		
+		//On ajoute cet observeur pour la partie et chaque joueur de la partie.
 		partie.addObserver(this);
+		Joueur[] listeJoueurs = this.partie.getJoueurs();
+		
+		for(int i = 0; i < listeJoueurs.length; i++) {
+			listeJoueurs[i].addObserver(this);
+		}
 		consoleInput = new ConsoleInput(this);
 	}
 	
@@ -33,7 +39,7 @@ public class ConsoleView implements Observer, View{
 			notify(); //Reveille le thread principal potentiellement en attente.
 			
 		}
-		if (obs instanceof Partie) {
+		if (obs instanceof Partie | obs instanceof Joueur) {
 			this.affichage((String) arg);
 		}
 	}
@@ -57,8 +63,11 @@ public class ConsoleView implements Observer, View{
 			this.afficherCarteJouee();
 			break;
 		case "debutTour":
-			this.afficherCartes(partie.getJoueurActif());
-			this.demanderCarte();
+			this.afficherDebutTour();
+			if(partie.getJoueurActif() instanceof JoueurReel) {
+				this.afficherCartes(partie.getJoueurActif());
+				this.demanderCarte();
+			}
 			break;
 		}
 	}
@@ -87,6 +96,9 @@ public class ConsoleView implements Observer, View{
 		}
 	}
 	
+	public void afficherDebutTour() {
+		System.out.println("Au tour de " + partie.getJoueurActif() + " de jouer.");
+	}
 	
 	/**
 	 * Affiche la carte jouée par le joueur actif.

@@ -39,10 +39,6 @@ public class ConsoleInput extends Observable implements Runnable{
 			//Notification à la vue que l'utilisateur à entré quelque chose.
 			setChanged();
 			notifyObservers(line);
-			
-			if("arreter".equalsIgnoreCase(line)) {
-				this.arreter();
-			}
 		}
 		
 		input.close();

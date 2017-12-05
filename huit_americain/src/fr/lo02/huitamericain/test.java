@@ -29,18 +29,16 @@ public class test {
 		Regle regle = new Regle(3, 1, 1, true, effets);
 		Partie partie = new Partie(regle);
 //		ConsoleView vue = new ConsoleView(partie);
-
 		
-		partie.distribuer();
 //		System.out.println(partie.getJoueurs()[0].getMainJoueur());
 //		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
 //		vue.afficherCartes(partie.getJoueurs()[0]);
 		
 //		partie.getControleur().demanderCarte(partie.getJoueurs()[0]);
-		System.out.println(partie.getPioche());
-		partie.jouerTour(partie.getJoueurs()[0]);
-
+//		System.out.println(partie.getPioche());
+//		partie.jouerTour(partie.getJoueurs()[0]);
+		partie.demarrerPartie();
 		
 	}
 

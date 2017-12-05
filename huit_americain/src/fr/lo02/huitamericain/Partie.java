@@ -35,23 +35,23 @@ public class Partie extends Observable {
 		this.controleur = new Controleur(this);
 
 		// Initialisation des différents joueurs
-		joueur = new Joueur[regles.nbJoueurs];
-		joueur[0] = new JoueurReel("Lionel");
+		this.joueur = new Joueur[regles.nbJoueurs];
+		this.joueur[0] = new JoueurReel("Lionel");
 		for (int i = 1; i < regles.getNbJoueurs(); i++) {
-			joueur[i] = new JoueurVirtuel("Ordi " + i);
+			this.joueur[i] = new JoueurVirtuel("Ordi " + i);
 		}
 
 		// Initialisation de la pioche.
-		pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
-		pioche.melanger();
-
+		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
+		this.pioche.melanger();
+		this.distribuer();
 	}
 
 	/**
 	 * Lance la partie.
 	 */
 	public void demarrerPartie() {
-		// A completer
+		this.tourSuivant(this.jouerTour(joueur[0]));
 	}
 
 	/**
@@ -65,25 +65,35 @@ public class Partie extends Observable {
 		// Est-ce necessaire?
 	}
 
-	public void jouerTour(Joueur joueurActuel) {
+	/**
+	 * Fait jouer le joueur mis en paramètre.
+	 * @param joueurActuel
+	 */
+	public Joueur jouerTour(Joueur joueurActuel) {
 		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
 		Joueur joueurSuivant = joueur[(joueurActuel.getId() + this.sensJeu) % this.regles.nbJoueurs];
 		this.joueurActif = joueurActuel;
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
-
-			for (int i = 0; i < mainJoueur.nbCartes(); i++) {
+			boolean posee = false;
+			
+			//Peut être à redéfinir dans la stratégie du joueur virtuel.
+			for (int i = 0; i < mainJoueur.nbCartes() & !posee; i++) {
 				if ((mainJoueur.getCarte(i)).posable(talon)) {
 					joueurActuel.poserCarte(i, talon); 
 					this.talon.getHead().effet();
+					posee = true;
 				}
+			}
+			if(!posee) {
+				joueurActuel.piocherCarte(this.pioche);
 			}
 		}
 
 		if (joueurActuel instanceof JoueurReel) {
 			String[] cmdAutorisees = {"piocher"};
-			Object commande=null;
+			Object commande = null;
 			
 			setChanged();
 			notifyObservers("debutTour");
@@ -98,24 +108,22 @@ public class Partie extends Observable {
 				}
 			}
 			
-			if(commande instanceof String) {
+			if(commande instanceof String) { 		//On execute la commande si chaine de caractère
 				controleur.executer((String) commande);
-				setChanged();
-				notifyObservers("piocher");
 			}
-			if(commande instanceof Integer) {
+			if(commande instanceof Integer) {		//On pioche si l'entrée est bien une valeur.
 				joueurActuel.poserCarte((int) commande - 1, talon);
-				setChanged();
-				notifyObservers("carteJouee");
 			}
 		}
+		
+		return joueurSuivant;
 	}
 
 	/**
 	 * Fait passer au tour suivant.
 	 */
-	public void tourSuivant() {
-		// A COMPLETER
+	public void tourSuivant(Joueur joueurSuivant) {
+		this.tourSuivant(this.jouerTour(joueurSuivant));
 	}
 
 	/**

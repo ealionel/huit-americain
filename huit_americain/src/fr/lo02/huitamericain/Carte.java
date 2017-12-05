@@ -60,8 +60,7 @@ public class Carte {
 	 * @return Un booléen determinant si la carte est posable sur la talon
 	 */
 	public boolean posable(Talon talon) {
-		if (this.getValeur() == talon.getHead().getValeur() || this.getCouleur() == talon.getHead().getCouleur()
-				|| this.getValeur() == ValeurCarte.joker) {
+		if (this.getValeur() == talon.getHead().getValeur() || this.getCouleur() == talon.getHead().getCouleur() || this.getValeur() == ValeurCarte.joker) {
 			return true;
 		}
 		return false;
