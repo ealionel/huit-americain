@@ -26,7 +26,7 @@ public class test {
 		}
 		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
-		Regle regle = new Regle(3, 1, 1, true, effets);
+		Regle regle = new Regle(3, 1, 1, false, effets);
 		Partie partie = new Partie(regle);
 //		ConsoleView vue = new ConsoleView(partie);
 		

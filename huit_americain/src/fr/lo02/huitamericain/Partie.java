@@ -32,7 +32,6 @@ public class Partie extends Observable {
 		this.talon = new Talon();
 		this.sensJeu = 1;
 		this.tour = 0;
-		this.controleur = new Controleur(this);
 
 		// Initialisation des différents joueurs
 		this.joueur = new Joueur[regles.nbJoueurs];
@@ -41,10 +40,16 @@ public class Partie extends Observable {
 			this.joueur[i] = new JoueurVirtuel("Ordi " + i);
 		}
 
+		this.controleur = new Controleur(this);
+		
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
 		this.pioche.melanger();
 		this.distribuer();
+		
+		//Initialisation du talon
+		this.talon.ajouterCarte(this.pioche.retirerCarte()); // On pose une carte dans le talon depuis la pioche.
+		
 	}
 
 	/**
@@ -73,10 +78,10 @@ public class Partie extends Observable {
 		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
 		Joueur joueurSuivant = joueur[(joueurActuel.getId() + this.sensJeu) % this.regles.nbJoueurs];
 		this.joueurActif = joueurActuel;
+		boolean posee = false;
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
-			boolean posee = false;
 			
 			//Peut être à redéfinir dans la stratégie du joueur virtuel.
 			for (int i = 0; i < mainJoueur.nbCartes() & !posee; i++) {
@@ -95,35 +100,46 @@ public class Partie extends Observable {
 			String[] cmdAutorisees = {"piocher"};
 			Object commande = null;
 			
-			setChanged();
-			notifyObservers("debutTour");
+			boolean sortir = false;
 			
-			while(true) {
+			notifier("debutTour");
+			
+			while(!posee & !sortir) {
 				try {
 					commande = controleur.attendreValeur(cmdAutorisees, true, 1, joueurActuel.getMainJoueur().nbCartes());
-					break;
+					if (commande instanceof Integer) {
+						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) {
+							joueurActuel.poserCarte((int) commande - 1, talon);
+							this.talon.getHead().effet();
+							posee = true;
+						}
+						else{
+							notifier("posableError");
+						}
+					}
+					if(commande instanceof String) { 		//On execute la commande si chaine de caractère
+						controleur.executer((String) commande);
+						sortir = true;
+					}
 				}catch(WrongInputException e) {
-					setChanged();
-					notifyObservers("inputError");
+					notifier("inputError");
 				}
 			}
 			
-			if(commande instanceof String) { 		//On execute la commande si chaine de caractère
-				controleur.executer((String) commande);
-			}
-			if(commande instanceof Integer) {		//On pioche si l'entrée est bien une valeur.
-				joueurActuel.poserCarte((int) commande - 1, talon);
-			}
 		}
 		
 		return joueurSuivant;
 	}
 
 	/**
-	 * Fait passer au tour suivant.
+	 * Fait passer au tour suivant. Correspond à la boucle principale.
+	 * @param joueurSuivant Référence vers le joueur suivant.
 	 */
 	public void tourSuivant(Joueur joueurSuivant) {
-		this.tourSuivant(this.jouerTour(joueurSuivant));
+		this.tour++;
+		if(!this.estFini()) {
+			this.tourSuivant(this.jouerTour(joueurSuivant));
+		}
 	}
 
 	/**
@@ -139,12 +155,31 @@ public class Partie extends Observable {
 		}
 
 	}
+	
+	public boolean estFini() {
+		for(Joueur j : this.joueur) {
+			if (j.getMainJoueur().estVide()) {
+				notifier("fin");
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Change le sens du jeu.
 	 */
 	public void changerSens() {
 		this.sensJeu = this.sensJeu*(-1); // On inverse le signe.
+	}
+	
+	/**
+	 * Envoie une notification aux observeurs.
+	 * @param commande
+	 */
+	public void notifier(String commande) {
+		setChanged();
+		notifyObservers(commande);
 	}
 
 	public Talon getTalon() {
@@ -178,7 +213,7 @@ public class Partie extends Observable {
 	 * @return La liste de joueurs.
 	 */
 	public Joueur[] getJoueurs() {
-		return joueur;
+		return this.joueur;
 	}
 
 	public void setRegles(Regle regles) {

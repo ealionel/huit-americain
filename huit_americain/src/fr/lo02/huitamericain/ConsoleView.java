@@ -14,18 +14,17 @@ public class ConsoleView implements Observer, View{
 	private Partie partie;
 	
 	public ConsoleView(Observable partie) {
-		System.out.println("Initialisation de la vue.");
-		
 		this.partie = (Partie) partie;
 		
 		//On ajoute cet observeur pour la partie et chaque joueur de la partie.
 		partie.addObserver(this);
-		Joueur[] listeJoueurs = this.partie.getJoueurs();
-		
-		for(int i = 0; i < listeJoueurs.length; i++) {
-			listeJoueurs[i].addObserver(this);
+
+		for(Joueur j : this.partie.getJoueurs()) {
+			j.addObserver(this);
 		}
+		
 		consoleInput = new ConsoleInput(this);
+		
 	}
 	
 	/**
@@ -56,6 +55,9 @@ public class ConsoleView implements Observer, View{
 		case "inputError":
 			this.afficherErreur();
 			break;
+		case "posableError":
+			this.afficherErreurPosable();
+			break;
 		case "piocher":
 			this.afficherPiocher();
 			break;
@@ -66,9 +68,14 @@ public class ConsoleView implements Observer, View{
 			this.afficherDebutTour();
 			if(partie.getJoueurActif() instanceof JoueurReel) {
 				this.afficherCartes(partie.getJoueurActif());
+				this.afficherTalon();
 				this.demanderCarte();
 			}
 			break;
+		case "fin":
+			this.afficherGagnant();
+			break;
+		
 		}
 	}
 	
@@ -79,11 +86,12 @@ public class ConsoleView implements Observer, View{
 	public void afficherCartes(Joueur joueur) {
 		int compteur=0;
 		System.out.println("Vos cartes");
-		System.out.println("-----------------");
+		System.out.println("---------------");
 		for(int i = 0; i < joueur.getMainJoueur().nbCartes(); i++) {
 			compteur = i+1;
 			System.out.println("> "+ compteur + ". " + joueur.getMainJoueur().getCarte(i));
 		}
+		System.out.println("---------------");
 	}
 	
 	/**
@@ -97,6 +105,7 @@ public class ConsoleView implements Observer, View{
 	}
 	
 	public void afficherDebutTour() {
+		System.out.println("_______________________________");
 		System.out.println("Au tour de " + partie.getJoueurActif() + " de jouer.");
 	}
 	
@@ -119,8 +128,6 @@ public class ConsoleView implements Observer, View{
 		}
 	}
 	
-	
-	
 	/**
 	 * Demande le numéro de la carte du joueur dans sa main et retourne la carte associée.
 	 * On ne fait que renvoyer la valeur, le contrôleur se chargera de gerer la valeur entrée.
@@ -134,6 +141,10 @@ public class ConsoleView implements Observer, View{
 		System.out.println("ENTREE INCORRECTE");
 	}
 	
+	public void afficherErreurPosable() {
+		System.out.println("Cette carte n'est pas posable");
+	}
+	
 	/**
 	 * Demande à l'utilisateur la variante voulue.
 	 */
@@ -141,9 +152,14 @@ public class ConsoleView implements Observer, View{
 		System.out.println("Quelle variante variante voulez-vous choisir?");
 	}
 	
-	public void afficherCartePosee() {
-		System.out.println();
+	public void afficherTalon() {
+		System.out.println("\n>>> La tête du talon est un " + this.partie.getTalon().getHead() + " <<<");
 	}
+	
+	public void afficherGagnant() {
+		System.out.println(" ----> LE GAGNANT DE LA MANCHE EST " + this.partie.getJoueurActif());
+	}
+	
 	
 	/**
 	 * Permet de définir lastInput en tant qu'entier ou en tant que chaîne de caractère.
@@ -157,6 +173,7 @@ public class ConsoleView implements Observer, View{
 			this.lastInput = arg;
 		}
 	}
+	
 	
 	/**
 	 * Renvoie la dernière entrée que l'utilisateur a fait dans la console.

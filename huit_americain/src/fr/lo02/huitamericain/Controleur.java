@@ -32,6 +32,7 @@ public class Controleur {
 	 * @param motsAttendu Array de String contenant les mots attendus par la méthode.
 	 * @param entierAttendu Booléen un indiquant si la valeur atendue peut être un entier ou non.
 	 * @param borneInf Borne inférieure de l'entier attendu
+	 * @param borneSup Borne supérieure de l'entier attendu
 	 * @return La valeur de ce qu'a entré l'utilisateur, un String ou un int.
 	 * @throws WrongInputException
 	 */
