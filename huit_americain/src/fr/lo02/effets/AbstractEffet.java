@@ -7,6 +7,12 @@ public abstract class AbstractEffet {
 	protected String nom;
 	protected Partie partie;
 	
+	public AbstractEffet() {	}
+	
+	public AbstractEffet(Partie partie) {
+		this.partie = partie;
+	}
+	
 	public String getNom() {
 		return this.nom;
 	}

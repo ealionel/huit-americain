@@ -28,7 +28,6 @@ public class Carte {
 		this.valeur = pValeur;
 		this.couleur = pCouleur;
 		this.effet = pEffet;
-
 	}
 
 	/**
@@ -43,14 +42,11 @@ public class Carte {
 		this.effet = new EffetNormal();
 	}
 
-	public void setEffet(Effet effet) {
-		this.effet = effet;
-	}
 
 	/**
 	 * Applique l'effet de la carte.
 	 */
-	public void effet() {
+	public void appliquerEffet() {
 		effet.appliquer();
 	}
 
@@ -76,6 +72,13 @@ public class Carte {
 		return this.couleur;
 	}
 
+	public void setEffet(Effet effet) {
+		this.effet = effet;
+	}
+	
+	public Effet getEffet() {
+		return this.effet;
+	}
 	
 	/**
 	 * @return Une chaîne de caractère pour identifier la carte sous la forme :
