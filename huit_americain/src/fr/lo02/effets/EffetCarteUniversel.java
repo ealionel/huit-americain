@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetCarteUniversel extends AbstractEffet implements Effet{
 	
 	public EffetCarteUniversel() {
-		this.nom="Effet Universel";
+		this.nom="Universel";
 	}
 
 	public EffetCarteUniversel(Partie partie) {

@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetNormal extends AbstractEffet implements Effet{
 	
 	public EffetNormal(){
-		this.nom="Effet normal";
+		this.nom="Normal";
 	}
 	
 	public EffetNormal(Partie partie) {

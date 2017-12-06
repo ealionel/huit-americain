@@ -12,7 +12,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetDonnerCarte extends AbstractEffet implements Effet {
 	
 	public EffetDonnerCarte(){
-		this.nom="Effet qui donne des cartes";
+		this.nom="Donne des cartes";
 	}
 
 	private Joueur cible;

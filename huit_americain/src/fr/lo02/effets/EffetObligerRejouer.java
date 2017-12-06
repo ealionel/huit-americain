@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetObligerRejouer extends AbstractEffet implements Effet{
 	
 	public EffetObligerRejouer(){
-		this.nom="Effet qui oblige à rejouer";
+		this.nom="Oblige à rejouer";
 	}
 
 	public EffetObligerRejouer(Partie partie) {

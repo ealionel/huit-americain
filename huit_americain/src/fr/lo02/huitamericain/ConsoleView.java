@@ -2,6 +2,7 @@ package fr.lo02.huitamericain;
 
 import java.util.Observable;
 import java.util.Observer;
+import fr.lo02.effets.*;
 
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
@@ -86,28 +87,32 @@ public class ConsoleView implements Observer, View{
 	 */
 	public void afficherCartes(Joueur joueur) {
 		int compteur=0;
-		System.out.println("Vos cartes");
-		System.out.println("---------------");
+		System.out.println("\nVos cartes");
+		System.out.print("---------------");
+		Carte c;
 		for(int i = 0; i < joueur.getMainJoueur().nbCartes(); i++) {
+			c = joueur.getMainJoueur().getCarte(i);
 			compteur = i+1;
-			System.out.println("> "+ compteur + ". " + joueur.getMainJoueur().getCarte(i));
+			System.out.print("\n► "+ compteur + ". " + c);
+			if(!(c.getEffet() instanceof EffetNormal)) {
+				System.out.print(" (" + ((AbstractEffet) c.getEffet()).getNom() + ")");
+			}
 		}
-		System.out.println("---------------");
+		System.out.println("\n---------------");
 	}
 	
 	/**
 	 * Affiche le nombre de cartes que possède chaque ordinateur.
-	 * @param partie
 	 */
 	public void afficherInfoJoueurs() {
 		for(int i=1; i < this.partie.getJoueurs().length; i++) {
-			System.out.println(this.partie.getJoueurs()[i] + " possède " + partie.getJoueurs()[i].getMainJoueur().nbCartes() + " carte(s).");
+			System.out.println("→ " + this.partie.getJoueurs()[i] + " possède " + partie.getJoueurs()[i].getMainJoueur().nbCartes() + " carte(s).");
 		}
 	}
 	
 	public void afficherDebutTour() {
-		System.out.println("_______________________________");
-		System.out.println("Au tour de " + partie.getJoueurActif() + " de jouer.");
+		System.out.println("―――――――――――――――――――――――――");
+		System.out.println("★★★  Au tour de " + partie.getJoueurActif() + " de jouer. ★★★");
 	}
 	
 	/**
@@ -132,7 +137,6 @@ public class ConsoleView implements Observer, View{
 	/**
 	 * Demande le numéro de la carte du joueur dans sa main et retourne la carte associée.
 	 * On ne fait que renvoyer la valeur, le contrôleur se chargera de gerer la valeur entrée.
-	 * @return La carte associée à l'indice donné.
 	 */
 	public void demanderCarte() {
 		System.out.println("Indiquer la carte que vous voulez poser : ");

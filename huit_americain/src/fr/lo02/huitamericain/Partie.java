@@ -80,6 +80,8 @@ public class Partie extends Observable {
 		this.joueurActif = joueurActuel;
 		boolean posee = false;
 		
+		notifier("debutTour");
+		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
 			
@@ -87,7 +89,7 @@ public class Partie extends Observable {
 			for (int i = 0; i < mainJoueur.nbCartes() & !posee; i++) {
 				if ((mainJoueur.getCarte(i)).posable(talon)) {
 					joueurActuel.poserCarte(i, talon); 
-					this.talon.getHead().effet();
+					this.talon.getHead().appliquerEffet();
 					posee = true;
 				}
 			}
@@ -102,15 +104,13 @@ public class Partie extends Observable {
 			
 			boolean sortir = false;
 			
-			notifier("debutTour");
-			
 			while(!posee & !sortir) {
 				try {
 					commande = controleur.attendreValeur(cmdAutorisees, true, 1, joueurActuel.getMainJoueur().nbCartes());
 					if (commande instanceof Integer) {
 						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) {
 							joueurActuel.poserCarte((int) commande - 1, talon);
-							this.talon.getHead().effet();
+							this.talon.getHead().appliquerEffet();
 							posee = true;
 						}
 						else{

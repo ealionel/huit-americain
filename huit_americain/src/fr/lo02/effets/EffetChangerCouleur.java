@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetChangerCouleur extends AbstractEffet implements Effet{
 	
 	public EffetChangerCouleur(){
-		this.nom="Effet changement de couleur";
+		this.nom="Changement de couleur";
 	}
 	
 	public EffetChangerCouleur(Partie partie) {

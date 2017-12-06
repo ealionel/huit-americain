@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetChangerSens extends AbstractEffet  implements Effet {
 	
 	public EffetChangerSens(){
-		this.nom="Effet changement de sens";
+		this.nom="Changement de sens";
 	}
 	
 	public EffetChangerSens(Partie partie) {

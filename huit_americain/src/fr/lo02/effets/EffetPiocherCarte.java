@@ -15,7 +15,7 @@ public class EffetPiocherCarte extends AbstractEffet implements Effet {
 	private int nbCartes;
 
 	public EffetPiocherCarte(){
-		this.nom="Effet qui fait piocher des cartes";
+		this.nom="Fait piocher des cartes";
 	}
 	
 	public EffetPiocherCarte(Partie partie) {
