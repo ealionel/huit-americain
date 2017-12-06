@@ -11,16 +11,4 @@ public class JoueurReel extends Joueur {
 		super(nom);
 	}
 	
-	
-	/**
-	 * Pose la carte sur le talon.
-	 * @param indiceCarte
-	 * @param talon
-	 */
-	public void poserCarte(int indiceCarte, Talon talon) {
-		talon.ajouterCarte(this.mainJoueur.retirerCarte(indiceCarte));
-		
-	}
-
-
 }

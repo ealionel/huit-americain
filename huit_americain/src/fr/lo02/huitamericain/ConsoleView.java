@@ -2,36 +2,81 @@ package fr.lo02.huitamericain;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
  *
- *
  */
-@SuppressWarnings("deprecation")
-public class ConsoleView implements Observer{
+public class ConsoleView implements Observer, View{
 	
-	ConsoleInput userInput;
+	private ConsoleInput consoleInput;
+	private Object lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
+	private Partie partie;
 	
 	public ConsoleView(Observable partie) {
-		System.out.println("Initialisation de la vue.");
-		partie.addObserver(this);
+		this.partie = (Partie) partie;
 		
-		userInput = new ConsoleInput(this);
-	}
-	
+		//On ajoute cet observeur pour la partie et chaque joueur de la partie.
+		partie.addObserver(this);
 
+		for(Joueur j : this.partie.getJoueurs()) {
+			j.addObserver(this);
+		}
+		
+		consoleInput = new ConsoleInput(this);
+		
+	}
 	
 	/**
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
 	 */
-	public void update(Observable obs, Object o) {
-		
+	public synchronized void update(Observable obs, Object arg) {
+		if (obs instanceof ConsoleInput) {
+			System.out.println("ENTREE : >" + arg);
+			this.setLastInput((String) arg);
+			
+			notify(); //Reveille le thread principal potentiellement en attente.
+			
+		}
+		if (obs instanceof Partie | obs instanceof Joueur) {
+			this.affichage((String) arg);
+		}
 	}
 	
-	public void initialiserEntree() {
+	/**
+	 * Lance le thread qui lit les entrées dans la console.
+	 */
+	public void initialiserInput() {
+		this.consoleInput.demarrer();
+	}
+	
+	public void affichage(String commande) {
+		switch(commande) {
+		case "inputError":
+			this.afficherErreur();
+			break;
+		case "posableError":
+			this.afficherErreurPosable();
+			break;
+		case "piocher":
+			this.afficherPiocher();
+			break;
+		case "carteJouee":
+			this.afficherCarteJouee();
+			break;
+		case "debutTour":
+			this.afficherDebutTour();
+			if(partie.getJoueurActif() instanceof JoueurReel) {
+				this.afficherCartes(partie.getJoueurActif());
+				this.afficherTalon();
+				this.demanderCarte();
+			}
+			break;
+		case "fin":
+			this.afficherGagnant();
+			break;
 		
+		}
 	}
 	
 	/**
@@ -41,11 +86,12 @@ public class ConsoleView implements Observer{
 	public void afficherCartes(Joueur joueur) {
 		int compteur=0;
 		System.out.println("Vos cartes");
-		System.out.println("-----------------");
+		System.out.println("---------------");
 		for(int i = 0; i < joueur.getMainJoueur().nbCartes(); i++) {
 			compteur = i+1;
 			System.out.println("> "+ compteur + ". " + joueur.getMainJoueur().getCarte(i));
 		}
+		System.out.println("---------------");
 	}
 	
 	/**
@@ -58,13 +104,28 @@ public class ConsoleView implements Observer{
 		}
 	}
 	
-	
+	public void afficherDebutTour() {
+		System.out.println("_______________________________");
+		System.out.println("Au tour de " + partie.getJoueurActif() + " de jouer.");
+	}
 	
 	/**
-	 * Affiche toutes les informations relatives au tour.
+	 * Affiche la carte jouée par le joueur actif.
 	 */
-	public void afficherInfoTour() {
-		
+	public void afficherCarteJouee() {
+		System.out.println(this.partie.getJoueurActif() + " joue le " + this.partie.getTalon().getHead());
+	}
+	
+	/**
+	 * Affiche quel joueur pioche.
+	 */
+	public void afficherPiocher() {
+		if(partie.getJoueurActif() instanceof JoueurReel) {
+			System.out.println("Vous avez pioché le " + partie.getJoueurActif().getMainJoueur().getCarte(partie.getJoueurActif().getMainJoueur().nbCartes()-1));
+		}
+		if(partie.getJoueurActif() instanceof JoueurVirtuel) {
+			System.out.println(this.partie.getJoueurActif() + " pioche une carte.");
+		}
 	}
 	
 	/**
@@ -72,22 +133,53 @@ public class ConsoleView implements Observer{
 	 * On ne fait que renvoyer la valeur, le contrôleur se chargera de gerer la valeur entrée.
 	 * @return La carte associée à l'indice donné.
 	 */
-	public int demanderCarte() {
-		int choix;
-		System.out.println("Veuillez choisir le numéro de la carte associée :");
-		
-		Scanner sc = new Scanner(System.in);
-		choix = sc.nextInt();
-		sc.close();
-		
-		return choix-1; //-1 Parce que la carte en position 0 est la carte 1 dans l'interface console.
+	public void demanderCarte() {
+		System.out.println("Indiquer la carte que vous voulez poser : ");
+	}
+	
+	public void afficherErreur() {
+		System.out.println("ENTREE INCORRECTE");
+	}
+	
+	public void afficherErreurPosable() {
+		System.out.println("Cette carte n'est pas posable");
 	}
 	
 	/**
 	 * Demande à l'utilisateur la variante voulue.
 	 */
 	public void demanderVariante() {
-		
+		System.out.println("Quelle variante variante voulez-vous choisir?");
 	}
 	
+	public void afficherTalon() {
+		System.out.println("\n>>> La tête du talon est un " + this.partie.getTalon().getHead() + " <<<");
+	}
+	
+	public void afficherGagnant() {
+		System.out.println(" ----> LE GAGNANT DE LA MANCHE EST " + this.partie.getJoueurActif());
+	}
+	
+	
+	/**
+	 * Permet de définir lastInput en tant qu'entier ou en tant que chaîne de caractère.
+	 * @param arg
+	 */
+	public void setLastInput(String arg) {
+		if(arg.matches("-?\\d+(\\.\\d+)?")) {
+			this.lastInput = Integer.parseInt(arg);
+		}
+		else {
+			this.lastInput = arg;
+		}
+	}
+	
+	
+	/**
+	 * Renvoie la dernière entrée que l'utilisateur a fait dans la console.
+	 * @return
+	 */
+	public Object getLastInput() {
+		return this.lastInput;
+	}
 }

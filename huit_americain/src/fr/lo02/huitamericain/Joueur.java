@@ -1,6 +1,8 @@
 package fr.lo02.huitamericain;
 
-public abstract class Joueur { //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute facon
+import java.util.Observable;
+
+public abstract class Joueur extends Observable{ //On la déclare abstraite parce que le joueur est soit réel soit virtuel toute facon
 	
 	protected CartesJoueur mainJoueur;
 	protected int score;
@@ -25,10 +27,16 @@ public abstract class Joueur { //On la déclare abstraite parce que le joueur es
 	 */
 	public void piocherCarte(GroupeCartes pioche) {
 		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
+		setChanged();
+		notifyObservers("piocher");
 	}
 	
-	public abstract void poserCarte(int indice, Talon talon); //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
-	
+	public void poserCarte(int indice, Talon talon) { //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
+		talon.ajouterCarte(this.mainJoueur.retirerCarte(indice));
+		setChanged();
+		notifyObservers("carteJouee");
+	}
+		
 	/**
 	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parle pioche une carte.
 	 * @param option : Dire "CARTE" ou dire "CONTRE-CARTE".

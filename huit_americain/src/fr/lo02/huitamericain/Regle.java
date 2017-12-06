@@ -15,10 +15,6 @@ public class Regle {
 	protected int modePoints; 	//Pour choisir si le nombre de points est à compte positif ou négatif
 	protected boolean joker; 	//Si on met un joker ou non dans le deque
 	protected int nbCartesDebut;//Nombre distribué à chaque joueur au début d'une partie
-
-	/**
-	 * Cet atribut permet d'attribuer à chaque carte, pour chaque variante différente, un effet différent. Par exemple effetCartes[0] est l'effet de l'as, effetCartes[1] du 2, etc...
-	 */
 	protected Effet[] effetCartes = new Effet[14]; //Liste qui va contenir la liste des effets pour chaque valeur de cartes, genre {new EffetNormal, new EffetChangerCouleur, new EffetNormal, ...}, effetCartes[0] correspond � l'effet de l'As, etc.
 
 	/**
@@ -30,20 +26,28 @@ public class Regle {
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
 		this.joker = joker;
-		this.nbCartesDebut = 8;
+		this.nbCartesDebut = 8; //A modifier dynamiquement
 
 		for(int i = 0; i < effetCartes.length; i++) {
 			this.effetCartes[i] = effetCartes[i];
 		}
-
 	}
 
+	/**
+	 * Surcharge du constructeur. On peut séléctionner les règles en faisant appel à la méthode setVariante() via le constructeur.
+	 * @param variante
+	 */
+	public Regle(int variante) {
+		this.setVariante(variante);
+	}
+	
 	/**
 	 * Permet de séléctionner les variantes.
 	 */
 	public void setVariante(int numeroVariante) {
 		switch(numeroVariante) {
-		case 0:
+			case 1:
+				
 		}
 	}
 

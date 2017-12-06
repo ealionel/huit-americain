@@ -26,20 +26,19 @@ public class test {
 		}
 		Carte c = new Carte(ValeurCarte.as, CouleurCarte.carreau);
 		
-		Regle regle = new Regle(3, 1, 1, true, effets);
+		Regle regle = new Regle(3, 1, 1, false, effets);
 		Partie partie = new Partie(regle);
-		ConsoleView vue = new ConsoleView(partie);
-
+//		ConsoleView vue = new ConsoleView(partie);
 		
-		partie.distribuer();
 //		System.out.println(partie.getJoueurs()[0].getMainJoueur());
 //		System.out.println(partie.getJoueurs()[1].getMainJoueur());
 		
-		vue.afficherCartes(partie.getJoueurs()[0]);
-		partie.getJoueurs()[0].poserCarte(0, partie.getTalon());
-		vue.afficherCartes(partie.getJoueurs()[0]);
-		vue.afficherInfoJoueurs(partie);
+//		vue.afficherCartes(partie.getJoueurs()[0]);
 		
+//		partie.getControleur().demanderCarte(partie.getJoueurs()[0]);
+//		System.out.println(partie.getPioche());
+//		partie.jouerTour(partie.getJoueurs()[0]);
+		partie.demarrerPartie();
 		
 	}
 

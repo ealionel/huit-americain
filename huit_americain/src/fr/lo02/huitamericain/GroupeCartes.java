@@ -58,6 +58,9 @@ public class GroupeCartes {
 		return this.listeCartes.size();
 	}
 	
+	public boolean estVide() {
+		return listeCartes.isEmpty();
+	}
 	
 	/**
 	 * Renvoie une chaîne de caractère, la liste de cartes du groupe.
