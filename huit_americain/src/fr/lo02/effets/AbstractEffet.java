@@ -16,4 +16,8 @@ public abstract class AbstractEffet {
 	public String getNom() {
 		return this.nom;
 	}
+	
+	public Partie getPartie() {
+		return this.partie;
+	}
 }

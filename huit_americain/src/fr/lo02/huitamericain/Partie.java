@@ -20,6 +20,7 @@ public class Partie extends Observable {
 	private Talon talon;
 	private Controleur controleur;
 	private Joueur joueurActif;
+	private Checker checker;
 
 	/**
 	 * Initialisation de la partie en fonction d'une instance de règle.
@@ -41,6 +42,7 @@ public class Partie extends Observable {
 		}
 
 		this.controleur = new Controleur(this);
+		this.checker = new Checker(this);
 		
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());

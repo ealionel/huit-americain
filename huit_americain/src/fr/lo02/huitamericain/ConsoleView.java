@@ -32,13 +32,15 @@ public class ConsoleView implements Observer, View{
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
 	 */
 	public synchronized void update(Observable obs, Object arg) {
+		//Traite les entrées
 		if (obs instanceof ConsoleInput) {
 			System.out.println("ENTREE : >" + arg);
 			this.setLastInput((String) arg);
 			
-			notify(); //Reveille le thread principal potentiellement en attente.
+			notifyAll(); //Reveille le thread principal potentiellement en attente.
 			
 		}
+		//Traite les affichages
 		if (obs instanceof Partie | obs instanceof Joueur) {
 			this.affichage((String) arg);
 		}

@@ -11,11 +11,13 @@ import fr.lo02.huitamericain.Partie;
 public class EffetChangerSens extends AbstractEffet  implements Effet {
 	
 	public EffetChangerSens(){
-		this.nom="Changement de sens";
+		
 	}
+	
 	
 	public EffetChangerSens(Partie partie) {
 		super(partie);
+		this.nom="Changement de sens";
 	}
 	
 	public void appliquer() {

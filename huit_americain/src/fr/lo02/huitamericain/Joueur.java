@@ -9,6 +9,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	protected int id;
 	protected static int instancesJoueurs=0;
 	protected String nom;
+	protected boolean vulnerable; //Dis si le joueur est vulnerable ou non à la commande "contre carte"
 	
 	/**
 	 * Constructeur du joueur.
@@ -27,23 +28,42 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	 */
 	public void piocherCarte(GroupeCartes pioche) {
 		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
-		setChanged();
-		notifyObservers("piocher");
+		this.verifierVulnerable();
+		notifier("piocher");
 	}
 	
 	public void poserCarte(int indice, Talon talon) { //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
 		talon.ajouterCarte(this.mainJoueur.retirerCarte(indice));
-		setChanged();
-		notifyObservers("carteJouee");
+		this.verifierVulnerable();
+		notifier("carteJouee");
 	}
 		
 	/**
 	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parle pioche une carte.
 	 * @param option : Dire "CARTE" ou dire "CONTRE-CARTE".
 	 */
-	public void parler(int option) {
-		//A définir. Il faut que un autre thread check en permanence si cette méthode a été appelée ou non, si elle est appel�e on v�rifie
-		//s'il est valable ou pas.
+	public void parler(boolean direCarte, Partie partie) {
+		if(direCarte) {
+			if(this.getMainJoueur().nbCartes() == 1) {
+				this.vulnerable = false;
+			}
+			else {
+				this.piocherCarte(partie.getPioche());
+			}
+		}
+		if(!direCarte) {
+			boolean hasWorked = false;
+			
+			for(Joueur joueurCible : partie.getJoueurs()) {
+				if(joueurCible.isVulnerable()) {
+					joueurCible.piocherCarte(partie.getPioche());
+					hasWorked = true;
+				}
+			}
+			if(!hasWorked) {
+				this.piocherCarte(partie.getPioche());
+			}
+		}
 	}
 	
 	/**
@@ -54,19 +74,61 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	}
 	
 	/**
+	 * Envoie une notification aux observeurs.
+	 * @param commande
+	 */
+	public void notifier(String commande) {
+		setChanged();
+		notifyObservers(commande);
+	}
+	
+	/**
 	 * Retourne le groupe de carte de la main du joueur.
-	 * @return
+	 * @return La main du joueur
 	 */
 	public CartesJoueur getMainJoueur() {
 		return this.mainJoueur;
 	}
 	
+	/**
+	 * Retourne le nom du joueur
+	 * @return nom du joueur
+	 */
 	public String getNom() {
 		return this.nom;
 	}
 	
+	
 	public int getId() {
 		return this.id;
+	}
+	
+	/**
+	 * Vérifie si le joueur possède une carte ou plus, et si il 
+	 */
+	public void verifierVulnerable() {
+		if (this.getMainJoueur().nbCartes() == 1) {
+			this.setVulnerable(true);
+		} else {
+			this.setVulnerable(false);
+		}
+	}
+	
+	/**
+	 * Retourne la vulnérabilité du joueur.
+	 * Un joueur est vulnérable par une commande "contre-carte" si le joueur possède une carte et n'a pas annoncé "carte"
+	 * @return
+	 */
+	public boolean isVulnerable() {
+		return this.vulnerable;
+	}
+	
+	/**
+	 * Modifie la vulnérabilité du joueur.
+	 * @param vulnerable
+	 */
+	public void setVulnerable(boolean vulnerable) {
+		this.vulnerable = vulnerable;
 	}
 	
 }

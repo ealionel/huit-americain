@@ -82,17 +82,21 @@ public class Controleur {
 
 		switch (commande.toLowerCase()) {
 		case "carte":
-			// A REMPLIR
+			this.partie.getJoueurs()[0].parler(true, this.partie);
 			break;
 		case "contre carte":
-			// A REMPLIR
+			this.partie.getJoueurs()[0].parler(false, this.partie);
 			break;
 		case "piocher":
-			partie.getJoueurActif().piocherCarte(partie.getPioche());
+			partie.getJoueurActif().piocherCarte(this.partie.getPioche());
 			break;
 		}
 	}
 	
+	/**
+	 * Retourne la vue.
+	 * @return
+	 */
 	public ConsoleView getVue() {
 		return vue;
 	}
