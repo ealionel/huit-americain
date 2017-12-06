@@ -1,6 +1,7 @@
 package fr.lo02.effets;
 
 import fr.lo02.huitamericain.Joueur;
+import fr.lo02.huitamericain.Partie;
 
 /**
  * Fait piocher à un joueur un certain nombre de cartes.
@@ -15,6 +16,10 @@ public class EffetPiocherCarte extends AbstractEffet implements Effet {
 
 	public EffetPiocherCarte(){
 		this.nom="Effet qui fait piocher des cartes";
+	}
+	
+	public EffetPiocherCarte(Partie partie) {
+		super(partie);
 	}
 	
 	public EffetPiocherCarte(int nbCartes, Joueur joueur){

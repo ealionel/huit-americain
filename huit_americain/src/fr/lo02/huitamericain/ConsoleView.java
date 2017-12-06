@@ -67,6 +67,7 @@ public class ConsoleView implements Observer, View{
 		case "debutTour":
 			this.afficherDebutTour();
 			if(partie.getJoueurActif() instanceof JoueurReel) {
+				this.afficherInfoJoueurs();
 				this.afficherCartes(partie.getJoueurActif());
 				this.afficherTalon();
 				this.demanderCarte();
@@ -98,9 +99,9 @@ public class ConsoleView implements Observer, View{
 	 * Affiche le nombre de cartes que possède chaque ordinateur.
 	 * @param partie
 	 */
-	public void afficherInfoJoueurs(Partie partie) {
-		for(int i=1; i < partie.getJoueurs().length; i++) {
-			System.out.println(partie.getJoueurs()[i] + " possède " + partie.getJoueurs()[i].getMainJoueur().nbCartes() + " carte(s).");
+	public void afficherInfoJoueurs() {
+		for(int i=1; i < this.partie.getJoueurs().length; i++) {
+			System.out.println(this.partie.getJoueurs()[i] + " possède " + partie.getJoueurs()[i].getMainJoueur().nbCartes() + " carte(s).");
 		}
 	}
 	

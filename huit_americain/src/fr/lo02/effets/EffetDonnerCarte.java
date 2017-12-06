@@ -1,6 +1,7 @@
 package fr.lo02.effets;
 
 import fr.lo02.huitamericain.Joueur;
+import fr.lo02.huitamericain.Partie;
 
 /**
  * Cet effet donne un certain nombre de cartes à un certain joueur.
@@ -19,6 +20,10 @@ public class EffetDonnerCarte extends AbstractEffet implements Effet {
 	
 	EffetDonnerCarte(int nbCartes, Joueur joueur) {
 
+	}
+	
+	public EffetDonnerCarte(Partie partie) {
+		super(partie);
 	}
 
 	public void appliquer() {
