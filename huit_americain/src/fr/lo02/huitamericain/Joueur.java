@@ -40,14 +40,17 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 		
 	/**
 	 * Annoncer "CARTE" ou "CONTRE CARTE", si l'annonce n'est pas valable, le joueur qui a parle pioche une carte.
-	 * @param option : Dire "CARTE" ou dire "CONTRE-CARTE".
+	 * @param direCarte Dire "CARTE" (true) ou dire "CONTRE-CARTE" (false).
+	 * @param partie Référence vers la partie.
 	 */
 	public void parler(boolean direCarte, Partie partie) {
 		if(direCarte) {
 			if(this.getMainJoueur().nbCartes() == 1) {
-				this.vulnerable = false;
+				notifier("carteSucces");
+				this.setVulnerable(false);
 			}
 			else {
+				notifier("carteEchec");
 				this.piocherCarte(partie.getPioche());
 			}
 		}
@@ -55,12 +58,14 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 			boolean hasWorked = false;
 			
 			for(Joueur joueurCible : partie.getJoueurs()) {
-				if(joueurCible.isVulnerable()) {
+				if(joueurCible.isVulnerable() & joueurCible != this) {
+					notifier("contreCarteSucces");
 					joueurCible.piocherCarte(partie.getPioche());
 					hasWorked = true;
 				}
 			}
 			if(!hasWorked) {
+				notifier("contreCarteEchec");
 				this.piocherCarte(partie.getPioche());
 			}
 		}
@@ -98,7 +103,10 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 		return this.nom;
 	}
 	
-	
+	/**
+	 * Retourne l'identifiant du joueur (0 pour le joueur réel)
+	 * @return
+	 */
 	public int getId() {
 		return this.id;
 	}
@@ -117,7 +125,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	/**
 	 * Retourne la vulnérabilité du joueur.
 	 * Un joueur est vulnérable par une commande "contre-carte" si le joueur possède une carte et n'a pas annoncé "carte"
-	 * @return
+	 * @return La vulnérabilité du jouer (true/false)
 	 */
 	public boolean isVulnerable() {
 		return this.vulnerable;
@@ -128,6 +136,9 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	 * @param vulnerable
 	 */
 	public void setVulnerable(boolean vulnerable) {
+		if(vulnerable) {
+			notifier("vulnerable");
+		}
 		this.vulnerable = vulnerable;
 	}
 	

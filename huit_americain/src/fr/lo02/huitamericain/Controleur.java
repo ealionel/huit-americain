@@ -71,6 +71,16 @@ public class Controleur {
 		
 		return returnValue;
 	}
+	
+	/**
+	 * Surcharge. Attends que l'utilisateur entre une certaine commande passée en liste de String en argument.
+	 * @param motsAttendu
+	 * @return Un des mots attendus par le paramètre motsAttendu.
+	 * @throws WrongInputException
+	 */
+	public Object attendreValeur(String[] motsAttendu) throws WrongInputException {
+		return this.attendreValeur(motsAttendu, false, 0, 0);
+	}
 
 	/**
 	 * Execute la commande passée en paramètre.
@@ -82,13 +92,20 @@ public class Controleur {
 
 		switch (commande.toLowerCase()) {
 		case "carte":
+		case "c":
 			this.partie.getJoueurs()[0].parler(true, this.partie);
 			break;
 		case "contre carte":
+		case "cc":
 			this.partie.getJoueurs()[0].parler(false, this.partie);
 			break;
 		case "piocher":
-			partie.getJoueurActif().piocherCarte(this.partie.getPioche());
+		case "p":
+			this.partie.getJoueurActif().piocherCarte(this.partie.getPioche());
+			break;
+		case "main":
+		case "m":
+			this.vue.afficherCartes(this.partie.getJoueurs()[0]);
 			break;
 		}
 	}

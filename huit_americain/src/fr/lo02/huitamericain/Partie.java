@@ -1,6 +1,7 @@
 package fr.lo02.huitamericain;
 
 import java.util.Observable;
+import java.util.concurrent.ThreadLocalRandom;
 
 import fr.lo02.exceptions.WrongInputException;
 
@@ -85,6 +86,9 @@ public class Partie extends Observable {
 		notifier("debutTour");
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
+			
+			this.attendre(2000, 7000);
+			
 			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
 			
 			//Peut être à redéfinir dans la stratégie du joueur virtuel.
@@ -101,7 +105,7 @@ public class Partie extends Observable {
 		}
 
 		if (joueurActuel instanceof JoueurReel) {
-			String[] cmdAutorisees = {"piocher"};
+			String[] cmdAutorisees = {"piocher", "p", "carte", "contre carte", "c", "cc", "main", "m"};
 			Object commande = null;
 			
 			boolean sortir = false;
@@ -120,8 +124,10 @@ public class Partie extends Observable {
 						}
 					}
 					if(commande instanceof String) { 		//On execute la commande si chaine de caractère
-						controleur.executer((String) commande);
-						sortir = true;
+						if(((String) commande).equalsIgnoreCase("piocher") | ((String) commande).equalsIgnoreCase("p")) {
+							controleur.executer((String) commande);
+							sortir = true;
+						}
 					}
 				}catch(WrongInputException e) {
 					notifier("inputError");
@@ -158,6 +164,10 @@ public class Partie extends Observable {
 
 	}
 	
+	/**
+	 * Retourne si un joueur n'a plus de carte, c'est à dire que la partie est finie.
+	 * @return
+	 */
 	public boolean estFini() {
 		for(Joueur j : this.joueur) {
 			if (j.getMainJoueur().estVide()) {
@@ -182,6 +192,28 @@ public class Partie extends Observable {
 	public void notifier(String commande) {
 		setChanged();
 		notifyObservers(commande);
+	}
+	
+	/**
+	 * Endort le thread pendant un temps donné.
+	 * @param ms Temps en millisecondes de le pause.
+	 */
+	public void attendre(int temps) {
+		try {
+			Thread.sleep(temps);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Surcharge. Endort le thread pour une durée aléatoire entre min et max
+	 * @param min Durée minimale
+	 * @param max Durée maximale
+	 */
+	public void attendre(int min, int max) {
+		int tempsAleatoire = ThreadLocalRandom.current().nextInt(min, max + 1);
+		this.attendre(tempsAleatoire);
 	}
 
 	public Talon getTalon() {
