@@ -73,14 +73,17 @@ public class Partie extends Observable {
 	public void modifierRegles() {
 		// Est-ce necessaire?
 	}
+	
+	public Joueur getJoueurSuivant() {
+		return joueur[(joueurActif.getId() + this.sensJeu) % this.regles.nbJoueurs];
 
+	}
 	/**
 	 * Fait jouer le joueur mis en paramètre.
 	 * @param joueurActuel
 	 */
 	public Joueur jouerTour(Joueur joueurActuel) {
 		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
-		Joueur joueurSuivant = joueur[(joueurActuel.getId() + this.sensJeu) % this.regles.nbJoueurs];
 		this.joueurActif = joueurActuel;
 		boolean posee = false;
 		
@@ -131,7 +134,7 @@ public class Partie extends Observable {
 			
 		}
 		
-		return joueurSuivant;
+		return getJoueurSuivant();
 	}
 
 	/**
