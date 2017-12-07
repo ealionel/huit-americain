@@ -1,6 +1,6 @@
 package fr.lo02.huitamericain;
 
-import fr.lo02.strategieIA.*;
+import fr.lo02.strategies.*;
 
 /**
  * Représente le jouer virtuel.
@@ -9,9 +9,9 @@ import fr.lo02.strategieIA.*;
  */
 public class JoueurVirtuel extends Joueur {
 	
-	private StrategieIA strategie;
+	private Strategie strategie;
 	
-	public JoueurVirtuel(String nom, StrategieIA strategie){
+	public JoueurVirtuel(String nom, Strategie strategie){
 		super(nom);
 		this.strategie = strategie;
 	}
@@ -24,11 +24,11 @@ public class JoueurVirtuel extends Joueur {
 	 * Retourne la stratégie du joueur virtuel.
 	 * @return La stratégie
 	 */
-	public StrategieIA getStrategie() {
+	public Strategie getStrategie() {
 		return this.strategie;
 	}
 	
-	public void setStrategie(StrategieIA strategie) {
+	public void setStrategie(Strategie strategie) {
 		this.strategie = strategie;
 	}
 

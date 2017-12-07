@@ -1,4 +1,4 @@
-package fr.lo02.strategieIA;
+package fr.lo02.strategies;
 
 import fr.lo02.huitamericain.*;
 
@@ -7,7 +7,7 @@ import fr.lo02.huitamericain.*;
  * @author Lionel EA
  *
  */
-public interface StrategieIA {
+public interface Strategie {
 
 	/**
 	 * Détermine la façon dont l'IA chosit la carte qu'il veut poser sur le talon.

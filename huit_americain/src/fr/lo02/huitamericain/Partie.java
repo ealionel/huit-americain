@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import fr.lo02.exceptions.WrongInputException;
-import fr.lo02.strategieIA.*;
+import fr.lo02.strategies.*;
 
 /**
  * Représente une partie. Possède des méthodes relatives à la partie.

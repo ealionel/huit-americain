@@ -1,4 +1,4 @@
-package fr.lo02.strategieIA;
+package fr.lo02.strategies;
 
 import fr.lo02.huitamericain.Joueur;
 import fr.lo02.huitamericain.Talon;
@@ -8,7 +8,7 @@ import fr.lo02.huitamericain.Talon;
  * @author Lionel EA
  *
  */
-public class StrategieIdiote implements StrategieIA {
+public class StrategieIdiote implements Strategie {
 
 	/**
 	 * Choisit la première carte posable
