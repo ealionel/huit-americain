@@ -217,6 +217,7 @@ public class ConsoleView implements Observer, View{
 	
 	public void afficherGagnant() {
 		System.out.println(" ----> LE GAGNANT DE LA MANCHE EST " + this.partie.getJoueurActif());
+		System.out.println("La partie s'est finie après " + this.partie.getTour());
 	}
 	
 	public void afficherVulnerable(Joueur joueur) {

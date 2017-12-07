@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import fr.lo02.exceptions.WrongInputException;
+import fr.lo02.strategieIA.*;
 
 /**
  * Représente une partie. Possède des méthodes relatives à la partie.
@@ -39,7 +40,7 @@ public class Partie extends Observable {
 		this.joueur = new Joueur[regles.nbJoueurs];
 		this.joueur[0] = new JoueurReel("Lionel");
 		for (int i = 1; i < regles.getNbJoueurs(); i++) {
-			this.joueur[i] = new JoueurVirtuel("Ordi " + i);
+			this.joueur[i] = new JoueurVirtuel("Ordi " + i, new StrategieIdiote());
 		}
 
 		this.controleur = new Controleur(this);
@@ -88,18 +89,12 @@ public class Partie extends Observable {
 		if (joueurActuel instanceof JoueurVirtuel) {
 			
 			this.attendre(2000, 7000);
+			int indiceCarte = ((JoueurVirtuel) joueurActuel).choisirCarte(this.talon);
 			
-			CartesJoueur mainJoueur = joueurActuel.getMainJoueur();
-			
-			//Peut être à redéfinir dans la stratégie du joueur virtuel.
-			for (int i = 0; i < mainJoueur.nbCartes() & !posee; i++) {
-				if ((mainJoueur.getCarte(i)).posable(talon)) {
-					joueurActuel.poserCarte(i, talon); 
-					this.talon.getHead().appliquerEffet();
-					posee = true;
-				}
+			if(indiceCarte != -1) {
+				joueurActuel.poserCarte(indiceCarte, this.talon);
 			}
-			if(!posee) {
+			else {
 				joueurActuel.piocherCarte(this.pioche);
 			}
 		}
@@ -260,5 +255,9 @@ public class Partie extends Observable {
 	
 	public Joueur getJoueurActif() {
 		return this.joueurActif;
+	}
+	
+	public int getTour() {
+		return this.tour;
 	}
 }
