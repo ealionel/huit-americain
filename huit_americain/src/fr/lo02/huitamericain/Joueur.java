@@ -10,6 +10,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	protected static int instancesJoueurs=0;
 	protected String nom;
 	protected boolean vulnerable; //Indique si le joueur est vulnerable ou non à la commande "contre carte"
+//	private JoueurChecker joueurChecker;
 	
 	/**
 	 * Constructeur du joueur.
@@ -20,6 +21,9 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 		instancesJoueurs++; 
 		this.nom = nom;
 		this.mainJoueur = new CartesJoueur();
+//		this.joueurChecker = JoueurChecker.getInstance();
+//		this.joueurChecker.ajouterJoueur(this);
+//		this.addObserver(joueurChecker);
 	}
 	
 	/**
@@ -117,8 +121,10 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	public void verifierVulnerable() {
 		if (this.getMainJoueur().nbCartes() == 1) {
 			this.setVulnerable(true);
+			notifier("vulnerable");
 		} else {
 			this.setVulnerable(false);
+			notifier("pasVulnerable");
 		}
 	}
 	
@@ -136,9 +142,6 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	 * @param vulnerable
 	 */
 	public void setVulnerable(boolean vulnerable) {
-		if(vulnerable) {
-			notifier("vulnerable");
-		}
 		this.vulnerable = vulnerable;
 	}
 	

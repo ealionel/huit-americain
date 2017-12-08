@@ -7,7 +7,6 @@ public class test {
 		Partie partie = new Partie(regle);
 
 		partie.demarrerPartie();
-		
 	}
 
 }

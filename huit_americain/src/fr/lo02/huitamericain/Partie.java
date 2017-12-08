@@ -41,7 +41,7 @@ public class Partie extends Observable {
 		this.joueur = new Joueur[regles.nbJoueurs];
 		this.joueur[0] = new JoueurReel("Lionel");
 		for (int i = 1; i < regles.getNbJoueurs(); i++) {
-			this.joueur[i] = new JoueurVirtuel("Ordi " + i, new StrategieIdiote());
+			this.joueur[i] = new JoueurVirtuel("Ordi " + i, new StrategieNaive());
 		}
 
 		this.controleur = new Controleur(this);
@@ -91,7 +91,7 @@ public class Partie extends Observable {
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			
-			this.attendre(1500, 2500);
+			this.attendre(1000, 2000);
 			int indiceCarte = ((JoueurVirtuel) joueurActuel).choisirCarte(this.talon);
 			
 			if(indiceCarte != -1) {

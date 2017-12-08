@@ -8,7 +8,7 @@ import fr.lo02.huitamericain.Talon;
  * @author Lionel EA
  *
  */
-public class StrategieIdiote implements Strategie {
+public class StrategieNaive implements Strategie {
 
 	/**
 	 * Choisit la première carte posable

@@ -10,6 +10,7 @@ import fr.lo02.strategies.*;
 public class JoueurVirtuel extends Joueur {
 	
 	private Strategie strategie;
+
 	
 	public JoueurVirtuel(String nom, Strategie strategie){
 		super(nom);

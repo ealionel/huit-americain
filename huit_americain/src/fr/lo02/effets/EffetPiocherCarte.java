@@ -16,16 +16,19 @@ public class EffetPiocherCarte extends AbstractEffet implements Effet {
 	private int nbCartes;
 
 	public EffetPiocherCarte() {
-		this.nom = "Fait piocher des cartes";
+		this.nom = "Fait piocher des cartes au joueur suivant";
 	}
 
-	public EffetPiocherCarte(Partie partie, int nbCartes) {
-		super(partie);
+	public EffetPiocherCarte(int nbCartes) {
 		this.nbCartes = nbCartes;
-		this.partie.getJoueurSuivant().piocherCarte(this.partie.getPioche());
+		this.nom = "Fait piocher des cartes au joueur suivant";
 	}
 
 	public void appliquer(Partie partie) {
-		System.out.println("PIOCHER UNE CARTE");
+		System.out.println("Le joueur va piocher " + this.nbCartes + " carte(s).");
+		for(int i = 0; i < this.nbCartes; i++) {
+			partie.getJoueurSuivant().piocherCarte(partie.getPioche());
+		}
+		
 	}
 }

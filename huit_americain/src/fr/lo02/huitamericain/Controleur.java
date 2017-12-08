@@ -101,7 +101,7 @@ public class Controleur {
 			break;
 		case "piocher":
 		case "p":
-			this.partie.getJoueurActif().piocherCarte(this.partie.getPioche());
+			this.partie.getJoueurs()[0].piocherCarte(this.partie.getPioche());
 			break;
 		case "main":
 		case "m":

@@ -142,7 +142,14 @@ public class ConsoleView implements Observer, View{
 			for(int i = 0; i < joueur.getMainJoueur().nbCartes(); i++) {
 				c = joueur.getMainJoueur().getCarte(i);
 				compteur = i+1;
-				System.out.print("\n► "+ compteur + ". " + c);
+				
+				if(c.posable(this.partie.getTalon())) {
+					System.out.print("\n►");
+				}else {
+					System.out.print("\n▷");
+				}
+				
+				System.out.print(compteur + ". " + c);
 				if(!(c.getEffet() instanceof EffetNormal)) {
 					System.out.print(" (" + ((AbstractEffet) c.getEffet()).getNom() + ")");
 				}
@@ -217,7 +224,7 @@ public class ConsoleView implements Observer, View{
 	
 	public void afficherGagnant() {
 		System.out.println(" ----> LE GAGNANT DE LA MANCHE EST " + this.partie.getJoueurActif());
-		System.out.println("La partie s'est finie après " + this.partie.getTour());
+		System.out.println("La partie s'est finie après " + this.partie.getTour() + " tours.");
 	}
 	
 	public void afficherVulnerable(Joueur joueur) {

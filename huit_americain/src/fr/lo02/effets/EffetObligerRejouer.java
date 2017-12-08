@@ -11,7 +11,7 @@ import fr.lo02.huitamericain.Partie;
 public class EffetObligerRejouer extends AbstractEffet implements Effet{
 	
 	public EffetObligerRejouer(){
-		this.nom="Oblige à rejouer (piocher si plus que 1 carte en main)";
+		this.nom="Oblige à rejouer, vous piochez si une carte en main";
 	}
 
 //	public EffetObligerRejouer(Partie partie) {

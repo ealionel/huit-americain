@@ -30,6 +30,7 @@ public class EffetChangerCouleur extends AbstractEffet implements Effet{
 			String commande;
 			while(true) {
 				try {
+					System.out.println("Changement de couleur. Choisir une couleur:");
 					commande = (String) partie.getControleur().attendreValeur(motsAttendus);
 					break;
 				}catch(WrongInputException e){
