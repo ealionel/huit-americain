@@ -22,6 +22,7 @@ public class Partie extends Observable {
 	private Talon talon;
 	private Controleur controleur;
 	private Joueur joueurActif;
+	private Joueur joueurSuivant; //JOUEUR SUIVANT QUI EST REDEFINI A CHAQUE TOUR OU MANUELLEMENT.
 	private Checker checker;
 
 	/**
@@ -74,10 +75,7 @@ public class Partie extends Observable {
 		// Est-ce necessaire?
 	}
 	
-	public Joueur getJoueurSuivant() {
-		return joueur[(joueurActif.getId() + this.sensJeu) % this.regles.nbJoueurs];
-
-	}
+	
 	/**
 	 * Fait jouer le joueur mis en paramètre.
 	 * @param joueurActuel
@@ -85,17 +83,20 @@ public class Partie extends Observable {
 	public Joueur jouerTour(Joueur joueurActuel) {
 		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
 		this.joueurActif = joueurActuel;
+		this.setJoueurSuivant();
+		
 		boolean posee = false;
 		
 		notifier("debutTour");
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			
-			this.attendre(2000, 7000);
+			this.attendre(1500, 2500);
 			int indiceCarte = ((JoueurVirtuel) joueurActuel).choisirCarte(this.talon);
 			
 			if(indiceCarte != -1) {
 				joueurActuel.poserCarte(indiceCarte, this.talon);
+				this.talon.getHead().appliquerEffet(this);
 			}
 			else {
 				joueurActuel.piocherCarte(this.pioche);
@@ -114,7 +115,7 @@ public class Partie extends Observable {
 					if (commande instanceof Integer) {
 						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) {
 							joueurActuel.poserCarte((int) commande - 1, talon);
-							this.talon.getHead().appliquerEffet();
+							this.talon.getHead().appliquerEffet(this);
 							posee = true;
 						}
 						else{
@@ -134,7 +135,7 @@ public class Partie extends Observable {
 			
 		}
 		
-		return getJoueurSuivant();
+		return this.joueurSuivant;
 	}
 
 	/**
@@ -252,6 +253,10 @@ public class Partie extends Observable {
 		this.regles = regles;
 	}
 
+	/**
+	 * Retourne le controleur de la partie.
+	 * @return
+	 */
 	public Controleur getControleur() {
 		return this.controleur;
 	}
@@ -263,4 +268,37 @@ public class Partie extends Observable {
 	public int getTour() {
 		return this.tour;
 	}
+	
+	/**
+	 * Retourne la référence vers le joueur suivant du tour.
+	 * @return
+	 */
+	public Joueur getJoueurSuivant() {
+		return this.joueurSuivant;
+	}
+	
+	/**
+	 * Retourne le joueur suivant par rapport au joueur mis en paramètre de la méthode.
+	 * @param joueurRelatif Le joueur référence
+	 * @return Le joueur suivant par rapport au joueur référence.
+	 */
+	public Joueur getJoueurSuivantRelatif(Joueur joueurRelatif) {
+		return this.joueur[Math.floorMod(joueurRelatif.getId() + this.sensJeu , this.regles.getNbJoueurs())];
+	}
+	
+	/**
+	 * Modifie la référence vers le joueur suivant.
+	 * @param joueur Une référence vers un joueur.
+	 */
+	public void setJoueurSuivant(Joueur joueur) {
+		this.joueurSuivant = joueur;
+	}
+	
+	/**
+	 * Surcharge. Met le joueur suivant normalement.
+	 */
+	public void setJoueurSuivant() {
+		this.setJoueurSuivant(this.joueur[Math.floorMod(this.joueurActif.getId() + this.sensJeu , this.regles.nbJoueurs)]);
+	}
+	
 }

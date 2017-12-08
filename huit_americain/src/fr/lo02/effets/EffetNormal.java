@@ -14,11 +14,10 @@ public class EffetNormal extends AbstractEffet implements Effet{
 		this.nom="Normal";
 	}
 	
-	public EffetNormal(Partie partie) {
-		super(partie);
-	}
+//	public EffetNormal(Partie partie) {
+//		super(partie);
+//	}
 	
-	public void appliquer() {
-		System.out.println("EFFET NORMAL");
+	public void appliquer(Partie partie) {
 	}
 }

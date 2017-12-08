@@ -7,21 +7,23 @@ import fr.lo02.huitamericain.Partie;
  * @author Lionel EA
  *
  */
-
 public class EffetChangerSens extends AbstractEffet  implements Effet {
 	
 	public EffetChangerSens(){
+		this.nom="Inverse le sens de jeu";
 		
 	}
 	
+//	public EffetChangerSens(Partie partie) {
+//		super(partie);
+//	}
 	
-	public EffetChangerSens(Partie partie) {
-		super(partie);
-		this.nom="Changement de sens";
-	}
-	
-	public void appliquer() {
-		System.out.println("CHANGEMENT DE SENS");
-		this.partie.changerSens();
+	/**
+	 * Inverse le sens de jeu.
+	 */
+	public void appliquer(Partie partie) {
+		partie.changerSens();
+		partie.setJoueurSuivant(); //Il faut modifier la référence vers le joueur suivant après avoir changé le sens.
+		System.out.println("Inversion du sens de jeu...");
 	}
 }

@@ -25,7 +25,7 @@ public class EffetPiocherCarte extends AbstractEffet implements Effet {
 		this.partie.getJoueurSuivant().piocherCarte(this.partie.getPioche());
 	}
 
-	public void appliquer() {
+	public void appliquer(Partie partie) {
 		System.out.println("PIOCHER UNE CARTE");
 	}
 }

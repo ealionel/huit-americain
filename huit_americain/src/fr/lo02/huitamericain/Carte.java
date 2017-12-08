@@ -46,8 +46,8 @@ public class Carte {
 	/**
 	 * Applique l'effet de la carte.
 	 */
-	public void appliquerEffet() {
-		effet.appliquer();
+	public void appliquerEffet(Partie partie) {
+		effet.appliquer(partie);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Carte {
 	 * @return Un booléen determinant si la carte est posable sur la talon
 	 */
 	public boolean posable(Talon talon) {
-		if (this.getValeur() == talon.getHead().getValeur() || this.getCouleur() == talon.getHead().getCouleur() || this.getValeur() == ValeurCarte.joker) {
+		if (this.getValeur() == talon.getHead().getValeur() || this.getCouleur() == talon.getHead().getCouleur() || this.getValeur() == ValeurCarte.joker || (this.effet instanceof EffetChangerCouleur)) {
 			return true;
 		}
 		return false;
@@ -71,10 +71,20 @@ public class Carte {
 	public CouleurCarte getCouleur() {
 		return this.couleur;
 	}
+	
+	public void setValeur(ValeurCarte valeur) {
+		this.valeur = valeur;
+	}
 
+	public void setCouleur(CouleurCarte couleur) {
+		this.couleur = couleur;
+	}
+	
+	
 	public void setEffet(Effet effet) {
 		this.effet = effet;
 	}
+	
 	
 	public Effet getEffet() {
 		return this.effet;

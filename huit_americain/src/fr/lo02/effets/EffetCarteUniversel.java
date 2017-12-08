@@ -19,7 +19,7 @@ public class EffetCarteUniversel extends AbstractEffet implements Effet{
 	}
 
 	
-	public void appliquer() {
+	public void appliquer(Partie partie) {
 		System.out.println("EFFET UNIVERSEL");
 	}
 }

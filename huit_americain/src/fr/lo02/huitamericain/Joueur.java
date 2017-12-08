@@ -9,7 +9,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	protected int id;
 	protected static int instancesJoueurs=0;
 	protected String nom;
-	protected boolean vulnerable; //Dis si le joueur est vulnerable ou non à la commande "contre carte"
+	protected boolean vulnerable; //Indique si le joueur est vulnerable ou non à la commande "contre carte"
 	
 	/**
 	 * Constructeur du joueur.
@@ -112,7 +112,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	}
 	
 	/**
-	 * Vérifie si le joueur possède une carte ou plus, et si il 
+	 * Vérifie si le joueur est vulnérable ou non en vérifiant son nombre de cartes.
 	 */
 	public void verifierVulnerable() {
 		if (this.getMainJoueur().nbCartes() == 1) {
