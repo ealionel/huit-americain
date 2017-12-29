@@ -23,7 +23,6 @@ public class Partie extends Observable {
 	private Controleur controleur;
 	private Joueur joueurActif;
 	private Joueur joueurSuivant; //JOUEUR SUIVANT QUI EST REDEFINI A CHAQUE TOUR OU MANUELLEMENT.
-	private Checker checker;
 
 	/**
 	 * Initialisation de la partie en fonction d'une instance de règle.
@@ -45,7 +44,6 @@ public class Partie extends Observable {
 		}
 
 		this.controleur = new Controleur(this);
-		this.checker = new Checker(this);
 		
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
@@ -87,7 +85,7 @@ public class Partie extends Observable {
 		
 		boolean posee = false;
 		
-		notifier("debutTour");
+		notifier(Evenement.debutTour);
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			
@@ -119,7 +117,7 @@ public class Partie extends Observable {
 							posee = true;
 						}
 						else{
-							notifier("posableError");
+							notifier(Evenement.posableError);
 						}
 					}
 					if(commande instanceof String) { 		//On execute la commande si chaine de caractère
@@ -129,7 +127,7 @@ public class Partie extends Observable {
 						}
 					}
 				}catch(WrongInputException e) {
-					notifier("inputError");
+					notifier(Evenement.inputError);
 				}
 			}
 			
@@ -170,7 +168,7 @@ public class Partie extends Observable {
 	public boolean estFini() {
 		for(Joueur j : this.joueur) {
 			if (j.getMainJoueur().estVide()) {
-				notifier("fin");
+				notifier(Evenement.fin);
 				return true;
 			}
 		}
@@ -188,9 +186,9 @@ public class Partie extends Observable {
 	 * Envoie une notification aux observeurs.
 	 * @param commande
 	 */
-	public void notifier(String commande) {
+	public void notifier(Evenement nomEvenement) {
 		setChanged();
-		notifyObservers(commande);
+		notifyObservers(nomEvenement);
 	}
 	
 	/**

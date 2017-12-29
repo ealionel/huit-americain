@@ -1,8 +1,17 @@
-package fr.lo02.huitamericain;
+package fr.lo02.vue;
 
 import java.util.Observable;
 import java.util.Observer;
-import fr.lo02.effets.*;
+
+import fr.lo02.effets.AbstractEffet;
+import fr.lo02.effets.EffetNormal;
+import fr.lo02.huitamericain.Carte;
+import fr.lo02.huitamericain.Evenement;
+import fr.lo02.huitamericain.Joueur;
+import fr.lo02.huitamericain.JoueurReel;
+import fr.lo02.huitamericain.JoueurVirtuel;
+import fr.lo02.huitamericain.Partie;
+import fr.lo02.huitamericain.View;
 
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
@@ -42,7 +51,7 @@ public class ConsoleView implements Observer, View{
 		}
 		//Traite les affichages
 		if (obs instanceof Partie | obs instanceof Joueur) {
-			this.affichage(obs, (String) arg);
+			this.affichage(obs, (Evenement) arg);
 		}
 	}
 	
@@ -58,10 +67,15 @@ public class ConsoleView implements Observer, View{
 	 * @param arg
 	 */
 	public void setLastInput(String arg) {
-		if(arg.matches("-?\\d+(\\.\\d+)?")) {
+		/*if(arg.matches("-?\\d+(\\.\\d+)?")) {
 			this.lastInput = Integer.parseInt(arg);
 		}
 		else {
+			this.lastInput = arg;
+		}*/
+		try { 
+			this.lastInput = Integer.parseInt(arg);
+		} catch (NumberFormatException e) {
 			this.lastInput = arg;
 		}
 	}
@@ -74,24 +88,24 @@ public class ConsoleView implements Observer, View{
 		return this.lastInput;
 	}
 	
-	public void affichage(Observable objet, String commande) {
-		switch(commande) {
-		case "inputError":
+	public void affichage(Observable objet, Evenement evenement) {
+		switch(evenement) {
+		case inputError:
 			this.afficherErreur();
 			break;
-		case "posableError":
+		case posableError:
 			this.afficherErreurPosable();
 			break;
-		case "piocher":
+		case piocher:
 			this.afficherPiocher((Joueur) objet);
 			if((Joueur) objet instanceof JoueurVirtuel) {
 				this.afficherCartes((Joueur) objet);
 			}
 			break;
-		case "carteJouee":
+		case carteJouee:
 			this.afficherCarteJouee((Joueur) objet);
 			break;
-		case "debutTour":
+		case debutTour:
 			this.afficherDebutTour();
 			if(partie.getJoueurActif() instanceof JoueurVirtuel) {
 				this.afficherCartes(partie.getJoueurActif());
@@ -104,25 +118,25 @@ public class ConsoleView implements Observer, View{
 				this.demanderCarte();
 			}
 			break;
-		case "afficherCarte":
+		case afficherCarte:
 			this.afficherCartes((Joueur) objet);
 			break;
-		case "vulnerable":
+		case vulnerable:
 			this.afficherVulnerable((Joueur) objet);
 			break;
-		case "carteSucces":
+		case carteSucces:
 			this.afficherDireCarte((Joueur) objet, true);
 			break;
-		case "carteEchec":
+		case carteEchec:
 			this.afficherDireCarte((Joueur) objet, false);
 			break;
-		case "contreCarteSucces":
+		case contreCarteSucces:
 			this.afficherDireContreCarte((Joueur) objet, true);
 			break;
-		case "contreCarteEchec":
+		case contreCarteEchec:
 			this.afficherDireContreCarte((Joueur) objet, false);
 			break;
-		case "fin":
+		case fin:
 			this.afficherGagnant();
 			break;
 		

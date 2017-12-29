@@ -21,6 +21,7 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 		instancesJoueurs++; 
 		this.nom = nom;
 		this.mainJoueur = new CartesJoueur();
+		
 //		this.joueurChecker = JoueurChecker.getInstance();
 //		this.joueurChecker.ajouterJoueur(this);
 //		this.addObserver(joueurChecker);
@@ -33,13 +34,13 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	public void piocherCarte(GroupeCartes pioche) {
 		this.mainJoueur.ajouterCarte(pioche.retirerCarte());
 		this.verifierVulnerable();
-		notifier("piocher");
+		notifier(Evenement.piocher);
 	}
 	
 	public void poserCarte(int indice, Talon talon) { //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
 		talon.ajouterCarte(this.mainJoueur.retirerCarte(indice));
 		this.verifierVulnerable();
-		notifier("carteJouee");
+		notifier(Evenement.carteJouee);
 	}
 		
 	/**
@@ -50,11 +51,11 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	public void parler(boolean direCarte, Partie partie) {
 		if(direCarte) {
 			if(this.getMainJoueur().nbCartes() == 1) {
-				notifier("carteSucces");
+				notifier(Evenement.carteSucces);
 				this.setVulnerable(false);
 			}
 			else {
-				notifier("carteEchec");
+				notifier(Evenement.carteEchec);
 				this.piocherCarte(partie.getPioche());
 			}
 		}
@@ -63,13 +64,13 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 			
 			for(Joueur joueurCible : partie.getJoueurs()) {
 				if(joueurCible.isVulnerable() & joueurCible != this) {
-					notifier("contreCarteSucces");
+					notifier(Evenement.contreCarteSucces);
 					joueurCible.piocherCarte(partie.getPioche());
 					hasWorked = true;
 				}
 			}
 			if(!hasWorked) {
-				notifier("contreCarteEchec");
+				notifier(Evenement.contreCarteEchec);
 				this.piocherCarte(partie.getPioche());
 			}
 		}
@@ -86,9 +87,9 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	 * Envoie une notification aux observeurs.
 	 * @param commande
 	 */
-	public void notifier(String commande) {
+	public void notifier(Evenement nomEvenement) {
 		setChanged();
-		notifyObservers(commande);
+		notifyObservers(nomEvenement);
 	}
 	
 	/**
@@ -121,10 +122,10 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 	public void verifierVulnerable() {
 		if (this.getMainJoueur().nbCartes() == 1) {
 			this.setVulnerable(true);
-			notifier("vulnerable");
+			notifier(Evenement.vulnerable);
 		} else {
 			this.setVulnerable(false);
-			notifier("pasVulnerable");
+			notifier(Evenement.pasVulnerable);
 		}
 	}
 	

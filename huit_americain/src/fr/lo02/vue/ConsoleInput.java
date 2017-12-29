@@ -1,4 +1,4 @@
-package fr.lo02.huitamericain;
+package fr.lo02.vue;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -10,7 +10,6 @@ import java.util.Scanner;
  * @author Lionel EA
  *
  */
-@SuppressWarnings("deprecation")
 
 public class ConsoleInput extends Observable implements Runnable{
 	

@@ -12,7 +12,6 @@ import fr.lo02.exceptions.WrongInputException;
 public class Checker implements Runnable {
 	private Thread thread;
 	private boolean isRunning;
-	private int checkInterval; //en ms
 	private Partie partie;
 	private Controleur controleur;
 
@@ -25,7 +24,6 @@ public class Checker implements Runnable {
 		this.controleur = this.partie.getControleur();
 		this.thread = new Thread(this);
 		this.demarrer();
-		this.checkInterval = 10; //en ms
 	}
 
 	/**

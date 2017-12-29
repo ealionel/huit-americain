@@ -3,6 +3,7 @@ package fr.lo02.huitamericain;
 import java.io.IOException;
 
 import fr.lo02.exceptions.WrongInputException;
+import fr.lo02.vue.ConsoleView;
 
 /**
  * Cette classe correspond à la partie "Contrôleur" de l'architecture MVC. Il

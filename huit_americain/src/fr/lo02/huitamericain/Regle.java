@@ -28,7 +28,7 @@ public class Regle {
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
 		this.joker = joker;
-		this.nbCartesDebut = 8; //A modifier dynamiquement
+		this.nbCartesDebut = 5; //A modifier dynamiquement
 	}
 	
 	
