@@ -7,11 +7,11 @@ package fr.lo02.huitamericain;
  *
  */
 public enum CouleurCarte {
-	pique("♠ Pique"),
-	trefle("♣ Trèfle"),
-	coeur("♥ Coeur"),
-	carreau("♦ Carreau"),
-	neutre("Neutre");
+	pique	("♠ Pique"),
+	trefle	("♣ Trèfle"),
+	coeur	("♥ Coeur"),
+	carreau	("♦ Carreau"),
+	neutre	("Neutre");
 	
 	/**
 	 * Contient le nom de la couleur.

@@ -23,7 +23,8 @@ public class Partie extends Observable {
 	private Controleur controleur;
 	private Joueur joueurActif;
 	private Joueur joueurSuivant; //JOUEUR SUIVANT QUI EST REDEFINI A CHAQUE TOUR OU MANUELLEMENT.
-
+	private Checker checker; //C'est ce qui va permettre de vérifier ce que l'utilisateur rentre dans la console à n'importe quel moment du jeu.
+	
 	/**
 	 * Initialisation de la partie en fonction d'une instance de règle.
 	 * 
@@ -44,6 +45,9 @@ public class Partie extends Observable {
 		}
 
 		this.controleur = new Controleur(this);
+		
+	    this.checker = new Checker(this);
+	  
 		
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
@@ -66,7 +70,7 @@ public class Partie extends Observable {
 	 * Arrête la partie.
 	 */
 	public void arreterPartie() {
-		// A completer
+		// Inutile en fait
 	}
 
 	public void modifierRegles() {
@@ -89,7 +93,7 @@ public class Partie extends Observable {
 		
 		if (joueurActuel instanceof JoueurVirtuel) {
 			
-			this.attendre(1000, 2000);
+			this.attendre(1000, 2000); //Attendre entre une et deux secondes
 			int indiceCarte = ((JoueurVirtuel) joueurActuel).choisirCarte(this.talon);
 			
 			if(indiceCarte != -1) {
@@ -109,9 +113,11 @@ public class Partie extends Observable {
 			
 			while(!posee & !sortir) {
 				try {
+					
 					commande = controleur.attendreValeur(cmdAutorisees, true, 1, joueurActuel.getMainJoueur().nbCartes());
+					
 					if (commande instanceof Integer) {
-						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) {
+						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) { 	
 							joueurActuel.poserCarte((int) commande - 1, talon);
 							this.talon.getHead().appliquerEffet(this);
 							posee = true;

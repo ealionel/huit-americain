@@ -42,8 +42,7 @@ public class Pioche extends GroupeCartes {
 	 * Mélange le deque.
 	 */
 	public void melanger() {
-		// Puisqu'on peut utiliser la méthode Collections.shuffle() que sur les méthodes
-		// qui implémentent List, on utilise une Liste temporaire pour la mélanger.
+		// Puisqu'on peut utiliser la méthode Collections.shuffle() que sur les méthodes qui implémentent List, on utilise une Liste temporaire pour la mélanger.
 		ArrayList<Carte> temp = new ArrayList<Carte>(this.listeCartes);
 		Collections.shuffle(temp);
 		this.listeCartes = new ArrayDeque<Carte>(temp);
