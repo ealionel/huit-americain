@@ -26,10 +26,15 @@ public class GUICarte extends JPanel implements MouseListener {
 	Carte carte;
 	JPanel conteneur;
 	GUIView vue;
+	
+	int largeur = 140;
+	int hauteur = 190;
 
 	/**
 	 * Constructeur du JPanel contenant la carte.
 	 * @param carte Carte qui veut être affichée.
+	 * @param conteneur référence vers le conteneur dans lequel il est contenu.
+	 * @param vue référence vers la vue.
 	 */
 	public GUICarte(Carte carte, JPanel conteneur, GUIView vue) {
 		
@@ -41,8 +46,7 @@ public class GUICarte extends JPanel implements MouseListener {
 		this.setOpaque(false);
 		
 		//Taille par défaut de l'image
-		this.setSize(140,190);
-		this.setSize(70,95);
+		this.setSize(this.largeur, this.hauteur);
 		
 		//On obtient le nom du fichier en fonction de la carte.
 		String nomFichier = carte.getCouleur() + carte.getValeur().getName() + ".png";
@@ -63,38 +67,67 @@ public class GUICarte extends JPanel implements MouseListener {
 	}
 	
 	/**
+	 * Surcharge du constructeur permettant de spécifier la hauteur et la largeur par défaut de la carte.
+	 * @param carte
+	 * @param conteneur Référence vers le conteneur dans lequel il est contenu.
+	 * @param vue Référence vers la vue.
+	 * @param largeur Largeur de la carte
+	 * @param hauteur Hauteur de la carte.
+	 */
+	public GUICarte(Carte carte, JPanel conteneur, GUIView vue, int largeur, int hauteur) {
+		this(carte, conteneur, vue);
+		this.largeur = largeur;
+		this.hauteur = hauteur;
+		this.redimensionnerAbsolu(largeur, hauteur);
+	}
+	
+	/**
 	 * Redimensionne la taille du JPanel et de l'image par rapport à la taille par défaut de l'image (140x190).
 	 * @param scaler Coefficient de redimensionnage
 	 */
-	public void redimensionner(float scaler) {
-		this.setSize(Math.round(140*scaler), Math.round(190*scaler));
+	public void redimensionner(double scaler) {
 		
-		this.remove(imageLabel);
+		double rLongueur = scaler * this.largeur;
+		double rHauteur = scaler * this.hauteur;
 		
-		Image imageRedim = this.image.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
-		imageLabel = new JLabel(new ImageIcon(imageRedim));
-		this.add(imageLabel);
+		this.redimensionnerAbsolu((int) rLongueur, (int) rHauteur);
 	}
 	
 	/**
 	 * Redimensionne la taille du JPanel et de l'image par rapport à la taille actuelle de l'image.
 	 * @param scaler Coefficient de redimensionnage
 	 */
-	public void redimensionnerRelatif(float scaler) {
-		this.setSize(Math.round(this.getWidth()*scaler), Math.round(this.getHeight()*scaler));
+	public void redimensionnerRelatif(double scaler) {
+		double rLongueur = scaler * this.getWidth();
+		double rHauteur = scaler * this.getHeight();
+		
+		this.redimensionnerAbsolu((int) rLongueur, (int) rHauteur);
+	}
+	
+	/**
+	 * Redimensionne la taille du JPanel avec les valeurs données
+	 * @param largeur
+	 * @param hauteur
+	 */
+	public void redimensionnerAbsolu(int largeur, int hauteur) {
+		this.setSize(largeur, hauteur);
 		
 		this.remove(imageLabel);
 		
 		Image imageRedim = image.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
 		imageLabel = new JLabel(new ImageIcon(imageRedim));
 		this.add(imageLabel);
+		
+		this.conteneur.revalidate();
+		this.conteneur.repaint();
 	}
 	
 	public void mouseEntered(MouseEvent event) {
-
+		this.redimensionnerAbsolu(this.largeur+10, this.hauteur+10);
 	}
 	
 	public void mouseExited(MouseEvent event) {
+		this.redimensionnerAbsolu(this.largeur, this.hauteur);
 	}
 	
 	public void mouseReleased(MouseEvent event) {
@@ -104,10 +137,10 @@ public class GUICarte extends JPanel implements MouseListener {
 	
 	public void mouseClicked(MouseEvent event) {
 		System.out.println("Cliqué sur " + this.carte + " (" + String.valueOf(this.vue.getCartesJoueur().indexOf(this) + 1) + ")");
-		this.vue.setLastInput(this.vue.getCartesJoueur().indexOf(this) + 1);
-//		this.conteneur.remove(this);
-//		this.conteneur.repaint();
-//		this.conteneur.revalidate();
+		
+		if(this.conteneur == this.vue.getPanneauCartes()){
+			this.vue.setLastInput(this.vue.getCartesJoueur().indexOf(this) + 1);
+		}
 	}
 	
 	

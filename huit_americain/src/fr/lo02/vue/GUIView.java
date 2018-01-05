@@ -26,6 +26,7 @@ import fr.lo02.huitamericain.Carte;
 import fr.lo02.huitamericain.Evenement;
 import fr.lo02.huitamericain.Joueur;
 import fr.lo02.huitamericain.JoueurReel;
+import fr.lo02.huitamericain.JoueurVirtuel;
 import fr.lo02.huitamericain.Partie;
 
 public class GUIView implements View, Observer, Runnable {
@@ -33,14 +34,18 @@ public class GUIView implements View, Observer, Runnable {
 	private JFrame frame;
 	private Partie partie;
 
+
 	private JPanel panneauTalon;
 	private JPanel panneauCartes;
 	private JPanel panneauPrincipal;
 
 	private ArrayList<GUICarte> cartesJoueur;
+	private ArrayList<GUIJoueurVirtuel> listeJoueurs;
 
 	private Object lastInput; // Dernière commande réalisée par l'utilisateur
 	
+	
+
 	private JPanel panneauControle;
 	private JPanel panneauOrdi;
 	
@@ -63,7 +68,7 @@ public class GUIView implements View, Observer, Runnable {
 		}
 		
 		
-		
+		this.listeJoueurs = new ArrayList<GUIJoueurVirtuel>();
 		this.cartesJoueur = new ArrayList<GUICarte>();
 
 		initialize();
@@ -160,6 +165,7 @@ public class GUIView implements View, Observer, Runnable {
 		FlowLayout fowLayout = (FlowLayout) panneauCartes.getLayout();
 		panneauCartes.setBackground(new Color(128, 128, 128));
 		panneauPrincipal.add(panneauCartes, BorderLayout.SOUTH);
+		
 
 		this.panneauTalon = new JPanel();
 		panneauTalon.setBackground(new Color(154, 205, 50));
@@ -170,13 +176,23 @@ public class GUIView implements View, Observer, Runnable {
 
 		// On affiche la main du joueur
 		for (Carte c : this.partie.getJoueurs()[0].getMainJoueur().getListeCartes()) {
-			GUICarte carteG = new GUICarte(c, this.panneauCartes, this);
+			GUICarte carteG = new GUICarte(c, this.panneauCartes, this, 70, 95);
 			this.cartesJoueur.add(carteG);
 			this.panneauCartes.add(carteG);
 		}
 		
+		//Ajoute la carte du joueur au milieu
 		this.panneauTalon.add(new GUICarte(this.partie.getTalon().getHead(), this.panneauTalon, this));
 		
+		for(Joueur j : this.partie.getJoueurs()) {
+			if(j instanceof JoueurVirtuel) {
+				GUIJoueurVirtuel joueurG = new GUIJoueurVirtuel(j, this);
+				this.listeJoueurs.add(joueurG);
+				this.panneauOrdi.add(joueurG);
+			}
+		}
+		
+		this.btnPiocher.setEnabled(false);
 	}
 	
 	/**
@@ -191,13 +207,25 @@ public class GUIView implements View, Observer, Runnable {
 			if(objet instanceof JoueurReel) {
 				this.rafraichirMain();
 			}
+			this.rafraichirOrdi();
 			break;
-			
 		case carteJouee:
 			if(objet instanceof JoueurReel){
 				this.rafraichirMain();
 			}
 			this.rafraichirTalon();
+			this.rafraichirOrdi();
+			break;
+		case debutTour:
+			if(partie.getJoueurActif() instanceof JoueurReel) {
+				this.btnPiocher.setEnabled(true);
+			}
+			this.rafraichirOrdi();
+			break;
+		case finTour:
+			if(partie.getJoueurActif() instanceof JoueurReel) {
+				this.btnPiocher.setEnabled(false);
+			}
 			break;
 		}
 	}
@@ -234,7 +262,7 @@ public class GUIView implements View, Observer, Runnable {
 		this.cartesJoueur.clear();
 		
 		for (Carte c : this.partie.getJoueurs()[0].getMainJoueur().getListeCartes()) {
-			GUICarte carteG = new GUICarte(c, this.panneauCartes, this);
+			GUICarte carteG = new GUICarte(c, this.panneauCartes, this, 70,95);
 			this.cartesJoueur.add(carteG);
 			this.panneauCartes.add(carteG);
 		}
@@ -250,6 +278,12 @@ public class GUIView implements View, Observer, Runnable {
 		this.panneauTalon.add(new GUICarte(this.partie.getTalon().getHead(), this.panneauTalon, this));
 		this.panneauTalon.repaint();
 		this.panneauTalon.revalidate();
+	}
+	
+	public void rafraichirOrdi() {
+		for(int i = 0; i < this.listeJoueurs.size(); i++) {
+			this.listeJoueurs.get(i).rafraichir();
+		}
 	}
 
 	/**
@@ -289,4 +323,64 @@ public class GUIView implements View, Observer, Runnable {
 	public void setCartesJoueur(ArrayList<GUICarte> cartesJoueur) {
 		this.cartesJoueur = cartesJoueur;
 	}
+	
+	public JPanel getPanneauTalon() {
+		return panneauTalon;
+	}
+
+
+	public void setPanneauTalon(JPanel panneauTalon) {
+		this.panneauTalon = panneauTalon;
+	}
+
+
+	public JPanel getPanneauCartes() {
+		return panneauCartes;
+	}
+
+
+	public void setPanneauCartes(JPanel panneauCartes) {
+		this.panneauCartes = panneauCartes;
+	}
+
+
+	public ArrayList<GUIJoueurVirtuel> getListeJoueurs() {
+		return listeJoueurs;
+	}
+
+
+	public void setListeJoueurs(ArrayList<GUIJoueurVirtuel> listeJoueurs) {
+		this.listeJoueurs = listeJoueurs;
+	}
+
+
+	public JPanel getPanneauControle() {
+		return panneauControle;
+	}
+
+
+	public void setPanneauControle(JPanel panneauControle) {
+		this.panneauControle = panneauControle;
+	}
+
+
+	public JPanel getPanneauOrdi() {
+		return panneauOrdi;
+	}
+
+
+	public void setPanneauOrdi(JPanel panneauOrdi) {
+		this.panneauOrdi = panneauOrdi;
+	}
+	
+
+	public Partie getPartie() {
+		return partie;
+	}
+
+
+	public void setPartie(Partie partie) {
+		this.partie = partie;
+	}
 }
+

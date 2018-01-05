@@ -6,6 +6,7 @@ public enum Evenement {
 	piocher,
 	carteJouee,
 	debutTour,
+	finTour,
 	afficherCarte,
 	vulnerable,
 	pasVulnerable,

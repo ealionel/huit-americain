@@ -141,6 +141,8 @@ public class Partie extends Observable {
 			
 		}
 		
+		notifier(Evenement.finTour);
+		
 		return this.joueurSuivant;
 	}
 
