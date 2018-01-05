@@ -1,7 +1,12 @@
 package fr.lo02.huitamericain;
 
+import java.awt.EventQueue;
+
 import fr.lo02.exceptions.WrongInputException;
 import fr.lo02.vue.ConsoleView;
+import fr.lo02.vue.GUIView;
+import fr.lo02.vue.View;
+
 
 /**
  * Cette classe correspond à la partie "Contrôleur" de l'architecture MVC. Il
@@ -11,7 +16,8 @@ import fr.lo02.vue.ConsoleView;
  *
  */
 public class Controleur {
-	private ConsoleView vue;
+	private View vue;
+	private ConsoleView vue2;
 	private Partie partie;
 
 	/**
@@ -19,11 +25,29 @@ public class Controleur {
 	 * 
 	 * @param partie
 	 */
-	public Controleur(Partie partie) {
+	public Controleur(Partie partie, boolean interfaceGraphique) {
 		this.partie = partie;
-		this.vue = new ConsoleView(partie);
-		this.vue.initialiserInput();
-
+		
+		if(interfaceGraphique) {
+			
+			this.vue = new GUIView(partie);
+			this.vue2 = new ConsoleView(partie);
+			
+			EventQueue.invokeLater((Runnable)vue);
+			
+//			EventQueue.invokeLater(new Runnable() {
+//				public void run() {
+//					try {
+//						vue = new GUIView(partie);
+//						((GUIView)vue).getFrame().setVisible(true);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			});
+		} else {
+			this.vue = new ConsoleView(partie);
+		}
 	}
 	
 	/**
@@ -42,8 +66,8 @@ public class Controleur {
 		boolean correctInput = false;
 		
 		try {
-			synchronized(vue) {
-				vue.wait();
+			synchronized(this.vue) {
+				this.vue.wait();
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Une erreur est survenue");
@@ -100,11 +124,13 @@ public class Controleur {
 			break;
 		case "piocher":
 		case "p":
-			this.partie.getJoueurs()[0].piocherCarte(this.partie.getPioche());
-			break;
+		    this.partie.getJoueurs()[0].piocherCarte(this.partie.getPioche());
+ 			break;
 		case "main":
 		case "m":
-			this.vue.afficherCartes(this.partie.getJoueurs()[0]);
+			if(this.vue instanceof ConsoleView) {
+				((ConsoleView)this.vue).afficherCartes(this.partie.getJoueurs()[0]);
+			}
 			break;
 		}
 	}
@@ -113,7 +139,7 @@ public class Controleur {
 	 * Retourne la vue.
 	 * @return
 	 */
-	public ConsoleView getVue() {
+	public View getVue() {
 		return vue;
 	}
 }

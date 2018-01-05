@@ -1,4 +1,4 @@
-package fr.lo02.huitamericain;
+package fr.lo02.vue;
 
 /**
  * Les classes qui implémentent cette interface sont des vues.
@@ -9,4 +9,8 @@ package fr.lo02.huitamericain;
  */
 public interface View {
 
+	public Object getLastInput();
+	
+	public void setLastInput(Object arg);
+	
 }

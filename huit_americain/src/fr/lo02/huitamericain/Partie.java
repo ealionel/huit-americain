@@ -44,9 +44,7 @@ public class Partie extends Observable {
 			this.joueur[i] = new JoueurVirtuel("Ordi " + i, new StrategieNaive());
 		}
 
-		this.controleur = new Controleur(this);
 		
-	    this.checker = new Checker(this);
 	  
 		
 		// Initialisation de la pioche.
@@ -56,6 +54,10 @@ public class Partie extends Observable {
 		
 		//Initialisation du talon
 		this.talon.ajouterCarte(this.pioche.retirerCarte()); // On pose une carte dans le talon depuis la pioche.
+		
+//		this.controleur = new Controleur(this, false);
+		this.controleur = new Controleur(this, true);
+		this.checker = new Checker(this);
 		
 	}
 

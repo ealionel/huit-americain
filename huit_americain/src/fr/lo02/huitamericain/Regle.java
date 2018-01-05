@@ -3,7 +3,7 @@ package fr.lo02.huitamericain;
 import fr.lo02.effets.*;
 
 /**
- * Classe qui contient les differentes r�gles du jeu.
+ * Classe qui contient les differentes règles du jeu.
  * @author Lionel EA
  *
  */

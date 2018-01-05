@@ -37,6 +37,11 @@ public abstract class Joueur extends Observable{ //On la déclare abstraite parc
 		notifier(Evenement.piocher);
 	}
 	
+	/**
+	 * Pose la carte à l'indice donné sur le talon.
+	 * @param indice Indice de la carte ciblée.
+	 * @param talon Talon ciblé.
+	 */
 	public void poserCarte(int indice, Talon talon) { //En fonction de si le joueur est réel ou virtuel, il fera des choses diff�rentes (attendre que le joueur joue, ou jouer automatiquement.)
 		talon.ajouterCarte(this.mainJoueur.retirerCarte(indice));
 		this.verifierVulnerable();

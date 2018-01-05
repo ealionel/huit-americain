@@ -11,7 +11,6 @@ import fr.lo02.huitamericain.Joueur;
 import fr.lo02.huitamericain.JoueurReel;
 import fr.lo02.huitamericain.JoueurVirtuel;
 import fr.lo02.huitamericain.Partie;
-import fr.lo02.huitamericain.View;
 
 /**
  * Cette classe correspond à la vue dans une architecture <strong>Modèle-Vue-Contrôleur</strong>. Il possèdera toutes les méthodes d'affichage.
@@ -34,7 +33,7 @@ public class ConsoleView implements Observer, View{
 		}
 		
 		consoleInput = new ConsoleInput(this);
-		
+		this.initialiserInput();
 	}
 	
 	/**
@@ -66,7 +65,7 @@ public class ConsoleView implements Observer, View{
 	 * Permet de définir lastInput en tant qu'entier ou en tant que chaîne de caractère.
 	 * @param arg
 	 */
-	public void setLastInput(String arg) {
+	public void setLastInput(Object arg) {
 		/*if(arg.matches("-?\\d+(\\.\\d+)?")) {
 			this.lastInput = Integer.parseInt(arg);
 		}
@@ -74,7 +73,7 @@ public class ConsoleView implements Observer, View{
 			this.lastInput = arg;
 		}*/
 		try { 
-			this.lastInput = Integer.parseInt(arg);
+			this.lastInput = Integer.parseInt((String)arg);
 		} catch (NumberFormatException e) {
 			this.lastInput = arg;
 		}
