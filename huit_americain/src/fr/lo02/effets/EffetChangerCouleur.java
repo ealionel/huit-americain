@@ -22,6 +22,10 @@ public class EffetChangerCouleur extends AbstractEffet implements Effet{
 	 */
 	public void appliquer(Partie partie) {
 		int choix = 0;
+		
+		 setChanged();
+		 notifyObservers();
+		
 		if(partie.getJoueurActif() instanceof JoueurVirtuel) {
 			choix = ThreadLocalRandom.current().nextInt(0, 4); //Choisit une valeur entre 0 et 3
 		}

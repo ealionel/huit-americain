@@ -19,9 +19,13 @@ import fr.lo02.huitamericain.Partie;
 public class ConsoleView implements Observer, View{
 	
 	private ConsoleInput consoleInput;
-	private Object lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
+//	private Object lastInput; //Correspond à la dernière entrée de l'utilisateur dans la console.
 	private Partie partie;
 	
+	/**
+	 * Constructeur de la vue console. 
+	 * @param partie
+	 */
 	public ConsoleView(Observable partie) {
 		this.partie = (Partie) partie;
 		
@@ -45,8 +49,6 @@ public class ConsoleView implements Observer, View{
 			System.out.println("ENTREE : >" + arg);
 			this.setLastInput((String) arg);
 			
-			notifyAll(); //Reveille le thread principal potentiellement en attente.
-			
 		}
 		//Traite les affichages
 		if (obs instanceof Partie | obs instanceof Joueur) {
@@ -66,27 +68,18 @@ public class ConsoleView implements Observer, View{
 	 * @param arg
 	 */
 	public void setLastInput(Object arg) {
-		/*if(arg.matches("-?\\d+(\\.\\d+)?")) {
-			this.lastInput = Integer.parseInt(arg);
-		}
-		else {
-			this.lastInput = arg;
-		}*/
 		try { 
-			this.lastInput = Integer.parseInt((String)arg);
+			this.partie.getControleur().setLastInput(Integer.parseInt((String)arg));
 		} catch (NumberFormatException e) {
-			this.lastInput = arg;
+			this.partie.getControleur().setLastInput(arg);
 		}
-	}
-
-	/**
-	 * Renvoie la dernière entrée que l'utilisateur a fait dans la console.
-	 * @return
-	 */
-	public Object getLastInput() {
-		return this.lastInput;
 	}
 	
+	/**
+	 * Méthode qui gère les différents affichages en fonction de l'événement.
+	 * @param objet Objet qui envoie la notification.
+	 * @param evenement Evenement appelé.
+	 */
 	public void affichage(Observable objet, Evenement evenement) {
 		switch(evenement) {
 		case inputError:
@@ -183,6 +176,9 @@ public class ConsoleView implements Observer, View{
 		}
 	}
 	
+	/**
+	 * Affiche les informations de début de tour.
+	 */
 	public void afficherDebutTour() {
 		System.out.println("―――――――――――――――――――――――――");
 		System.out.println("★★★  Au tour de " + partie.getJoueurActif() + " de jouer. ★★★");
@@ -216,10 +212,16 @@ public class ConsoleView implements Observer, View{
 		System.out.println("Indiquer la carte que vous voulez poser : ");
 	}
 	
+	/**
+	 * Affiche que la valeur entrée ne correspond pas à ce qui est attendu.
+	 */
 	public void afficherErreur() {
 		System.out.println("ENTREE INCORRECTE");
 	}
 	
+	/**
+	 * Affiche que la carte n'est pas posable.
+	 */
 	public void afficherErreurPosable() {
 		System.out.println("Cette carte n'est pas posable");
 	}
@@ -231,15 +233,25 @@ public class ConsoleView implements Observer, View{
 		System.out.println("Quelle variante variante voulez-vous choisir?");
 	}
 	
+	/**
+	 * Affiche la tête du talon.
+	 */
 	public void afficherTalon() {
 		System.out.println("\n>>> La tête du talon est un " + this.partie.getTalon().getHead() + " <<<");
 	}
 	
+	/**
+	 * Affiche le gagnant de la partie.
+	 */
 	public void afficherGagnant() {
-		System.out.println(" ----> LE GAGNANT DE LA MANCHE EST " + this.partie.getJoueurActif());
+		System.out.println(" ----> LE GAGNANT DE LA PARTIE EST " + this.partie.getJoueurActif());
 		System.out.println("La partie s'est finie après " + this.partie.getTour() + " tours.");
 	}
 	
+	/**
+	 * Affiche si le joueur en paramètre est vulnérable ou non.
+	 * @param joueur
+	 */
 	public void afficherVulnerable(Joueur joueur) {
 		if(joueur instanceof JoueurReel) {
 			System.out.println("Vous êtes vulnérable !!");
@@ -249,6 +261,11 @@ public class ConsoleView implements Observer, View{
 		}
 	}
 	
+	/**
+	 * Affiche les informations correspondant à si l'appel "CARTE" a été un succès ou un echec.
+	 * @param joueur Pour différencier le joueur virtuel du joueur réel.
+	 * @param succes
+	 */
 	public void afficherDireCarte(Joueur joueur, boolean succes) {
 		if(joueur instanceof JoueurReel) {
 			if(succes) {
@@ -268,6 +285,11 @@ public class ConsoleView implements Observer, View{
 		}
 	}
 	
+	/**
+	 * Affiche les informations correspondant à si l'appel "CONTRE CARTE" a été un succès ou un echec.
+	 * @param joueur Pour différencier le joueur virtuel du joueur réel.
+	 * @param succes
+	 */
 	public void afficherDireContreCarte(Joueur joueur, boolean succes) {
 		if(joueur instanceof JoueurReel) {
 			if(succes) {

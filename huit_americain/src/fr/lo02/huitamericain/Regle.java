@@ -11,6 +11,8 @@ import fr.lo02.effets.*;
 public class Regle {
 
 	protected String nomVariante;
+	
+	protected String nom;
 	protected int nbJoueurs;
 	protected int nbJeuxCartes;	//Nombre de jeux de cartes, peut être choisi en fonction du nombre de joueurs.
 	protected int modePoints; 	//Pour choisir si le nombre de points est à compte positif ou négatif
@@ -22,29 +24,30 @@ public class Regle {
 	/**
 	 * Constructeur basique. Les effets ne sont pas initialisés. (NE PAS UTILISER)
 	 */
-	public Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker) {
+	public Regle(String nom, int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int nbCartesDebut) {
 
+		this.nom = nom;
 		this.nbJoueurs = nbJoueurs;
 		this.nbJeuxCartes = nbJeuxCartes;
 		this.modePoints = modePoints;
 		this.joker = joker;
-		this.nbCartesDebut = 5; //A modifier dynamiquement
+		this.nbCartesDebut = nbCartesDebut; //A modifier dynamiquement
 	}
 	
 	
 	/**
 	 * Consutructeur avec une liste d'effets en paramètre.
 	 */
-	public Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, Effet[] effetCartes) {
-		this(nbJoueurs, nbJeuxCartes, modePoints, joker);
+	public Regle(String nom, int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int nbCartesDebut, Effet[] effetCartes) {
+		this(nom, nbJoueurs, nbJeuxCartes, modePoints, joker, nbCartesDebut);
 		
 		for(int i = 0; i < effetCartes.length; i++) {
 			this.effetCartes[i] = effetCartes[i];
 		}
 	}
 	
-	public Regle(int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int variante) {
-		this(nbJoueurs, nbJeuxCartes, modePoints, joker);
+	public Regle(String nom, int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int nbCartesDebut, int variante) {
+		this(nom, nbJoueurs, nbJeuxCartes, modePoints, joker, nbCartesDebut);
 		this.setVariante(variante);
 	}
 

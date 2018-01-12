@@ -9,7 +9,7 @@ package fr.lo02.vue;
  */
 public interface View {
 
-	public Object getLastInput();
+//	public Object getLastInput();
 	
 	public void setLastInput(Object arg);
 	

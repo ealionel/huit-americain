@@ -36,7 +36,7 @@ public class Checker implements Runnable {
 		while(isRunning) {
 			try {
 				this.controleur.attendreValeur(cmdAttendues);
-				this.controleur.executer((String) this.controleur.getVue().getLastInput());
+				this.controleur.executer((String) this.controleur.getLastInput());
 			}catch(WrongInputException e) {
 				//On fait rien si c'est pas une bonne entrée.
 			}

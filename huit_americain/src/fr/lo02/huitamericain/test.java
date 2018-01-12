@@ -1,17 +1,13 @@
 package fr.lo02.huitamericain;
 
-import java.awt.EventQueue;
-
-import fr.lo02.vue.GUICarte;
-import fr.lo02.vue.GUIView;
+import fr.lo02.vue.GUIFenetreVictoire;
 
 public class test {
 
 	public static void main(String[] args) {
-		Regle regle = new Regle(5, 2, 1, false, 2);
+		Regle regle = new Regle("Lionel", 5, 2, 1, false, 4, 2);
 		Partie partie = new Partie(regle);
 		
-	
 		partie.demarrerPartie();
 
 	}

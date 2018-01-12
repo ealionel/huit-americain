@@ -58,7 +58,7 @@ public class JoueurChecker implements Observer, Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if(joueursVulnerables[0])		
+//		if(joueursVulnerables[0])		
 
 	}
 

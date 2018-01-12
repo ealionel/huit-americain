@@ -19,6 +19,8 @@ public class Controleur {
 	private View vue;
 	private ConsoleView vue2;
 	private Partie partie;
+	
+	private Object lastInput; //Représente la dernière commande réalisée par l'utilisateur
 
 	/**
 	 * Le constructeur est initialisé avec la partie.
@@ -35,16 +37,6 @@ public class Controleur {
 			
 			EventQueue.invokeLater((Runnable)vue);
 			
-//			EventQueue.invokeLater(new Runnable() {
-//				public void run() {
-//					try {
-//						vue = new GUIView(partie);
-//						((GUIView)vue).getFrame().setVisible(true);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			});
 		} else {
 			this.vue = new ConsoleView(partie);
 		}
@@ -66,23 +58,23 @@ public class Controleur {
 		boolean correctInput = false;
 		
 		try {
-			synchronized(this.vue) {
-				this.vue.wait();
+			synchronized(this) {
+				this.wait();
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Une erreur est survenue");
 			e.printStackTrace();
 		}
 
-		if ((vue.getLastInput() instanceof Integer & entierAttendu)) {
-			if((int)vue.getLastInput() >= borneInf & (int)vue.getLastInput() <= borneSup) {
-				returnValue = (int) vue.getLastInput();
+		if ((this.getLastInput() instanceof Integer & entierAttendu)) {
+			if((int)this.getLastInput() >= borneInf & (int)this.getLastInput() <= borneSup) {
+				returnValue = (int) this.getLastInput();
 				correctInput = true;
 			}
 		}
-		if((vue.getLastInput() instanceof String) & motsAttendu.length > 0) {
+		if((this.getLastInput() instanceof String) & motsAttendu.length > 0) {
 			for(String cmd : motsAttendu) {
-				if(((String) vue.getLastInput()).equalsIgnoreCase(cmd)) {
+				if(((String) this.getLastInput()).equalsIgnoreCase(cmd)) {
 					returnValue = (String) cmd;
 					correctInput = true;
 				}
@@ -141,5 +133,16 @@ public class Controleur {
 	 */
 	public View getVue() {
 		return vue;
+	}
+	
+	public synchronized void setLastInput(Object arg) {
+		this.lastInput = arg;
+		
+		this.notifyAll();
+		
+	}
+	
+	public Object getLastInput() {
+		return this.lastInput;
 	}
 }

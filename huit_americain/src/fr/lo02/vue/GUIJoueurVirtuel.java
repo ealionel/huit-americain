@@ -26,7 +26,11 @@ public class GUIJoueurVirtuel extends JPanel {
 	
 	boolean actif;
 	
-	
+	/**
+	 * Constructeur.
+	 * @param joueur Joueur affiché
+	 * @param vue Référence vers la vue graphique.
+	 */
 	public GUIJoueurVirtuel(Joueur joueur, GUIView vue) {
 		this.joueur = joueur;
 		this.vue = vue;
@@ -41,24 +45,32 @@ public class GUIJoueurVirtuel extends JPanel {
 		this.add(this.nbCartes);
 		
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
-//		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	
+	/**
+	 * Rafraichit les informations et l'état du joueur.
+	 */
 	public void rafraichir() {
 		this.nbCartes.setText("Possède " + String.valueOf(this.joueur.getMainJoueur().nbCartes()) + " carte(s)");
 		this.afficherActif();
 	}
 	
+	/**
+	 * Méthode qui affiche une bordure verte si le joueur est actif, sinon rien.
+	 */
 	public void afficherActif() {
-		
 		if(this.isActif()) {
-			 this.setBorder(BorderFactory.createLineBorder(Color.GREEN,10));
+			 this.setBorder(BorderFactory.createLineBorder(new Color(188, 247, 51),10));
 		}else {
 			this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		}
 		
 	}
 
+	/**
+	 * Vérifie si le joueur est actif ou pas dans la partie.
+	 * @return
+	 */
 	public boolean isActif() {
 		
 		if(this.vue.getPartie().getJoueurActif() == this.joueur) {
@@ -71,6 +83,10 @@ public class GUIJoueurVirtuel extends JPanel {
 		return actif;
 	}
 
+	/**
+	 * Modifie le boolean <em>actif</em>
+	 * @param actif
+	 */
 	public void setActif(boolean actif) {
 		this.actif = actif;
 	}

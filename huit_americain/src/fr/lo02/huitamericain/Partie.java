@@ -50,10 +50,11 @@ public class Partie extends Observable {
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
 		this.pioche.melanger();
-		this.distribuer();
 		
 		//Initialisation du talon
 		this.talon.ajouterCarte(this.pioche.retirerCarte()); // On pose une carte dans le talon depuis la pioche.
+		//Distribution des cartes
+		this.distribuer();
 		
 //		this.controleur = new Controleur(this, false);
 		this.controleur = new Controleur(this, true);

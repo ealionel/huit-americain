@@ -33,8 +33,8 @@ public class GUICarte extends JPanel implements MouseListener {
 	/**
 	 * Constructeur du JPanel contenant la carte.
 	 * @param carte Carte qui veut être affichée.
-	 * @param conteneur référence vers le conteneur dans lequel il est contenu.
-	 * @param vue référence vers la vue.
+	 * @param conteneur Référence vers le conteneur dans lequel il est contenu.
+	 * @param vue Référence vers la vue.
 	 */
 	public GUICarte(Carte carte, JPanel conteneur, GUIView vue) {
 		
@@ -59,9 +59,11 @@ public class GUICarte extends JPanel implements MouseListener {
 			e.printStackTrace();
 		}
 		
+		//On redimensionne l'image avec la taille du JPanel.
 		Image imageRedim = image.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
 		imageLabel = new JLabel(new ImageIcon(imageRedim));
 		this.add(imageLabel);
+		
 		this.addMouseListener(this);
 		
 	}
@@ -123,11 +125,16 @@ public class GUICarte extends JPanel implements MouseListener {
 	}
 	
 	public void mouseEntered(MouseEvent event) {
+		((GUIPanneauInfo)this.vue.getPanneauInfo()).setInfoCarte(this.carte);
 		this.redimensionnerAbsolu(this.largeur+10, this.hauteur+10);
 	}
 	
 	public void mouseExited(MouseEvent event) {
+		((GUIPanneauInfo)this.vue.getPanneauInfo()).setInfoCarte();
 		this.redimensionnerAbsolu(this.largeur, this.hauteur);
+	}
+	
+	public void mousePressed(MouseEvent event) {
 	}
 	
 	public void mouseReleased(MouseEvent event) {
@@ -136,17 +143,13 @@ public class GUICarte extends JPanel implements MouseListener {
 	
 	
 	public void mouseClicked(MouseEvent event) {
-		System.out.println("Cliqué sur " + this.carte + " (" + String.valueOf(this.vue.getCartesJoueur().indexOf(this) + 1) + ")");
+//		System.out.println("Cliqué sur " + this.carte + " (" + String.valueOf(this.vue.getCartesJoueur().indexOf(this) + 1) + ")");
 		
 		if(this.conteneur == this.vue.getPanneauCartes()){
 			this.vue.setLastInput(this.vue.getCartesJoueur().indexOf(this) + 1);
 		}
 	}
 	
-	
-	public void mousePressed(MouseEvent event) {
-		
-	}
 
 
 }

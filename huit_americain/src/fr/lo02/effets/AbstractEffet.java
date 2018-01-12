@@ -9,6 +9,7 @@ public abstract class AbstractEffet extends Observable {
 	protected String nom;
 	
 	public AbstractEffet() {
+	
 	}	
 	
 	public String getNom() {
