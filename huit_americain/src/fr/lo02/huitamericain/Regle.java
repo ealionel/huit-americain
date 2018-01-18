@@ -36,7 +36,14 @@ public class Regle {
 	
 	
 	/**
-	 * Consutructeur avec une liste d'effets en paramètre.
+	 * Surcharge. Consutructeur avec une liste d'effets en paramètre.
+	 * @param nom Nom du joueur
+	 * @param nbJoueurs Nombre de joueurs
+	 * @param nbJeuxCartes Nom de jeux de cartes
+	 * @param modePoints Mode point (inutilisé)
+	 * @param joker Jouer avec des jokers
+	 * @param nbCartesDebut Nombre de cartes de début de partie
+	 * @param effetCartes Liste des effets de cartes. Liste de 14 éléments, chaque case correspond à l'effet associé à son numéro de carte.
 	 */
 	public Regle(String nom, int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int nbCartesDebut, Effet[] effetCartes) {
 		this(nom, nbJoueurs, nbJeuxCartes, modePoints, joker, nbCartesDebut);
@@ -46,6 +53,16 @@ public class Regle {
 		}
 	}
 	
+	/**
+	 * Surcharge. Consutructeur avec une liste d'effets en paramètre.
+	 * @param nom Nom du joueur
+	 * @param nbJoueurs Nombre de joueurs
+	 * @param nbJeuxCartes Nom de jeux de cartes
+	 * @param modePoints Mode point (inutilisé)
+	 * @param joker Jouer avec des jokers
+	 * @param nbCartesDebut Nombre de cartes de début de partie
+	 * @param variante Numéro de la variante initialisée.
+	 */
 	public Regle(String nom, int nbJoueurs, int nbJeuxCartes, int modePoints, boolean joker, int nbCartesDebut, int variante) {
 		this(nom, nbJoueurs, nbJeuxCartes, modePoints, joker, nbCartesDebut);
 		this.setVariante(variante);
@@ -54,6 +71,7 @@ public class Regle {
 	
 	/**
 	 * Permet de séléctionner les variantes.
+	 * @param numeroVariante Numéro de la variante.
 	 */
 	public void setVariante(int numeroVariante) {
 		switch(numeroVariante) {

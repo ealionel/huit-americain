@@ -2,7 +2,6 @@ package fr.lo02.huitamericain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Représente les cartes qui sont dans la main du joueur, hérite de la classe GroupeCartes.

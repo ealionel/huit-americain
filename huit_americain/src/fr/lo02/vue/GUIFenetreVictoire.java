@@ -2,8 +2,6 @@ package fr.lo02.vue;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -13,10 +11,19 @@ import javax.swing.border.EmptyBorder;
 
 import fr.lo02.huitamericain.Joueur;
 
+/**
+ * JFrame qui s'affiche en fin de partie, qui affiche le nom du gagnant.
+ * @author Lionel EA
+ *
+ */
 public class GUIFenetreVictoire extends JFrame{
 	JPanel panneau;
 	JLabel texte;
 	
+	/**
+	 * Constructeur. Il prend en paramètre le joueur gagnant.
+	 * @param joueur Joueur gagnant.
+	 */
 	public GUIFenetreVictoire(Joueur joueur) {
 		
 		this.setSize(500,100);

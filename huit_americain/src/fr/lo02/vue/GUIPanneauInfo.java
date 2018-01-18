@@ -31,11 +31,18 @@ public class GUIPanneauInfo extends JPanel {
 	
 	}
 	
+	/**
+	 * Modifie le texte affiché dans le JPanel.
+	 * @param carte
+	 */
 	public void setInfoCarte(Carte carte) {
 		this.nomCarte.setText(carte.toString());
 		this.infoEffet.setText("<html>" + ((AbstractEffet)carte.getEffet()).getNom() + "</html>");
 	}
 	
+	/**
+	 * Surcharge. Permet de ne rien afficher dans le JPanel.
+	 */
 	public void setInfoCarte() {
 		this.nomCarte.setText("");
 		this.infoEffet.setText("");

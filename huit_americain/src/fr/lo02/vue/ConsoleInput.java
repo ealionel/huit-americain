@@ -18,7 +18,7 @@ public class ConsoleInput extends Observable implements Runnable{
 	
 	/**
 	 * Le constructeur ajoute un observeur à cet objet et initialise le thread avec ce Runnable.
-	 * @param obs Observeur de l'objet, ici ce sera ConsoleInput la plupart du temps.
+	 * @param obs Observeur de l'objet, ici ce sera ConsoleView la plupart du temps.
 	 */
 	public ConsoleInput(Observer obs) {
 		this.addObserver(obs);

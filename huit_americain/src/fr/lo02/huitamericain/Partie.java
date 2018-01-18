@@ -22,9 +22,10 @@ public class Partie extends Observable {
 	private Talon talon;
 	private Controleur controleur;
 	private Joueur joueurActif;
-	private Joueur joueurSuivant; //JOUEUR SUIVANT QUI EST REDEFINI A CHAQUE TOUR OU MANUELLEMENT.
-	private Checker checker; //C'est ce qui va permettre de vérifier ce que l'utilisateur rentre dans la console à n'importe quel moment du jeu.
-	
+	private Joueur joueurSuivant; // JOUEUR SUIVANT QUI EST REDEFINI A CHAQUE TOUR OU MANUELLEMENT.
+	private Checker checker; // C'est ce qui va permettre de vérifier ce que l'utilisateur rentre dans la
+								// console à n'importe quel moment du jeu.
+
 	/**
 	 * Initialisation de la partie en fonction d'une instance de règle.
 	 * 
@@ -44,116 +45,105 @@ public class Partie extends Observable {
 			this.joueur[i] = new JoueurVirtuel("Ordi " + i, new StrategieNaive());
 		}
 
-		
-	  
-		
 		// Initialisation de la pioche.
 		this.pioche = new Pioche(this.regles.getNbJeuxCartes(), this.regles.getEffetCartes(), this.regles.isJoker());
 		this.pioche.melanger();
-		
-		//Initialisation du talon
+
+		// Initialisation du talon
 		this.talon.ajouterCarte(this.pioche.retirerCarte()); // On pose une carte dans le talon depuis la pioche.
-		//Distribution des cartes
+		// Distribution des cartes
 		this.distribuer();
-		
-//		this.controleur = new Controleur(this, false);
+
 		this.controleur = new Controleur(this, true);
 		this.checker = new Checker(this);
-		
+
 	}
 
 	/**
-	 * Lance la partie.
+	 * Lance la partie. Appelle la méthode récursive tourSuivant() en commençant par
+	 * le premier joueur.
 	 */
 	public void demarrerPartie() {
 		this.tourSuivant(this.jouerTour(joueur[0]));
 	}
 
 	/**
-	 * Arrête la partie.
-	 */
-	public void arreterPartie() {
-		// Inutile en fait
-	}
-
-	public void modifierRegles() {
-		// Est-ce necessaire?
-	}
-	
-	
-	/**
 	 * Fait jouer le joueur mis en paramètre.
+	 * 
 	 * @param joueurActuel
+	 *            Joueur qui doit jouer.
 	 */
 	public Joueur jouerTour(Joueur joueurActuel) {
-		//On obtient une référence pour le joueur suivant au cas où on en a besoin.
+		// On obtient une référence pour le joueur suivant au cas où on en a besoin.
 		this.joueurActif = joueurActuel;
 		this.setJoueurSuivant();
-		
+
 		boolean posee = false;
-		
+
 		notifier(Evenement.debutTour);
-		
+
 		if (joueurActuel instanceof JoueurVirtuel) {
-			
-			this.attendre(1000, 2000); //Attendre entre une et deux secondes
+
+			this.attendre(500, 750); // Attendre entre une et deux secondes
 			int indiceCarte = ((JoueurVirtuel) joueurActuel).choisirCarte(this.talon);
-			
-			if(indiceCarte != -1) {
+
+			if (indiceCarte != -1) {
 				joueurActuel.poserCarte(indiceCarte, this.talon);
 				this.talon.getHead().appliquerEffet(this);
-			}
-			else {
+			} else {
 				joueurActuel.piocherCarte(this.pioche);
 			}
 		}
 
 		if (joueurActuel instanceof JoueurReel) {
-			String[] cmdAutorisees = {"piocher", "p", "carte", "contre carte", "c", "cc", "main", "m"};
+			String[] cmdAutorisees = { "piocher", "p", "carte", "contre carte", "c", "cc", "main", "m" };
 			Object commande = null;
-			
+
 			boolean sortir = false;
-			
-			while(!posee & !sortir) {
+
+			while (!posee & !sortir) {
 				try {
-					
-					commande = controleur.attendreValeur(cmdAutorisees, true, 1, joueurActuel.getMainJoueur().nbCartes());
-					
+
+					commande = controleur.attendreValeur(cmdAutorisees, true, 1,
+							joueurActuel.getMainJoueur().nbCartes());
+
 					if (commande instanceof Integer) {
-						if(joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) { 	
+						if (joueurActuel.getMainJoueur().getCarte((int) commande - 1).posable(talon)) {
 							joueurActuel.poserCarte((int) commande - 1, talon);
 							this.talon.getHead().appliquerEffet(this);
 							posee = true;
-						}
-						else{
+						} else {
 							notifier(Evenement.posableError);
 						}
 					}
-					if(commande instanceof String) { 		//On execute la commande si chaine de caractère
-						if(((String) commande).equalsIgnoreCase("piocher") | ((String) commande).equalsIgnoreCase("p")) {
+					if (commande instanceof String) { // On execute la commande si chaine de caractère
+						if (((String) commande).equalsIgnoreCase("piocher")
+								| ((String) commande).equalsIgnoreCase("p")) {
 							controleur.executer((String) commande);
 							sortir = true;
 						}
 					}
-				}catch(WrongInputException e) {
+				} catch (WrongInputException e) {
 					notifier(Evenement.inputError);
 				}
 			}
-			
+
 		}
-		
+
 		notifier(Evenement.finTour);
-		
+
 		return this.joueurSuivant;
 	}
 
 	/**
 	 * Fait passer au tour suivant. Correspond à la boucle principale.
-	 * @param joueurSuivant Référence vers le joueur suivant.
+	 * 
+	 * @param joueurSuivant
+	 *            Référence vers le joueur suivant.
 	 */
 	public void tourSuivant(Joueur joueurSuivant) {
 		this.tour++;
-		if(!this.estFini()) {
+		if (!this.estFini()) {
 			this.tourSuivant(this.jouerTour(joueurSuivant));
 		}
 	}
@@ -171,13 +161,15 @@ public class Partie extends Observable {
 		}
 
 	}
-	
+
 	/**
-	 * Retourne si un joueur n'a plus de carte, c'est à dire que la partie est finie.
-	 * @return
+	 * Retourne si un joueur n'a plus de carte, c'est à dire que la partie est
+	 * finie.
+	 * 
+	 * @return True/False selon si la partie est finie.
 	 */
 	public boolean estFini() {
-		for(Joueur j : this.joueur) {
+		for (Joueur j : this.joueur) {
 			if (j.getMainJoueur().estVide()) {
 				notifier(Evenement.fin);
 				return true;
@@ -187,37 +179,45 @@ public class Partie extends Observable {
 	}
 
 	/**
-	 * Change le sens du jeu.
+	 * Inverse le sens du jeu.
 	 */
 	public void changerSens() {
-		this.sensJeu = this.sensJeu*(-1); // On inverse le signe.
+		this.sensJeu = this.sensJeu * (-1); // On inverse le signe.
 	}
-	
+
 	/**
 	 * Envoie une notification aux observeurs.
-	 * @param commande
+	 * 
+	 * @param nomEvenement
+	 *            nom de l'Evenement appelé.
 	 */
 	public void notifier(Evenement nomEvenement) {
 		setChanged();
 		notifyObservers(nomEvenement);
 	}
-	
+
 	/**
 	 * Endort le thread pendant un temps donné.
-	 * @param ms Temps en millisecondes de le pause.
+	 * 
+	 * @param temps
+	 *            Temps en millisecondes de le pause.
 	 */
 	public void attendre(int temps) {
 		try {
 			Thread.sleep(temps);
-		}catch(InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Surcharge. Endort le thread pour une durée aléatoire entre min et max
-	 * @param min Durée minimale
-	 * @param max Durée maximale
+	 * Surcharge. Endort le thread pour une durée aléatoire entre <em>min</em> et
+	 * <em>max</em>
+	 * 
+	 * @param min
+	 *            Durée minimale
+	 * @param max
+	 *            Durée maximale
 	 */
 	public void attendre(int min, int max) {
 		int tempsAleatoire = ThreadLocalRandom.current().nextInt(min, max + 1);
@@ -264,50 +264,58 @@ public class Partie extends Observable {
 
 	/**
 	 * Retourne le controleur de la partie.
+	 * 
 	 * @return
 	 */
 	public Controleur getControleur() {
 		return this.controleur;
 	}
-	
+
 	public Joueur getJoueurActif() {
 		return this.joueurActif;
 	}
-	
+
 	public int getTour() {
 		return this.tour;
 	}
-	
+
 	/**
 	 * Retourne la référence vers le joueur suivant du tour.
-	 * @return
+	 * 
+	 * @return Une référence vers le joueur suivant.
 	 */
 	public Joueur getJoueurSuivant() {
 		return this.joueurSuivant;
 	}
-	
+
 	/**
-	 * Retourne le joueur suivant par rapport au joueur mis en paramètre de la méthode.
-	 * @param joueurRelatif Le joueur référence
+	 * Retourne le joueur suivant par rapport au joueur mis en paramètre de la
+	 * méthode.
+	 * 
+	 * @param joueurRelatif
+	 *            Le joueur référence
 	 * @return Le joueur suivant par rapport au joueur référence.
 	 */
 	public Joueur getJoueurSuivantRelatif(Joueur joueurRelatif) {
-		return this.joueur[Math.floorMod(joueurRelatif.getId() + this.sensJeu , this.regles.getNbJoueurs())];
+		return this.joueur[Math.floorMod(joueurRelatif.getId() + this.sensJeu, this.regles.getNbJoueurs())];
 	}
-	
+
 	/**
 	 * Modifie la référence vers le joueur suivant.
-	 * @param joueur Une référence vers un joueur.
+	 * 
+	 * @param joueur
+	 *            Une référence vers un joueur.
 	 */
 	public void setJoueurSuivant(Joueur joueur) {
 		this.joueurSuivant = joueur;
 	}
-	
+
 	/**
 	 * Surcharge. Met le joueur suivant normalement.
 	 */
 	public void setJoueurSuivant() {
-		this.setJoueurSuivant(this.joueur[Math.floorMod(this.joueurActif.getId() + this.sensJeu , this.regles.nbJoueurs)]);
+		this.setJoueurSuivant(
+				this.joueur[Math.floorMod(this.joueurActif.getId() + this.sensJeu, this.regles.nbJoueurs)]);
 	}
-	
+
 }

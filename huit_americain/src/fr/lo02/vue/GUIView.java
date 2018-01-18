@@ -44,10 +44,7 @@ public class GUIView implements View, Observer, Runnable {
 	private JPanel panneauPrincipal;
 
 	private ArrayList<GUICarte> cartesJoueur;
-	private ArrayList<GUIJoueurVirtuel> listeJoueurs;
-
-//	private Object lastInput; // Dernière commande réalisée par l'utilisateur
-	
+	private ArrayList<GUIJoueurVirtuel> listeJoueurs;	
 	
 	private JPanel panneauControle;
 	private JPanel panneauOrdi;
@@ -117,14 +114,14 @@ public class GUIView implements View, Observer, Runnable {
 		this.frame.setTitle("Le huit américain ! (LO02 Edition)");
 		frame.setBounds(100, 100, 1000, 700);
 		 frame.setLocationRelativeTo(null);
-//		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		
 		this.panneauPrincipal = new JPanel();
-//		panneauPrincipal.setBounds(0, 0, 500, 661);
+
 		frame.getContentPane().add(panneauPrincipal);
 		panneauPrincipal.setLayout(new BorderLayout(0, 0));
 		
@@ -223,7 +220,7 @@ public class GUIView implements View, Observer, Runnable {
 	
 	/**
 	 * Gère les modifications de l'interface graphique en fonction de l'événement appelé.
-	 * @param objet
+	 * @param objet Objet qui envoie la notification.
 	 * @param evenement
 	 */
 	public void action(Observable objet, Evenement evenement) {
@@ -236,9 +233,6 @@ public class GUIView implements View, Observer, Runnable {
 			this.rafraichirOrdi();
 			break;
 		case carteJouee:
-//			if(objet instanceof JoueurReel){
-//				this.rafraichirMain();
-//			}
 			this.rafraichirMain();
 			this.rafraichirTalon();
 			this.rafraichirOrdi();

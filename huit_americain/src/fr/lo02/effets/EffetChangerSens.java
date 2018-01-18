@@ -14,10 +14,6 @@ public class EffetChangerSens extends AbstractEffet  implements Effet {
 		
 	}
 	
-//	public EffetChangerSens(Partie partie) {
-//		super(partie);
-//	}
-	
 	/**
 	 * Inverse le sens de jeu.
 	 */

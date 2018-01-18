@@ -13,10 +13,6 @@ public class EffetObligerRejouer extends AbstractEffet implements Effet{
 	public EffetObligerRejouer(){
 		this.nom="Oblige à rejouer, vous piochez si une carte en main";
 	}
-
-//	public EffetObligerRejouer(Partie partie) {
-//		super(partie);
-//	}
 	
 	/**
 	 * Le joueur est obligé de rejouer. S'il ne possède qu'une carte, il pioche une carte.

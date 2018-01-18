@@ -7,10 +7,7 @@ package fr.lo02.vue;
  * @author Lionel EA
  *
  */
-public interface View {
-
-//	public Object getLastInput();
-	
+public interface View {	
 	public void setLastInput(Object arg);
 	
 }

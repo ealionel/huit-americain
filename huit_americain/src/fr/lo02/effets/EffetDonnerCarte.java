@@ -17,11 +17,6 @@ public class EffetDonnerCarte extends AbstractEffet implements Effet {
 
 	private Joueur cible;
 	private int nbCartes;
-	
-	
-//	public EffetDonnerCarte(Partie partie) {
-//		super(partie);
-//	}
 
 	public void appliquer(Partie partie) {
 		System.out.println("DONNE DES CARTES");

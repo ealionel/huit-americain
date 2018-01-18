@@ -42,6 +42,8 @@ public class ConsoleView implements Observer, View{
 	
 	/**
 	 * L'affichage doit être mis à jour à chaque fois qu'un changement est effectué.
+	 * @param obs Référence vers la classe qui envoie la notification.
+	 * @param arg Argument en paramètre de la notification. 
 	 */
 	public synchronized void update(Observable obs, Object arg) {
 		//Traite les entrées
@@ -65,7 +67,7 @@ public class ConsoleView implements Observer, View{
 	
 	/**
 	 * Permet de définir lastInput en tant qu'entier ou en tant que chaîne de caractère.
-	 * @param arg
+	 * @param arg La valeur par laquelle on souhaite remplacer.
 	 */
 	public void setLastInput(Object arg) {
 		try { 
@@ -136,8 +138,8 @@ public class ConsoleView implements Observer, View{
 	}
 	
 	/**
-	 * Affichage des cartes du joueur.
-	 * @param joueur
+	 * Affichage des cartes du joueur en paramètre.
+	 * @param joueur 
 	 */
 	public void afficherCartes(Joueur joueur) {
 		if (joueur instanceof JoueurReel) {
@@ -193,6 +195,7 @@ public class ConsoleView implements Observer, View{
 	
 	/**
 	 * Affiche quel joueur pioche.
+	 * @param joueur
 	 */
 	public void afficherPiocher(Joueur joueur) {
 		if(joueur instanceof JoueurReel) {
@@ -264,7 +267,7 @@ public class ConsoleView implements Observer, View{
 	/**
 	 * Affiche les informations correspondant à si l'appel "CARTE" a été un succès ou un echec.
 	 * @param joueur Pour différencier le joueur virtuel du joueur réel.
-	 * @param succes
+	 * @param succes Boolean, pour afficher si c'est réussi ou raté.
 	 */
 	public void afficherDireCarte(Joueur joueur, boolean succes) {
 		if(joueur instanceof JoueurReel) {
@@ -288,7 +291,7 @@ public class ConsoleView implements Observer, View{
 	/**
 	 * Affiche les informations correspondant à si l'appel "CONTRE CARTE" a été un succès ou un echec.
 	 * @param joueur Pour différencier le joueur virtuel du joueur réel.
-	 * @param succes
+	 * @param succes Boolean, pour afficher si c'est réussi ou raté.
 	 */
 	public void afficherDireContreCarte(Joueur joueur, boolean succes) {
 		if(joueur instanceof JoueurReel) {

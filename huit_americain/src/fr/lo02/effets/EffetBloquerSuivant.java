@@ -2,6 +2,11 @@ package fr.lo02.effets;
 
 import fr.lo02.huitamericain.Partie;
 
+/**
+ * Effet qui bloque le tour du joueur suivant.
+ * @author Lionel EA
+ *
+ */
 public class EffetBloquerSuivant extends AbstractEffet implements Effet {
 
 	public EffetBloquerSuivant() {

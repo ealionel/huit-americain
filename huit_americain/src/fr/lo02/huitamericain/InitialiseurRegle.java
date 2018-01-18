@@ -74,7 +74,7 @@ public class InitialiseurRegle implements Observer{
 			this.nbCartesDebut = (int) valeur;
 		}
 		if(arg.equalsIgnoreCase("commencer")) {
-			this.isRunning;
+//			this.isRunning;
 		}
 	}
 	

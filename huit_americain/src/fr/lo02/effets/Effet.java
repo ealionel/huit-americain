@@ -13,6 +13,7 @@ public interface Effet {
 
 	/**
 	 * Méthode qui va appliquer l'effet à la partie.
+	 * @param partie Partie sur lequel l'effet va être appliquée.
 	 */
 	public void appliquer(Partie partie);
 }
